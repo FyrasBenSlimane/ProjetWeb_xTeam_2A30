@@ -149,30 +149,24 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
     <?php endif; ?>
 
     <?php if ($currentView === 'list_tickets'): ?>
-    <!-- Tickets List View - Enhanced UI -->
+    <!-- Tickets List View -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
                 <div class="support-header">
                     <h5 class="support-title"><i class="bi bi-ticket-perforated"></i> My Support Tickets</h5>
-                    <a href="?page=support-tickets&new=true" class="create-ticket-btn">
-                        <i class="bi bi-plus-circle"></i> New Ticket
-                    </a>
                 </div>
                 <div class="card-body p-0">
                     <?php if (empty($tickets)): ?>
-                    <div class="no-tickets">
+                    <div class="no-tickets text-center py-5">
                         <i class="bi bi-ticket-detailed-fill no-tickets-icon"></i>
                         <h4>No Support Tickets</h4>
-                        <p>You haven't created any support tickets yet. If you need assistance with anything, feel free to create your first ticket.</p>
-                        <a href="?page=support-tickets&new=true" class="create-ticket-btn">
-                            <i class="bi bi-plus-circle"></i> Create Your First Ticket
-                        </a>
+                        <p>You haven't created any support tickets yet. Use the support button in the menu to create a new ticket.</p>
                     </div>
                     <?php else: ?>
                     <!-- Card-based ticket layout -->
                     <div class="tickets-container" id="tickets-container">
-                        <?php foreach ($tickets as $index => $ticket): ?>
+                        <?php foreach ($tickets as $ticket): ?>
                         <div class="ticket-card" id="ticket-<?php echo $ticket['id']; ?>">
                             <div class="ticket-header">
                                 <h5 class="ticket-title">
@@ -181,26 +175,11 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
                                     </a>
                                 </h5>
                                 <div class="ticket-badges">
-                                    <?php
-                                    $priorityBadge = 'badge-info';
-                                    if ($ticket['priority'] === 'high') {
-                                        $priorityBadge = 'badge-danger';
-                                    } elseif ($ticket['priority'] === 'medium') {
-                                        $priorityBadge = 'badge-warning';
-                                    }
-                                    
-                                    $statusBadge = 'badge-success';
-                                    if ($ticket['status'] === 'pending') {
-                                        $statusBadge = 'badge-warning';
-                                    } elseif ($ticket['status'] === 'closed') {
-                                        $statusBadge = 'badge-secondary';
-                                    }
-                                    ?>
-                                    <span class="ticket-badge status-badge <?php echo $statusBadge; ?>">
+                                    <span class="status-badge badge badge-<?php echo $ticket['status'] === 'open' ? 'success' : ($ticket['status'] === 'pending' ? 'warning' : 'secondary'); ?>">
                                         <span class="status-text"><?php echo ucfirst($ticket['status']); ?></span>
-                                        <div class="status-dropdown dropdown">
-                                            <button class="btn btn-sm dropdown-toggle p-0 ms-1" type="button" data-bs-toggle="dropdown">
-                                                <i class="bi bi-chevron-down"></i>
+                                        <div class="dropdown d-inline-block ms-1">
+                                            <button class="btn btn-sm dropdown-toggle p-0 border-0" type="button" data-bs-toggle="dropdown">
+                                                <i class="bi bi-three-dots-vertical"></i>
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item status-option" data-ticket-id="<?php echo $ticket['id']; ?>" data-status="open" href="#">Open</a></li>
@@ -211,43 +190,32 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
                                             </ul>
                                         </div>
                                     </span>
-                                    <span class="ticket-badge <?php echo $priorityBadge; ?>">
-                                        <?php echo ucfirst($ticket['priority']); ?>
+                                    <span class="badge bg-<?php echo $ticket['priority'] === 'high' ? 'danger' : ($ticket['priority'] === 'medium' ? 'warning' : 'info'); ?>">
+                                        <?php echo ucfirst($ticket['priority']); ?> Priority
                                     </span>
-                                    <span class="ticket-badge badge-primary">
+                                    <span class="badge bg-primary">
                                         <?php echo $categories[$ticket['category']] ?? ucfirst($ticket['category']); ?>
                                     </span>
                                 </div>
                             </div>
                             <div class="ticket-content">
                                 <p class="ticket-excerpt">
-                                    <?php 
-                                    // Display a short excerpt of the description
-                                    $excerpt = strlen($ticket['description']) > 120 ? 
-                                        substr($ticket['description'], 0, 120) . '...' : 
-                                        $ticket['description'];
-                                    echo htmlspecialchars($excerpt); 
-                                    ?>
+                                    <?php echo htmlspecialchars(substr($ticket['description'], 0, 150)) . (strlen($ticket['description']) > 150 ? '...' : ''); ?>
                                 </p>
                             </div>
                             <div class="ticket-footer">
                                 <div class="ticket-meta">
                                     <div class="ticket-date">
-                                        <i class="bi bi-calendar-event"></i> 
-                                        <span>Created: <?php echo date('M d, Y', strtotime($ticket['created_at'])); ?></span>
+                                        <i class="bi bi-calendar-event"></i> Created: <?php echo date('M d, Y', strtotime($ticket['created_at'])); ?>
                                     </div>
                                     <div class="ticket-date">
-                                        <i class="bi bi-clock-history"></i> 
-                                        <span>Updated: <?php echo date('M d, Y', strtotime($ticket['updated_at'])); ?></span>
+                                        <i class="bi bi-clock-history"></i> Updated: <?php echo date('M d, Y', strtotime($ticket['updated_at'])); ?>
                                     </div>
                                 </div>
                                 <div class="ticket-actions">
-                                    <a href="?page=support-tickets&ticket_id=<?php echo $ticket['id']; ?>" class="btn btn-sm btn-outline-primary" title="View Ticket">
-                                        <i class="bi bi-eye"></i> View
+                                    <a href="?page=support-tickets&ticket_id=<?php echo $ticket['id']; ?>" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Details
                                     </a>
-                                    <button class="btn btn-sm btn-outline-danger delete-ticket" data-ticket-id="<?php echo $ticket['id']; ?>" title="Delete Ticket">
-                                        <i class="bi bi-trash"></i> Delete
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -258,9 +226,8 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
             </div>
         </div>
     </div>
-    
     <?php elseif ($currentView === 'new_ticket'): ?>
-    <!-- Enhanced New Ticket Form -->
+    <!-- New Ticket Form -->
     <div class="row mb-4">
         <div class="col-md-8 mx-auto">
             <div class="card ticket-form-card">
@@ -268,24 +235,26 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
                     <h5 class="ticket-form-title"><i class="bi bi-ticket-perforated"></i> Create New Support Ticket</h5>
                 </div>
                 <div class="card-body ticket-form-body">
-                    <form method="post" action="">
+                    <form method="post" action="index.php?page=support-tickets" id="newTicketForm">
                         <input type="hidden" name="action" value="create_ticket">
                         
                         <div class="ticket-form-section">
                             <label for="subject" class="ticket-form-label"><i class="bi bi-pencil-square"></i> Subject</label>
-                            <input type="text" class="form-control ticket-form-control" id="subject" name="subject" required 
-                                placeholder="Brief description of your issue">
+                            <input type="text" class="form-control ticket-form-control" id="subject" name="subject"
+                                placeholder="Brief description of your issue" required>
+                            <div class="invalid-feedback" id="subjectError"></div>
                         </div>
                         
                         <div class="row ticket-form-section">
                             <div class="col-md-6 mb-3 mb-md-0">
                                 <label for="category" class="ticket-form-label"><i class="bi bi-tag"></i> Category</label>
                                 <select class="form-select ticket-form-control ticket-form-select" id="category" name="category" required>
-                                    <option value="" disabled selected>Select a category</option>
+                                    <option value="">Select a category</option>
                                     <?php foreach ($categories as $key => $value): ?>
                                     <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <div class="invalid-feedback" id="categoryError"></div>
                             </div>
                             <div class="col-md-6">
                                 <label class="ticket-form-label"><i class="bi bi-flag"></i> Priority</label>
@@ -312,13 +281,15 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
                                         </label>
                                     </div>
                                 </div>
+                                <div class="invalid-feedback" id="priorityError"></div>
                             </div>
                         </div>
                         
                         <div class="ticket-form-section">
                             <label for="description" class="ticket-form-label"><i class="bi bi-chat-left-text"></i> Description</label>
-                            <textarea class="form-control ticket-form-control ticket-form-textarea" id="description" name="description" rows="6" required
-                                placeholder="Please provide detailed information about your issue"></textarea>
+                            <textarea class="form-control ticket-form-control ticket-form-textarea" id="description" name="description" rows="6"
+                                placeholder="Please provide detailed information about your issue" required></textarea>
+                            <div class="invalid-feedback" id="descriptionError"></div>
                         </div>
                         
                         <div class="ticket-form-footer">
@@ -334,6 +305,58 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
             </div>
         </div>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const newTicketForm = document.getElementById('newTicketForm');
+        if (newTicketForm) {
+            newTicketForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset previous error states
+                const errorElements = document.querySelectorAll('.invalid-feedback');
+                errorElements.forEach(el => el.style.display = 'none');
+                const formInputs = newTicketForm.querySelectorAll('.form-control');
+                formInputs.forEach(input => input.classList.remove('is-invalid'));
+                
+                // Show loading state
+                const submitButton = this.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
+                
+                // Submit form via AJAX
+                fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showNotification(data.message || 'Ticket created successfully', 'success');
+                        // Redirect after success
+                        setTimeout(() => {
+                            window.location.href = 'index.php?page=support-tickets';
+                        }, 1500);
+                    } else {
+                        showNotification(data.message || 'Failed to create ticket', 'danger');
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButtonText;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('An error occurred while creating the ticket', 'danger');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                });
+            });
+        }
+    });
+    </script>
     
     <?php elseif ($currentView === 'view_ticket' && $selectedTicket): ?>
     <!-- Enhanced View Ticket Details -->
@@ -428,7 +451,7 @@ $userType = $_SESSION['user']['user_type'] ?? 'freelancer';
                         <?php if ($selectedTicket['status'] !== 'closed'): ?>
                         <div class="reply-form mt-4 pt-4 border-top">
                             <h6 class="mb-3 ticket-form-label"><i class="bi bi-reply"></i> Add Reply</h6>
-                            <form method="post" action="">
+                            <form method="post" action="" name="reply-form">
                                 <input type="hidden" name="action" value="add_reply">
                                 <input type="hidden" name="ticket_id" value="<?php echo $selectedTicket['id']; ?>">
                                 
@@ -1049,19 +1072,31 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         }, 3000);
     }
+});
 
-    // Handle ticket form submission
-    const ticketForm = document.querySelector('form[action=""][method="post"]');
-    if (ticketForm) {
-        ticketForm.addEventListener('submit', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle reply form submission
+    const replyForm = document.querySelector('form[action=""][name="reply-form"]');
+    if (replyForm) {
+        replyForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Show loading state
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
+            // Get form elements
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const replyTextarea = this.querySelector('textarea[name="reply"]');
+            const ticketId = this.querySelector('input[name="ticket_id"]').value;
             
+            if (!replyTextarea.value.trim()) {
+                showNotification('Please enter a reply message', 'warning');
+                return;
+            }
+            
+            // Show loading state
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending...';
+            
+            // Create form data
             const formData = new FormData(this);
             
             // Send AJAX request
@@ -1072,59 +1107,168 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => response.json())
+            .then(response => response.json().catch(() => ({ success: false, message: 'Invalid server response' })))
             .then(data => {
                 if (data.success) {
                     // Show success message
-                    showNotification(data.message, 'success');
+                    showNotification(data.message || 'Reply sent successfully', 'success');
                     
-                    // Reset form and close panel
-                    setTimeout(() => {
-                        window.location.href = '?page=support-tickets';
-                    }, 1000);
+                    // Clear textarea and reset form
+                    replyTextarea.value = '';
+                    
+                    // Add the new reply to the conversation
+                    if (data.reply) {
+                        addReplyToConversation(data.reply);
+                    } else {
+                        // If no reply data, reload the page to show the new reply
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    }
                 } else {
                     // Show error message
-                    showNotification(data.message || 'Failed to create ticket', 'danger');
-                    
-                    // Reset button
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
+                    showNotification(data.message || 'Failed to send reply', 'danger');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showNotification('An error occurred while creating the ticket', 'danger');
-                
-                // Reset button
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonText;
+                showNotification('An error occurred while sending your reply', 'danger');
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
             });
         });
     }
-
-    // Function to show notification
-    function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type} alert-dismissible fade show notification-toast`;
-        notification.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        
-        document.body.appendChild(notification);
-        
-        // Auto-dismiss after 3 seconds
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            setTimeout(() => {
-                notification.remove();
-            }, 500);
-        }, 3000);
-    }
-
-    // Rest of your existing JavaScript code...
 });
+
+// Function to add a new reply to the conversation
+function addReplyToConversation(reply) {
+    const ticketConversation = document.querySelector('.ticket-conversation');
+    if (!ticketConversation) return;
+    
+    const replyElement = document.createElement('div');
+    replyElement.className = 'ticket-message';
+    replyElement.innerHTML = `
+        <div class="ticket-message-header">
+            <div class="message-user">
+                <div class="message-user-avatar" style="background-color: ${reply.is_admin ? '#FFC107' : '#3E5C76'}">
+                    ${reply.is_admin ? 'S' : reply.user_name.charAt(0)}
+                </div>
+                <div>
+                    <div class="message-user-name">
+                        ${reply.is_admin ? 'Support Team' : reply.user_name + (reply.is_current_user ? ' (You)' : '')}
+                    </div>
+                    <div class="message-date">${reply.created_at}</div>
+                </div>
+            </div>
+            <span class="badge bg-${reply.is_admin ? 'info' : 'primary'}">${reply.is_admin ? 'Support Response' : 'User Reply'}</span>
+        </div>
+        <div class="message-content ${reply.is_admin ? 'bg-light-blue' : ''}">
+            ${reply.message}
+        </div>
+    `;
+    
+    // Add the new reply to the conversation
+    ticketConversation.appendChild(replyElement);
+    
+    // Scroll to the new reply
+    replyElement.scrollIntoView({ behavior: 'smooth' });
+}
 </script>
+
+<style>
+/* Enhanced Reply Section Styles */
+.reply-form {
+    background-color: var(--bs-body-bg);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+.ticket-message {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.ticket-message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.message-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.message-user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.message-user-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.message-date {
+    font-size: 0.8rem;
+    color: var(--bs-secondary);
+}
+
+.message-content {
+    background-color: var(--bs-light);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-left: 3.25rem;
+    white-space: pre-line;
+}
+
+[data-bs-theme="dark"] .message-content {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.bg-light-blue {
+    background-color: rgba(13,110,253,0.1) !important;
+}
+
+[data-bs-theme="dark"] .bg-light-blue {
+    background-color: rgba(13,110,253,0.2) !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reply Form Animation */
+.reply-form textarea {
+    transition: all 0.3s ease;
+}
+
+.reply-form textarea:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25);
+}
+</style>
 
 <?php
 // The content is captured by ob_get_clean() in the index.php file and passed to layout.php

@@ -323,6 +323,158 @@ $initialTheme = $savedTheme ?: ($systemTheme ?: 'light');
             transform 0.3s ease;
     }
 
+    /* Support Ticket Form Styles */
+    .ticket-form-header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border-bottom: none;
+    }
+
+    [data-bs-theme="dark"] .ticket-form-header {
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+
+    .ticket-form-title {
+        font-family: var(--font-heading);
+        font-weight: 600;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .ticket-form-title i {
+        margin-right: 0.75rem;
+        font-size: 1.4rem;
+    }
+
+    .ticket-form-body {
+        padding: 1.75rem;
+    }
+
+    .ticket-form-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .ticket-form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .ticket-form-label i {
+        margin-right: 0.5rem;
+        color: var(--primary);
+    }
+
+    [data-bs-theme="dark"] .ticket-form-label i {
+        color: var(--secondary);
+    }
+
+    .ticket-form-control {
+        padding: 0.75rem 1rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    [data-bs-theme="dark"] .ticket-form-control {
+        background-color: rgba(255,255,255,0.05);
+        border-color: rgba(255,255,255,0.1);
+        color: var(--light);
+    }
+
+    .ticket-form-control:focus {
+        box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+        border-color: var(--primary);
+    }
+
+    .ticket-form-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .priority-options {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .priority-option {
+        flex: 1;
+    }
+
+    .priority-radio {
+        display: none;
+    }
+
+    .priority-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    [data-bs-theme="dark"] .priority-label {
+        border-color: rgba(255,255,255,0.1);
+    }
+
+    .priority-radio:checked + .priority-label {
+        background-color: rgba(var(--primary-rgb), 0.1);
+        border-color: var(--primary);
+    }
+
+    .priority-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .priority-low .priority-indicator {
+        background-color: #0dcaf0;
+    }
+
+    .priority-medium .priority-indicator {
+        background-color: #ffc107;
+    }
+
+    .priority-high .priority-indicator {
+        background-color: #dc3545;
+    }
+
+    .ticket-submit-btn {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-weight: 500;
+        box-shadow: 0 4px 10px rgba(var(--primary-rgb), 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .ticket-submit-btn i {
+        margin-right: 0.5rem;
+    }
+
+    .ticket-submit-btn:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(var(--primary-rgb), 0.3);
+    }
+
+    [data-bs-theme="dark"] .ticket-submit-btn {
+        background-color: var(--secondary);
+        box-shadow: 0 4px 10px rgba(143, 179, 222, 0.25);
+    }
+
+    [data-bs-theme="dark"] .ticket-submit-btn:hover {
+        background-color: var(--primary);
+    }
+
     /* Logo states for theme switching */
     .logo-light, .logo-dark {
         transition: opacity 0.3s ease;
@@ -366,24 +518,112 @@ $initialTheme = $savedTheme ?: ($systemTheme ?: 'light');
         <div class="alert alert-danger m-3">Error loading footer component: File not found at <?= $missingComponents['footer'] ?></div>
     <?php endif; ?>
     
+    <!-- Support Ticket Modal -->
+    <?php if (isset($_SESSION['user'])): ?>
+    <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header ticket-form-header">
+                    <h5 class="modal-title ticket-form-title" id="supportModalLabel">
+                        <i class="bi bi-ticket-perforated"></i> Create Support Ticket
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ticket-form-body">
+                    <form id="supportTicketForm" method="post" action="/web/components/Dashboard/index.php?page=support-tickets">
+                        <input type="hidden" name="action" value="create_ticket">
+                        
+                        <div class="ticket-form-section">
+                            <label for="subject" class="ticket-form-label">
+                                <i class="bi bi-pencil-square"></i> Subject
+                            </label>
+                            <input type="text" class="form-control ticket-form-control" id="subject" name="subject"
+                                placeholder="Brief description of your issue" required>
+                            <div class="invalid-feedback" id="subjectError"></div>
+                        </div>
+                        
+                        <div class="row ticket-form-section">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <label for="category" class="ticket-form-label">
+                                    <i class="bi bi-tag"></i> Category
+                                </label>
+                                <select class="form-select ticket-form-control" id="category" name="category" required>
+                                    <option value="" selected>Select a category</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="billing">Billing & Payments</option>
+                                    <option value="account">Account Issues</option>
+                                    <option value="feature">Feature Requests</option>
+                                    <option value="other">Other Inquiries</option>
+                                </select>
+                                <div class="invalid-feedback" id="categoryError"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="ticket-form-label">
+                                    <i class="bi bi-flag"></i> Priority
+                                </label>
+                                <div class="priority-options">
+                                    <div class="priority-option">
+                                        <input type="radio" class="priority-radio" name="priority" id="priority-low" value="low">
+                                        <label for="priority-low" class="priority-label priority-low">
+                                            <span class="priority-indicator"></span>
+                                            <span class="priority-label-text">Low</span>
+                                        </label>
+                                    </div>
+                                    <div class="priority-option">
+                                        <input type="radio" class="priority-radio" name="priority" id="priority-medium" value="medium" checked>
+                                        <label for="priority-medium" class="priority-label priority-medium">
+                                            <span class="priority-indicator"></span>
+                                            <span class="priority-label-text">Medium</span>
+                                        </label>
+                                    </div>
+                                    <div class="priority-option">
+                                        <input type="radio" class="priority-radio" name="priority" id="priority-high" value="high">
+                                        <label for="priority-high" class="priority-label priority-high">
+                                            <span class="priority-indicator"></span>
+                                            <span class="priority-label-text">High</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ticket-form-section">
+                            <label for="description" class="ticket-form-label">
+                                <i class="bi bi-chat-left-text"></i> Description
+                            </label>
+                            <textarea class="form-control ticket-form-control ticket-form-textarea" id="description" 
+                                name="description" rows="6" placeholder="Please provide detailed information about your issue" required></textarea>
+                            <div class="invalid-feedback" id="descriptionError"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="supportTicketForm" class="btn ticket-submit-btn">
+                        <i class="bi bi-send"></i> Submit Ticket
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <!-- Load remaining CSS in a non-blocking way -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" media="print" onload="this.media='all'">
     
     <!-- Initialize JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js" defer></script>
     
-    <!-- Inline critical JavaScript for initial loading and theme -->
+    <!-- Inline critical JavaScript -->
     <script>
     // Mark document as having JavaScript
     document.documentElement.classList.remove('no-js');
     
     // Handle page loading
     window.addEventListener('load', function() {
-        // Remove preload class to enable transitions
         document.documentElement.classList.remove('preload');
         
-        // Hide loading screen
         const pageLoading = document.querySelector('.page-loading');
         if (pageLoading) {
             pageLoading.classList.add('loaded');
@@ -392,10 +632,140 @@ $initialTheme = $savedTheme ?: ($systemTheme ?: 'light');
             }, 500);
         }
     });
-    
-    // Initialize theme based on preferences on page load (critical)
+
+    // Initialize support ticket modal
     document.addEventListener('DOMContentLoaded', function() {
-        // Get saved theme from localStorage if available
+        const supportModal = document.getElementById('supportModal');
+        if (supportModal) {
+            const modal = new bootstrap.Modal(supportModal);
+            
+            // Open modal when clicking support link
+            document.querySelectorAll('[data-bs-target="#supportModal"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modal.show();
+                });
+            });
+        }
+    });
+
+    // Initialize support ticket form handling
+    document.addEventListener('DOMContentLoaded', function() {
+        const supportForm = document.getElementById('supportTicketForm');
+        if (supportForm) {
+            supportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                let isValid = true;
+                const subject = document.getElementById('subject');
+                const category = document.getElementById('category');
+                const description = document.getElementById('description');
+                
+                // Reset previous error states
+                [subject, category, description].forEach(field => {
+                    field.classList.remove('is-invalid');
+                    const errorDiv = document.getElementById(field.id + 'Error');
+                    if (errorDiv) errorDiv.style.display = 'none';
+                });
+                
+                // Validate subject
+                if (!subject.value.trim()) {
+                    showError('subject', 'Subject is required');
+                    isValid = false;
+                } else if (subject.value.length < 5) {
+                    showError('subject', 'Subject must be at least 5 characters long');
+                    isValid = false;
+                }
+                
+                // Validate category
+                if (!category.value) {
+                    showError('category', 'Please select a category');
+                    isValid = false;
+                }
+                
+                // Validate description
+                if (!description.value.trim()) {
+                    showError('description', 'Description is required');
+                    isValid = false;
+                } else if (description.value.length < 20) {
+                    showError('description', 'Description must be at least 20 characters long');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Show loading state on submit button
+                    const submitButton = supportForm.querySelector('button[type="submit"]');
+                    const originalText = submitButton.innerHTML;
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
+                    
+                    // Submit form via AJAX
+                    fetch(supportForm.action, {
+                        method: 'POST',
+                        body: new FormData(supportForm),
+                    })
+                    .then(response => response.json())
+                    .catch(() => ({ success: false, message: 'Network error occurred' }))
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            showNotification('Ticket created successfully', 'success');
+                            
+                            // Reset form and close modal
+                            supportForm.reset();
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('supportModal'));
+                            if (modal) modal.hide();
+                            
+                            // Redirect to support tickets page
+                            setTimeout(() => {
+                                window.location.href = '/web/components/Dashboard/index.php?page=support-tickets';
+                            }, 1500);
+                        } else {
+                            showNotification(data.message || 'Failed to create ticket', 'danger');
+                        }
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalText;
+                    });
+                }
+            });
+            
+            // Helper function to show field errors
+            function showError(fieldId, message) {
+                const field = document.getElementById(fieldId);
+                const errorDiv = document.getElementById(fieldId + 'Error');
+                if (field && errorDiv) {
+                    field.classList.add('is-invalid');
+                    errorDiv.textContent = message;
+                    errorDiv.style.display = 'block';
+                }
+            }
+            
+            // Helper function to show notifications
+            function showNotification(message, type = 'info') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} alert-dismissible fade show notification-toast`;
+                notification.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                
+                // Add to document
+                document.body.appendChild(notification);
+                
+                // Remove after 5 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 150);
+                }, 5000);
+            }
+        }
+        
+        // Initialize theme based on preferences
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-bs-theme', savedTheme);

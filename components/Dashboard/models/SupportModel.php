@@ -106,30 +106,56 @@ class SupportModel {
      */
     public function addReply($ticketId, $userEmail, $message, $isAdmin = false) {
         try {
-            // For admin replies, use a valid user email from the users table
-            // This is a workaround for the foreign key constraint
-            $replyEmail = $isAdmin ? 
-                'admin@example.com' : // Make sure this exists in your users table
-                $userEmail;
-                
-            // Add reply
+            // Start transaction
+            $this->db->beginTransaction();
+
+            // Add the reply
             $sql = "INSERT INTO support_replies (ticket_id, user_email, message, is_admin) 
                     VALUES (:ticket_id, :user_email, :message, :is_admin)";
-            
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':ticket_id', $ticketId);
-            $stmt->bindParam(':user_email', $replyEmail);
+            $stmt->bindParam(':user_email', $userEmail);
             $stmt->bindParam(':message', $message);
             $stmt->bindParam(':is_admin', $isAdmin, PDO::PARAM_BOOL);
-            
-            if ($stmt->execute()) {
-                // Update ticket status and updated_at timestamp
-                $this->updateTicketStatus($ticketId, $isAdmin ? 'pending' : 'open');
-                return true;
+            $result = $stmt->execute();
+
+            if ($result) {
+                // Update the ticket's updated_at timestamp
+                $sql = "UPDATE support_tickets 
+                        SET updated_at = CURRENT_TIMESTAMP 
+                        WHERE id = :ticket_id";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(':ticket_id', $ticketId);
+                $stmt->execute();
+
+                // If admin is replying, update status to 'pending' if it was 'open'
+                if ($isAdmin) {
+                    $sql = "UPDATE support_tickets 
+                            SET status = 'pending' 
+                            WHERE id = :ticket_id AND status = 'open'";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->bindParam(':ticket_id', $ticketId);
+                    $stmt->execute();
+                }
+                // If user is replying, update status to 'open' if it was 'pending'
+                else {
+                    $sql = "UPDATE support_tickets 
+                            SET status = 'open' 
+                            WHERE id = :ticket_id AND status = 'pending'";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->bindParam(':ticket_id', $ticketId);
+                    $stmt->execute();
+                }
             }
-            return false;
+
+            // Commit transaction
+            $this->db->commit();
+            return $result;
+
         } catch (PDOException $e) {
-            error_log("SupportModel::addReply Error: " . $e->getMessage());
+            // Rollback transaction on error
+            $this->db->rollBack();
+            error_log('Error adding reply: ' . $e->getMessage());
             return false;
         }
     }

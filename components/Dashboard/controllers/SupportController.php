@@ -85,56 +85,81 @@ class SupportController {
      * Process ticket creation
      */
     public function createTicket() {
-        // Check for AJAX request
+        // Get logged in user
+        $userEmail = $_SESSION['user']['email'] ?? null;
+        if (!$userEmail) {
+            if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+                echo json_encode(['success' => false, 'message' => 'User not authenticated']);
+                exit;
+            }
+            header('Location: ../Login/login.php');
+            exit;
+        }
+
+        // Get form data
+        $subject = $_POST['subject'] ?? '';
+        $category = $_POST['category'] ?? '';
+        $priority = $_POST['priority'] ?? 'medium';
+        $description = $_POST['description'] ?? '';
+
+        // Validate form data
+        $errors = [];
+        if (empty($subject)) {
+            $errors['subject'] = 'Subject is required';
+        }
+        if (empty($category)) {
+            $errors['category'] = 'Category is required';
+        }
+        if (empty($description)) {
+            $errors['description'] = 'Description is required';
+        }
+
+        // Check if this is an AJAX request
         $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
                   strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_ticket') {
-            $subject = $_POST['subject'] ?? '';
-            $category = $_POST['category'] ?? '';
-            $priority = $_POST['priority'] ?? 'medium';
-            $description = $_POST['description'] ?? '';
-            
-            if (empty($subject) || empty($description) || empty($category)) {
-                if ($isAjax) {
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Please fill all required fields.'
-                    ]);
-                    exit;
-                }
-                $_SESSION['error'] = 'Please fill all required fields.';
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+        // If there are validation errors
+        if (!empty($errors)) {
+            if ($isAjax) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Please fill all required fields',
+                    'errors' => $errors
+                ]);
                 exit;
             }
-            
-            $result = $this->supportModel->createTicket($_SESSION['user']['email'], $subject, $description, $category, $priority);
-            
-            if ($result) {
-                if ($isAjax) {
-                    echo json_encode([
-                        'success' => true,
-                        'message' => 'Ticket created successfully.'
-                    ]);
-                    exit;
-                }
-                $_SESSION['success'] = 'Ticket created successfully.';
-            } else {
-                if ($isAjax) {
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Failed to create ticket. Please try again.'
-                    ]);
-                    exit;
-                }
-                $_SESSION['error'] = 'Failed to create ticket. Please try again.';
-            }
-            
-            if (!$isAjax) {
-                header('Location: index.php?page=support-tickets');
-                exit;
-            }
+            $_SESSION['errors'] = $errors;
+            header('Location: index.php?page=support-tickets&new=true');
+            exit;
         }
+
+        // Create ticket
+        $result = $this->supportModel->createTicket($userEmail, $subject, $description, $category, $priority);
+        
+        if ($isAjax) {
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Your support ticket has been submitted successfully'
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to submit your ticket. Please try again.'
+                ]);
+            }
+            exit;
+        }
+        
+        // For regular form submission
+        if ($result) {
+            $_SESSION['success'] = "Your support ticket has been submitted successfully";
+        } else {
+            $_SESSION['errors'] = ["Failed to submit your ticket. Please try again."];
+        }
+        
+        header('Location: index.php?page=support-tickets');
+        exit;
     }
 
     /**
@@ -199,17 +224,31 @@ class SupportController {
     public function addReply() {
         // Get logged in user
         $userEmail = $_SESSION['user']['email'] ?? null;
+        $userName = $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name'];
+        
+        // Check if it's an AJAX request
+        $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+                  strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+
         if (!$userEmail) {
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'message' => 'User not authenticated']);
+                exit;
+            }
             header('Location: ../Login/login.php');
             exit;
         }
         
         $ticketId = $_POST['ticket_id'] ?? null;
-        $message = htmlspecialchars($_POST['message'] ?? '');
+        $message = $_POST['reply'] ?? '';
         
         if (!$ticketId || empty($message)) {
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'message' => 'Message cannot be empty']);
+                exit;
+            }
             $_SESSION['errors'] = ["Message cannot be empty"];
-            header('Location: index.php?page=support&action=view&id=' . $ticketId);
+            header('Location: index.php?page=support-tickets&ticket_id=' . $ticketId);
             exit;
         }
         
@@ -220,13 +259,41 @@ class SupportController {
         // Add reply
         $result = $this->supportModel->addReply($ticketId, $userEmail, $message, $isAdmin);
         
+        if ($isAjax) {
+            if ($result) {
+                // Format the reply data for the response
+                $reply = [
+                    'id' => $this->supportModel->db->lastInsertId(),
+                    'user_name' => $userName,
+                    'user_email' => $userEmail,
+                    'message' => htmlspecialchars($message),
+                    'is_admin' => $isAdmin,
+                    'is_current_user' => true,
+                    'created_at' => date('M d, Y g:i A')
+                ];
+                
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Reply added successfully',
+                    'reply' => $reply
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Failed to add reply'
+                ]);
+            }
+            exit;
+        }
+        
+        // For regular form submission
         if ($result) {
             $_SESSION['success'] = "Your reply has been submitted";
         } else {
             $_SESSION['errors'] = ["Failed to submit your reply"];
         }
         
-        header('Location: index.php?page=support&action=view&id=' . $ticketId);
+        header('Location: index.php?page=support-tickets&ticket_id=' . $ticketId);
         exit;
     }
     

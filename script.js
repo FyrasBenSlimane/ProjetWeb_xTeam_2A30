@@ -618,3 +618,148 @@
     // Initialize everything on DOMContentLoaded
     document.addEventListener('DOMContentLoaded', init);
 })();
+
+// Initialize Bootstrap components
+document.addEventListener('DOMContentLoaded', function() {
+    // Support ticket modal initialization
+    const supportModal = document.getElementById('supportModal');
+    if (supportModal) {
+        const modal = new bootstrap.Modal(supportModal);
+        
+        // Handle support link clicks
+        document.querySelectorAll('[data-bs-target="#supportModal"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.show();
+            });
+        });
+
+        // Initialize support ticket form handling
+        const supportForm = document.getElementById('supportTicketForm');
+        if (supportForm) {
+            supportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Reset previous errors
+                const errorElements = document.querySelectorAll('.invalid-feedback');
+                errorElements.forEach(el => el.style.display = 'none');
+                const formInputs = supportForm.querySelectorAll('.form-control, .form-select');
+                formInputs.forEach(input => input.classList.remove('is-invalid'));
+                
+                // Validate form
+                let isValid = true;
+                const subject = document.getElementById('subject');
+                const category = document.getElementById('category');
+                const description = document.getElementById('description');
+                
+                if (!subject?.value?.trim()) {
+                    showError('subject', 'Subject is required');
+                    isValid = false;
+                }
+                
+                if (!category?.value) {
+                    showError('category', 'Please select a category');
+                    isValid = false;
+                }
+                
+                if (!description?.value?.trim()) {
+                    showError('description', 'Description is required');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Find submit button - try both form button and modal footer button
+                    const submitBtn = supportForm.querySelector('button[type="submit"]') || 
+                                    document.querySelector('button[form="supportTicketForm"]');
+                                    
+                    if (!submitBtn) {
+                        console.error('Submit button not found');
+                        return;
+                    }
+                    
+                    const originalBtnText = submitBtn.innerHTML;
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Submitting...';
+                    
+                    // Create form data
+                    const formData = new FormData(supportForm);
+                    formData.append('action', 'create_ticket');
+                    
+                    // Submit form via AJAX with proper URL
+                    fetch('/web/components/Dashboard/index.php?page=support-tickets', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json().catch(() => ({ success: false, message: 'Invalid server response' })))
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message
+                            showNotification(data.message || 'Ticket submitted successfully!', 'success');
+                            
+                            // Reset form and close modal
+                            supportForm.reset();
+                            modal.hide();
+                            
+                            // Redirect to support tickets page
+                            setTimeout(() => {
+                                window.location.href = '/web/components/Dashboard/index.php?page=support-tickets';
+                            }, 1500);
+                        } else {
+                            // Show error message
+                            showNotification(data.message || 'Failed to submit ticket', 'danger');
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                            
+                            // If there are field-specific errors
+                            if (data.errors) {
+                                Object.keys(data.errors).forEach(field => {
+                                    showError(field, data.errors[field]);
+                                });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('An error occurred while submitting the ticket', 'danger');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnText;
+                    });
+                }
+            });
+        }
+    }
+});
+
+// Helper function to show field errors
+function showError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorDiv = document.getElementById(fieldId + 'Error');
+    if (field && errorDiv) {
+        field.classList.add('is-invalid');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+}
+
+// Helper function to show notifications
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `alert alert-${type} alert-dismissible fade show notification-toast`;
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    // Add to document
+    document.body.appendChild(notification);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 150);
+    }, 5000);
+}

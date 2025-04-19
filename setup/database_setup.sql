@@ -61,3 +61,34 @@ CREATE TABLE IF NOT EXISTS user_settings (
 
 -- Create an index on the user_email column for faster lookups in user_settings
 CREATE INDEX user_settings_email_idx ON user_settings(user_email);
+
+-- Create support_tickets table
+CREATE TABLE IF NOT EXISTS support_tickets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_email VARCHAR(100) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    priority VARCHAR(20) NOT NULL DEFAULT 'medium',
+    status VARCHAR(20) NOT NULL DEFAULT 'open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Create support_replies table
+CREATE TABLE IF NOT EXISTS support_replies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    user_email VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    is_admin BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ticket_id) REFERENCES support_tickets(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_email) REFERENCES users(email) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Create indexes for better performance
+CREATE INDEX support_tickets_user_email_idx ON support_tickets(user_email);
+CREATE INDEX support_tickets_status_idx ON support_tickets(status);
+CREATE INDEX support_replies_ticket_id_idx ON support_replies(ticket_id);
