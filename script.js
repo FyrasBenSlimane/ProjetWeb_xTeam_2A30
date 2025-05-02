@@ -1,59 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
-    checkUserLoginStatus();
+    try {
+        checkUserLoginStatus();
+    } catch(e) {
+        console.log('User login status check error:', e);
+    }
 
-    // Set up the auth overlay
-    setupAuthOverlay();
-
-    // Theme toggle functionality
+    // Improved Theme toggle functionality
     const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const html = document.documentElement;
-
-    themeToggle.addEventListener('click', () => {
-        const isDark = html.getAttribute('data-bs-theme') === 'dark';
-        html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
-        themeIcon.classList.toggle('bi-sun-fill');
-        themeIcon.classList.toggle('bi-moon-fill');
+    if (themeToggle) {
+        // Handle logo transition on theme change
+        document.addEventListener('themeChanged', (event) => {
+            const newTheme = event.detail.theme;
+            const lightLogo = document.querySelector('.logo-light');
+            const darkLogo = document.querySelector('.logo-dark');
+            
+            if (lightLogo && darkLogo) {
+                if (newTheme === 'light') {
+                    // Switch to light theme logo
+                    darkLogo.style.opacity = '1';
+                    lightLogo.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        lightLogo.style.display = 'none';
+                        darkLogo.style.display = 'block';
+                    }, 300);
+                } else {
+                    // Switch to dark theme logo
+                    lightLogo.style.opacity = '1';
+                    darkLogo.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        darkLogo.style.display = 'none';
+                        lightLogo.style.display = 'block';
+                    }, 300);
+                }
+            }
+            
+            // Update theme-specific UI elements
+            updateThemeSpecificUI(newTheme);
+        });
         
-        // Handle logo transition
-        const lightLogo = document.querySelector('.logo-light');
-        const darkLogo = document.querySelector('.logo-dark');
-        
-        if (isDark) {
-            darkLogo.style.opacity = '0';
-            setTimeout(() => {
-                darkLogo.style.display = 'none';
-                lightLogo.style.display = 'block';
-                setTimeout(() => lightLogo.style.opacity = '1', 50);
-            }, 300);
-        } else {
-            lightLogo.style.opacity = '0';
-            setTimeout(() => {
-                lightLogo.style.display = 'none';
-                darkLogo.style.display = 'block';
-                setTimeout(() => darkLogo.style.opacity = '1', 50);
-            }, 300);
+        // Function to update theme-specific UI elements
+        function updateThemeSpecificUI(theme) {
+            // Repaint gradient elements for proper theme colors
+            const gradientElements = document.querySelectorAll('.gradient-bg, .hero-background, .premium-section');
+            gradientElements.forEach(el => {
+                if (el) {
+                    el.style.display = 'none';
+                    el.offsetHeight; // Force reflow
+                    el.style.display = '';
+                }
+            });
+            
+            // Toggle any theme-specific classes
+            document.querySelectorAll('[data-theme-class]').forEach(el => {
+                const classes = el.getAttribute('data-theme-class').split(',');
+                if (classes.length === 2) {
+                    const [lightClass, darkClass] = classes;
+                    el.classList.remove(lightClass, darkClass);
+                    el.classList.add(theme === 'dark' ? darkClass : lightClass);
+                }
+            });
         }
-        
-        // Save preference
-        localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    });
-
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    html.setAttribute('data-bs-theme', savedTheme);
-    themeIcon.classList.toggle('bi-sun-fill', savedTheme === 'light');
-    themeIcon.classList.toggle('bi-moon-fill', savedTheme === 'dark');
+    }
 
     // Navbar scroll behavior
     const navbar = document.querySelector('.navbar');
     const header = document.querySelector('header');
-    let headerHeight;
+    let headerHeight = 0;
     
     // Function to update header height
     function updateHeaderHeight() {
-        headerHeight = header.offsetHeight;
+        if (header) {
+            headerHeight = header.offsetHeight;
+        }
     }
     
     // Initialize header height
@@ -63,25 +84,27 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updateHeaderHeight);
     
     // Handle navbar visibility on scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > headerHeight * 0.7) {
-            navbar.classList.add('visible');
-        } else {
-            navbar.classList.remove('visible');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > headerHeight * 0.7) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+        });
+    }
 
     // Add fade-in animation to header and container
     const headerTitle = document.querySelector('header h1');
     const container = document.querySelector('.container');
 
     // Trigger animations with slight delay
-    setTimeout(() => headerTitle.classList.add('fade-in'), 300);
-    setTimeout(() => container.classList.add('fade-in'), 600);
+    if (headerTitle) setTimeout(() => headerTitle.classList.add('fade-in'), 300);
+    if (container) setTimeout(() => container.classList.add('fade-in'), 600);
     
     // Add fade-in for service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
+    const serviceCardsFadeIn = document.querySelectorAll('.service-card');
+    serviceCardsFadeIn.forEach((card, index) => {
         setTimeout(() => card.classList.add('fade-in'), 800 + (index * 200));
     });
 
@@ -92,45 +115,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-            }
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.container, .service-card, .feature-item, .footer-content').forEach(el => {
+            observer.observe(el);
         });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.container, .service-card, .feature-item, .footer-content').forEach(el => {
-        observer.observe(el);
-    });
+        // Enhanced Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-    // Enhanced Intersection Observer for scroll animations
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -100px 0px'
-    };
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Handle stagger animations for child elements
+                    const staggerItems = entry.target.querySelectorAll('.stagger-item');
+                    staggerItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }
+            });
+        }, observerOptions);
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                
-                // Handle stagger animations for child elements
-                const staggerItems = entry.target.querySelectorAll('.stagger-item');
-                staggerItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }
+        // Observe all sections and items
+        document.querySelectorAll('.section-animate, .timeline-item').forEach(el => {
+            sectionObserver.observe(el);
         });
-    }, observerOptions);
-
-    // Observe all sections and items
-    document.querySelectorAll('.section-animate, .timeline-item').forEach(el => {
-        sectionObserver.observe(el);
-    });
+    }
 
     // Add stagger animation classes to items
     document.querySelectorAll('.feature-item, .premium-benefit-card, .category-card, .service-card-listing').forEach((item, index) => {
@@ -151,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (targetElement) {
                 // Calculate position with navbar offset if visible
-                const navbarHeight = navbar.classList.contains('visible') ? navbar.offsetHeight : 0;
+                const navbarHeight = navbar && navbar.classList.contains('visible') ? navbar.offsetHeight : 0;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
                 
                 window.scrollTo({
@@ -163,33 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 history.pushState(null, null, `#${targetId}`);
             }
         });
-    });
-
-    // Update active state in navigation based on scroll position with improved accuracy
-    const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                if (id) {
-                    document.querySelectorAll('.nav-links a').forEach(navLink => {
-                        navLink.classList.remove('active');
-                        if (navLink.getAttribute('href') === `#${id}`) {
-                            navLink.classList.add('active');
-                        }
-                    });
-                }
-            }
-        });
-    }, {
-        threshold: 0.4,
-        rootMargin: '-100px 0px -300px 0px'
-    });
-
-    // Observe all sections for navigation highlighting
-    document.querySelectorAll('header, #categories, #featured-services, #how-it-works, #features, #become-seller').forEach(section => {
-        if (section.getAttribute('id')) {
-            navObserver.observe(section);
-        }
     });
 
     // Enhanced parallax effect for header bubbles
@@ -216,16 +214,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Animate bubbles with random properties
-    const bubbles = document.querySelectorAll('.bubble');
-    bubbles.forEach(bubble => {
-        const delay = Math.random() * 5;
-        const duration = 15 + Math.random() * 10;
-        
-        bubble.style.animationDelay = `${delay}s`;
-        bubble.style.animationDuration = `${duration}s`;
-    });
-
     // Set current year in footer
     const yearElement = document.getElementById('year');
     if (yearElement) {
@@ -234,121 +222,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auth Modal Functionality
     const authModal = document.getElementById('authModal');
-    const authTabs = document.querySelectorAll('.auth-tab');
-    const authForms = document.querySelectorAll('.auth-form');
-    const modalTitle = document.getElementById('authModalTitle');
+    if (authModal) {
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const modalTitle = document.getElementById('authModalTitle');
 
-    authModal.addEventListener('show.bs.modal', (event) => {
-        const button = event.relatedTarget;
-        const authType = button.getAttribute('data-auth-type');
-        if (authType) {
-            switchAuthForm(authType);
-        }
-    });
-
-    authTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const authType = tab.getAttribute('data-auth');
-            switchAuthForm(authType);
+        authModal.addEventListener('show.bs.modal', (event) => {
+            const button = event.relatedTarget;
+            if (button) {
+                const authType = button.getAttribute('data-auth-type');
+                if (authType) {
+                    switchAuthForm(authType);
+                }
+            }
         });
-    });
 
-    function switchAuthForm(type) {
         authTabs.forEach(tab => {
-            tab.classList.toggle('active', tab.getAttribute('data-auth') === type);
+            tab.addEventListener('click', () => {
+                const authType = tab.getAttribute('data-auth');
+                switchAuthForm(authType);
+            });
         });
 
-        authForms.forEach(form => {
-            form.classList.toggle('active', form.id === `${type}Form`);
-        });
+        function switchAuthForm(type) {
+            authTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.getAttribute('data-auth') === type);
+            });
 
-        modalTitle.textContent = type === 'login' ? 'Login' : 'Sign Up';
+            authForms.forEach(form => {
+                form.classList.toggle('active', form.id === `${type}Form`);
+            });
+
+            if (modalTitle) {
+                modalTitle.textContent = type === 'login' ? 'Login' : 'Sign Up';
+            }
+        }
     }
 
     // Handle form submissions
     const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your login logic here
-        console.log('Login submitted');
-    });
-
-    signupForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your signup logic here
-        console.log('Signup submitted');
-    });
-
-    // Remove setupFullPageScrolling call
-
-    // Handle "Become a Seller" button
-    const becomeSellerBtn = document.getElementById('becomeSellerBtn');
-    if (becomeSellerBtn) {
-        becomeSellerBtn.addEventListener('click', () => {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            if (user) {
-                // If user is logged in, redirect to dashboard with seller registration
-                window.location.href = 'dashboard.html?becomeSeller=true';
-            } else {
-                // If not logged in, show auth overlay with signup tab
-                showAuthOverlay('signup');
-            }
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Login submitted');
         });
     }
 
-    // Add animation for premium benefits section
-    const premiumSection = document.querySelector('.premium-section');
-    const premiumCards = document.querySelectorAll('.premium-benefit-card');
-    
-    if (premiumSection && premiumCards.length) {
-        // Create an observer for the premium section
-        const premiumObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Animate each card with a delay
-                    premiumCards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('fade-in');
-                        }, index * 200);
-                    });
-                    
-                    // Stop observing once animated
-                    premiumObserver.unobserve(premiumSection);
-                }
-            });
-        }, {
-            threshold: 0.2
-        });
-        
-        // Start observing the premium section
-        premiumObserver.observe(premiumSection);
-        
-        // Add initial styles to cards
-        premiumCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    const signupForm = document.getElementById('signupForm');
+    if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Signup submitted');
         });
     }
 
     // Monitor theme changes to adjust premium section accordingly
-    if (themeToggle) {
+    const premiumSection = document.querySelector('.premium-section');
+    if (themeToggle && premiumSection) {
         themeToggle.addEventListener('click', () => {
-            // Let CSS handle most transitions but we can add specific adjustments here if needed
-            
             // Force repaint the premium section to refresh gradients
-            if (premiumSection) {
-                premiumSection.style.display = 'none';
-                premiumSection.offsetHeight; // Trigger reflow
-                premiumSection.style.display = '';
-            }
+            premiumSection.style.display = 'none';
+            premiumSection.offsetHeight; // Trigger reflow
+            premiumSection.style.display = '';
         });
     }
-
-    // Remove the call to initTextCarousel() since we're using CSS animations now
-    // Completely remove the initTextCarousel function if it exists
 
     // Enhanced smooth scroll for the scroll-down button
     const scrollDownBtn = document.querySelector('.scroll-down-btn');
@@ -357,6 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
+            if (!targetId) return;
+            
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
@@ -369,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 700);
                 
                 // Get the navbar height if it's visible
-                const navbarHeight = navbar.classList.contains('visible') ? navbar.offsetHeight : 0;
+                const navbarHeight = navbar && navbar.classList.contains('visible') ? navbar.offsetHeight : 0;
                 
                 // Calculate the scroll position
                 const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
@@ -382,11 +321,126 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Improved Theme Handler for dynamic changes
+    setupThemeHandler();
+
+    // Initialize category filters when DOM is loaded
+    setupCategoryFilters();
+
+    // Optimize service cards loading
+    const serviceCards = document.querySelectorAll('.service-card');
+    let loadedImages = 0;
+    const totalImages = serviceCards.length;
+
+    // Use Intersection Observer for lazy loading
+    const loadingObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const img = card.querySelector('.service-image');
+                
+                if (img) {
+                    // Load image
+                    const src = img.getAttribute('src');
+                    const newImg = new Image();
+                    
+                    newImg.onload = () => {
+                        img.src = src;
+                        card.setAttribute('data-loaded', 'true');
+                        loadedImages++;
+                        
+                        if (loadedImages === totalImages) {
+                            document.querySelector('.services-grid').classList.add('all-loaded');
+                        }
+                    };
+                    
+                    newImg.src = src;
+                }
+                
+                observer.unobserve(card);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+    });
+
+    // Observe each service card
+    serviceCards.forEach(card => {
+        card.setAttribute('data-loaded', 'false');
+        loadingObserver.observe(card);
+    });
+
+    // Optimize animation performance
+    const debouncedFilter = debounce(filterAndSortServices, 150);
+    
+    // Replace existing event listeners with debounced version
+    searchInput?.addEventListener('input', debouncedFilter);
+    minPriceInput?.addEventListener('input', debouncedFilter);
+    maxPriceInput?.addEventListener('input', debouncedFilter);
+
+    // Debounce function for better performance
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Use requestAnimationFrame for smooth animations
+    function animateCards(cards) {
+        cards.forEach((card, index) => {
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 30);
+            });
+        });
+    }
+
+    // Add scroll position restoration
+    const scrollPos = sessionStorage.getItem('servicesScrollPos');
+    if (scrollPos) {
+        window.scrollTo(0, parseInt(scrollPos));
+        sessionStorage.removeItem('servicesScrollPos');
+    }
+
+    // Save scroll position when leaving page
+    window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('servicesScrollPos', window.scrollY.toString());
+    });
 });
 
-// Add this to your existing CSS (in script tag or via stylesheet)
+// Fix image placeholder errors by adding this to your CSS
 document.head.insertAdjacentHTML('beforeend', `
     <style>
+        /* Replace placeholder with fallback solution */
+        img[src="https://via.placeholder.com/500x400"] {
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 500px;
+            max-width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        
+        img[src="https://via.placeholder.com/500x400"]::after {
+            content: "Image";
+            position: absolute;
+            font-family: Arial, sans-serif;
+            color: #888;
+            font-size: 1.5rem;
+        }
+        
         .scroll-down-btn.clicked {
             animation: clickPulse 0.7s ease-out;
             background: rgba(var(--primary-rgb), 0.4) !important;
@@ -414,297 +468,297 @@ document.head.insertAdjacentHTML('beforeend', `
         .scroll-down-btn:hover::before {
             transform: translateX(100%);
         }
+
+        /* Theme transition styles */
+        body, .navbar, .footer, .card, .btn, input, textarea, select, .hero-section, .footer-content {
+            transition: 
+                background-color 0.4s ease,
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease;
+        }
+        
+        /* Logo transition improvements */
+        .logo-light, .logo-dark {
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .navbar-brand {
+            position: relative;
+            height: 40px;
+            width: 120px;
+            display: block;
+        }
+        
+        /* Theme toggle button animation */
+        #themeToggle {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #themeToggle:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(var(--primary-rgb), 0.3);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+        
+        #themeToggle:active:after {
+            opacity: 1;
+            transform: scale(15) translate(-50%, -50%);
+            transition: transform 0.3s ease, opacity 0.2s ease;
+        }
+        
+        /* Smooth theme transitions */
+        *, *::before, *::after {
+            transition: 
+                background-color 0.3s ease,
+                color 0.3s ease, 
+                border-color 0.3s ease, 
+                box-shadow 0.3s ease,
+                filter 0.3s ease,
+                opacity 0.3s ease;
+        }
+        
+        /* Prevent transitions on page load */
+        .preload * {
+            transition: none !important;
+        }
     </style>
 `);
 
-// Check if user is logged in and update UI accordingly
-function checkUserLoginStatus() {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    const loggedOutNav = document.querySelector('.logged-out-nav');
-    const userProfileNav = document.querySelector('.user-profile-nav');
+// Setup comprehensive theme handler
+function setupThemeHandler() {
+    // Process theme changes when they occur
+    document.addEventListener('themeChanged', handleThemeChange);
     
-    if (user) {
-        // User is logged in
-        if (loggedOutNav) loggedOutNav.classList.add('d-none');
-        if (userProfileNav) {
-            userProfileNav.classList.remove('d-none');
+    // Add a click handler to the theme toggle to force refresh
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        // Ensure we handle theme toggle directly in script.js too
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            // Update user name
-            const userName = userProfileNav.querySelector('.user-name');
-            if (userName) {
-                userName.textContent = user.name || user.email.split('@')[0];
-            }
-        }
-        
-        // Check if user is admin
-        const adminEmail = "support@xteam.tn";
-        const isAdmin = user.email && typeof user.email === 'string' && 
-                       user.email.toLowerCase().trim() === adminEmail.toLowerCase();
-        
-        if (isAdmin) {
-            // Add admin-specific UI elements
-            const userNavItem = document.querySelector('.user-nav-item');
-            if (userNavItem) {
-                userNavItem.classList.remove('d-none');
-                const userNavLink = userNavItem.querySelector('a');
-                if (userNavLink) {
-                    userNavLink.innerHTML = '<i class="bi bi-speedometer2"></i> Admin Dashboard';
-                }
-            }
-        } else {
-            // Regular user UI elements
-            const userNavItem = document.querySelector('.user-nav-item');
-            if (userNavItem) {
-                userNavItem.classList.remove('d-none');
-            }
-        }
-    }
-}
-
-// Set up the authentication overlay
-function setupAuthOverlay() {
-    const authOverlay = document.getElementById('authOverlay');
-    const authContainer = document.getElementById('authContainer');
-    const loginBtn = document.getElementById('loginBtn');
-    const closeAuth = document.getElementById('closeAuth');
-    const registerToggle = document.getElementById('registerToggle');
-    const loginToggle = document.getElementById('loginToggle');
-    const logoutBtn = document.getElementById('logoutBtn');
-    
-    // Open auth overlay with login form
-    if (loginBtn) {
-        loginBtn.addEventListener('click', () => {
-            // Default to login view when the button is first clicked
-            showAuthOverlay('login');
-        });
-    }
-    
-    // Close auth overlay
-    if (closeAuth) {
-        closeAuth.addEventListener('click', () => {
-            authOverlay.classList.remove('active');
+            // Delay to ensure the theme changes are processed
             setTimeout(() => {
-                authContainer.classList.remove('active');
-            }, 200);
-        });
+                handleThemeChange({ detail: { theme: newTheme } });
+            }, 50);
+        }, { once: false });
     }
     
-    // Toggle between login and signup forms
-    if (registerToggle) {
-        registerToggle.addEventListener('click', () => {
-            authContainer.classList.add('active');
-        });
-    }
-    
-    if (loginToggle) {
-        loginToggle.addEventListener('click', () => {
-            authContainer.classList.remove('active');
-        });
-    }
-    
-    // Form submissions
-    const signInForm = document.getElementById('signInFormOverlay');
-    const signUpForm = document.getElementById('signUpFormOverlay');
-    
-    if (signInForm) {
-        signInForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = signInForm.querySelector('input[type="email"]').value;
-            const password = signInForm.querySelector('input[type="password"]').value;
-            
-            // Simulate successful login
-            if (email && password) {
-                // Check if admin login
-                const adminEmail = "support@xteam.tn";
-                const isAdmin = email.toLowerCase().trim() === adminEmail.toLowerCase();
-                
-                const user = { 
-                    email, 
-                    name: email.split('@')[0], 
-                    isAdmin
-                };
-                
-                // Store user in localStorage
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Close auth overlay and redirect to dashboard
-                authOverlay.classList.remove('active');
-                
-                setTimeout(() => {
-                    // Update UI to reflect logged in state
-                    checkUserLoginStatus();
-                    
-                    // Redirect to dashboard if specified
-                    if (e.submitter && e.submitter.dataset.redirect === 'dashboard') {
-                        window.location.href = 'dashboard.html';
-                    } else {
-                        // Just refresh the current page to show logged in state
-                        window.location.reload();
-                    }
-                }, 300);
-            }
-        });
-    }
-    
-    if (signUpForm) {
-        signUpForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = signUpForm.querySelector('input[type="text"]').value;
-            const email = signUpForm.querySelector('input[type="email"]').value;
-            const password = signUpForm.querySelector('input[type="password"]').value;
-            
-            if (name && email && password) {
-                // Simulate user registration
-                const user = { email, name };
-                
-                // Store user in localStorage
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                
-                // Close auth overlay
-                authOverlay.classList.remove('active');
-                
-                setTimeout(() => {
-                    // Update UI to reflect logged in state
-                    checkUserLoginStatus();
-                    
-                    // Reload the page or redirect
-                    window.location.reload();
-                }, 300);
-            }
-        });
-    }
-    
-    // Logout functionality
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Remove user from localStorage
-            localStorage.removeItem('currentUser');
-            
-            // Reload the page to show logged out state
-            window.location.reload();
-        });
+    // Initial processing on page load
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    if (currentTheme) {
+        setTimeout(() => {
+            handleThemeChange({ detail: { theme: currentTheme } });
+        }, 100);
     }
 }
 
-// Show auth overlay with specified form active
-function showAuthOverlay(formType) {
-    const authOverlay = document.getElementById('authOverlay');
-    const authContainer = document.getElementById('authContainer');
+// Handle theme changes throughout the application
+function handleThemeChange(event) {
+    const theme = event.detail.theme;
     
-    if (authOverlay && authContainer) {
-        // Set the active form
-        if (formType === 'signup') {
-            authContainer.classList.add('active');
-        } else {
-            authContainer.classList.remove('active');
-        }
-        
-        // Show the overlay
-        authOverlay.classList.add('active');
-    }
+    // 1. Handle logo transitions
+    updateLogos(theme);
+    
+    // 2. Update any custom theme-dependent elements
+    updateCustomElements(theme);
+    
+    // 3. Force a final refresh
+    forceFullRefresh();
 }
 
-// Enhanced card interactions
-document.addEventListener('DOMContentLoaded', function() {
-    // 3D card effect
-    const serviceCards = document.querySelectorAll('.service-card');
+// Update logo display based on theme
+function updateLogos(theme) {
+    const lightLogo = document.querySelector('.logo-light');
+    const darkLogo = document.querySelector('.logo-dark');
     
-    serviceCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenterX = cardRect.left + cardRect.width / 2;
-            const cardCenterY = cardRect.top + cardRect.height / 2;
+    if (lightLogo && darkLogo) {
+        if (theme === 'light') {
+            // Transition to light theme
+            lightLogo.style.opacity = '0';
+            darkLogo.style.opacity = '1';
             
-            // Calculate rotation values
-            const rotateX = (e.clientY - cardCenterY) * 0.05;
-            const rotateY = (cardCenterX - e.clientX) * 0.05;
-            
-            // Apply rotation
-            card.style.transform = `translateY(-15px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        
-        // Reset transform when mouse leaves
-        card.addEventListener('mouseleave', function() {
-            card.style.transform = '';
             setTimeout(() => {
-                card.style.transition = 'all 0.5s var(--transition-bounce)';
-            }, 100);
-        });
-        
-        // Set faster initial transition
-        card.addEventListener('mouseenter', function() {
-            card.style.transition = 'all 0.2s var(--transition-bounce)';
-        });
+                lightLogo.style.display = 'none';
+                darkLogo.style.display = 'block';
+            }, 150);
+        } else {
+            // Transition to dark theme
+            darkLogo.style.opacity = '0';
+            lightLogo.style.opacity = '1';
+            
+            setTimeout(() => {
+                darkLogo.style.display = 'none';
+                lightLogo.style.display = 'block';
+            }, 150);
+        }
+    }
+}
+
+// Force a full refresh of theme elements
+function forceFullRefresh() {
+    // Create a style element to force a complete reflow
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+    document.head.removeChild(style);
+    
+    // Force reflow of entire document
+    document.body.style.zoom = 1.0001;
+    setTimeout(() => document.body.style.zoom = 1, 10);
+    
+    // Force reflow of theme-sensitive elements
+    document.querySelectorAll('.navbar, .card, .hero-section, .premium-section, .footer, [class*="bg-"], .gradient-bg').forEach(el => {
+        if (el) {
+            el.style.display = 'none';
+            el.offsetHeight; // Trigger reflow
+            el.style.display = '';
+        }
+    });
+}
+
+// Update custom elements that have theme-specific behavior
+function updateCustomElements(theme) {
+    // Toggle any theme-specific classes
+    document.querySelectorAll('[data-theme-class]').forEach(el => {
+        const classes = el.getAttribute('data-theme-class').split(',');
+        if (classes.length === 2) {
+            const [lightClass, darkClass] = classes;
+            el.classList.remove(lightClass, darkClass);
+            el.classList.add(theme === 'dark' ? darkClass : lightClass);
+        }
     });
     
-    // Parallax effect for eco cards
-    const ecoCards = document.querySelectorAll('.eco-card');
-    
-    ecoCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const cardRect = this.getBoundingClientRect();
-            const mouseX = e.clientX - cardRect.left;
-            const mouseY = e.clientY - cardRect.top;
-            
-            const cardCenterX = cardRect.width / 2;
-            const cardCenterY = cardRect.height / 2;
-            
-            const moveX = (mouseX - cardCenterX) * 0.05;
-            const moveY = (mouseY - cardCenterY) * 0.05;
-            
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.style.transform = '';
-            }
-        });
+    // Update any content that needs changing based on theme
+    document.querySelectorAll('[data-theme-content]').forEach(el => {
+        const contents = el.getAttribute('data-theme-content').split(',');
+        if (contents.length === 2) {
+            const [lightContent, darkContent] = contents;
+            el.textContent = theme === 'dark' ? darkContent : lightContent;
+        }
     });
-    
-    // Initialize staggered animations for timeline cards
-    const timelineCards = document.querySelectorAll('.timeline-card');
-    
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                timelineObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    timelineCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transitionDelay = `${index * 0.1}s`;
-        timelineObserver.observe(card);
-    });
+}
+
+// Remove preload class after page load to enable transitions
+window.addEventListener('load', function() {
+    document.body.classList.remove('preload');
 });
 
-// Add a new smooth parallax scroll function
-function parallaxScroll() {
-    const scrollTop = window.pageYOffset;
-    
-    // Apply parallax to different elements
-    document.querySelectorAll('.parallax-element').forEach(el => {
-        const speed = el.getAttribute('data-parallax-speed') || 0.2;
-        const yPos = -(scrollTop * speed);
-        el.style.transform = `translate3d(0, ${yPos}px, 0)`;
-    });
+// Add preload class to prevent transitions on initial load
+document.body.classList.add('preload');
+
+// Check if user is logged in and update UI accordingly
+function checkUserLoginStatus() {
+    try {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const loggedOutNav = document.querySelector('.logged-out-nav');
+        const userProfileNav = document.querySelector('.user-profile-nav');
+        
+        if (user) {
+            // User is logged in
+            if (loggedOutNav) loggedOutNav.classList.add('d-none');
+            if (userProfileNav) {
+                userProfileNav.classList.remove('d-none');
+                
+                // Update user name
+                const userName = userProfileNav.querySelector('.user-name');
+                if (userName) {
+                    userName.textContent = user.name || user.email.split('@')[0];
+                }
+            }
+            
+            // Check if user is admin
+            const adminEmail = "support@xteam.tn";
+            const isAdmin = user.email && typeof user.email === 'string' && 
+                        user.email.toLowerCase().trim() === adminEmail.toLowerCase();
+            
+            if (isAdmin) {
+                // Add admin-specific UI elements
+                const userNavItem = document.querySelector('.user-nav-item');
+                if (userNavItem) {
+                    userNavItem.classList.remove('d-none');
+                    const userNavLink = userNavItem.querySelector('a');
+                    if (userNavLink) {
+                        userNavLink.innerHTML = '<i class="bi bi-speedometer2"></i> Admin Dashboard';
+                    }
+                }
+            } else {
+                // Regular user UI elements
+                const userNavItem = document.querySelector('.user-nav-item');
+                if (userNavItem) {
+                    userNavItem.classList.remove('d-none');
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Error checking user login status:', e);
+    }
 }
 
-// Call the parallax scroll function on scroll
-window.addEventListener('scroll', parallaxScroll);
+// Create a special helper function for theme toggling
+window.forceReapplyTheme = function() {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    // Save theme preference
+    localStorage.setItem('theme', newTheme);
+    
+    // Apply theme change
+    document.documentElement.setAttribute('data-bs-theme', newTheme);
+    
+    // Dispatch event for theme change
+    document.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme: newTheme }
+    }));
+    
+    // Update the theme toggle icon
+    const themeToggleIcon = document.querySelector('#themeToggle i');
+    if (themeToggleIcon) {
+        themeToggleIcon.classList.remove('bi-sun-fill', 'bi-moon-fill');
+        themeToggleIcon.classList.add(newTheme === 'dark' ? 'bi-moon-fill' : 'bi-sun-fill');
+    }
+    
+    // Force refresh
+    forceFullRefresh();
+};
+
+// Category filtering
+function setupCategoryFilters() {
+    const categoryInputs = document.querySelectorAll('input[name="category"]');
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    categoryInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            const selectedCategory = e.target.value;
+            
+            serviceCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                    card.style.display = '';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+}

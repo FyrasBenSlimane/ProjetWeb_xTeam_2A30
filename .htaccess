@@ -1,0 +1,25 @@
+RewriteEngine On
+RewriteBase /web/
+
+# Allow direct access to assets, CSS, and JavaScript files
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Handle URI's that don't have extensions
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Prevent direct access to PHP files in the models, views, and controllers folders
+RewriteRule ^(models|views|controllers|config)/.*\.php$ - [F,L]
+
+# Prevent access to .htaccess
+<Files .htaccess>
+Order Allow,Deny
+Deny from all
+</Files>
+
+# Redirect any requests for index.html to index.php
+RewriteCond %{REQUEST_URI} ^/web/index\.html$
+RewriteRule ^(.*)$ index.php [R=301,L]
