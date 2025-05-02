@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="400px" viewBox="0 0 500 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Contact Illustration</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4C0070" offset="0%"></stop>
+            <stop stop-color="#36004F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#F3E5F5" offset="0%"></stop>
+            <stop stop-color="#D1C4E9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#F3E5F5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Contact-Hero" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="url(#linearGradient-3)" x="0" y="0" width="500" height="400"></rect>
+        
+        <!-- Decorative circles -->
+        <circle id="Circle-1" fill-opacity="0.1" fill="#4C0070" cx="50" cy="80" r="30"></circle>
+        <circle id="Circle-2" fill-opacity="0.1" fill="#4C0070" cx="450" cy="150" r="40"></circle>
+        <circle id="Circle-3" fill-opacity="0.1" fill="#4C0070" cx="100" cy="350" r="20"></circle>
+        <circle id="Circle-4" fill-opacity="0.05" fill="#4C0070" cx="400" cy="300" r="50"></circle>
+        
+        <!-- Main illustration elements -->
+        <g id="Contact-Elements" transform="translate(80.000000, 70.000000)">
+            <!-- Person -->
+            <g id="Person" transform="translate(30.000000, 90.000000)">
+                <circle id="Head" fill="#FFD7C3" cx="40" cy="30" r="30"></circle>
+                <path d="M20,25 C22,22 25,20 30,20 C35,20 38,22 40,25" id="Smile" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+                <circle id="Eye-Left" fill="#36004F" cx="30" cy="15" r="3"></circle>
+                <circle id="Eye-Right" fill="#36004F" cx="50" cy="15" r="3"></circle>
+                <path d="M40,60 L40,120" id="Body-Line" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M40,80 L10,100" id="Arm-Left" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M40,80 L70,100" id="Arm-Right" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M40,120 L20,150" id="Leg-Left" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M40,120 L60,150" id="Leg-Right" stroke="#36004F" stroke-width="2" stroke-linecap="round"></path>
+            </g>
+            
+            <!-- Contact devices -->
+            <g id="Devices" transform="translate(180.000000, 40.000000)">
+                <!-- Envelope -->
+                <g id="Envelope" transform="translate(0.000000, 0.000000)">
+                    <rect id="Envelope-Base" fill="url(#linearGradient-1)" x="0" y="0" width="120" height="80" rx="8"></rect>
+                    <path d="M0,8 L60,50 L120,8" id="Envelope-Top" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path>
+                    <path d="M0,72 L40,42" id="Envelope-Bottom-Left" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path>
+                    <path d="M120,72 L80,42" id="Envelope-Bottom-Right" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path>
+                </g>
+                
+                <!-- Phone -->
+                <g id="Phone" transform="translate(140.000000, 20.000000)">
+                    <rect id="Phone-Base" fill="url(#linearGradient-1)" x="0" y="0" width="60" height="110" rx="10"></rect>
+                    <rect id="Phone-Screen" fill="#FFFFFF" x="5" y="10" width="50" height="90" rx="5"></rect>
+                    <circle id="Phone-Button" fill="#FFFFFF" cx="30" cy="105" r="3"></circle>
+                    <path d="M20,30 L40,30" id="Notif-1" stroke="url(#linearGradient-1)" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M15,45 L45,45" id="Notif-2" stroke="url(#linearGradient-1)" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M25,60 L35,60" id="Notif-3" stroke="url(#linearGradient-1)" stroke-width="3" stroke-linecap="round"></path>
+                </g>
+                
+                <!-- Chat bubbles -->
+                <g id="Chat" transform="translate(40.000000, 100.000000)">
+                    <rect id="Chat-1" fill="url(#linearGradient-2)" x="0" y="0" width="80" height="40" rx="12"></rect>
+                    <rect id="Chat-2" fill="url(#linearGradient-1)" x="40" y="50" width="80" height="40" rx="12"></rect>
+                    <path d="M20,40 L10,55 L30,40" id="Chat-Pointer-1" fill="url(#linearGradient-2)"></path>
+                    <path d="M100,90 L110,105 L90,90" id="Chat-Pointer-2" fill="url(#linearGradient-1)"></path>
+                    <path d="M20,20 L60,20" id="Chat-Line-1" stroke="#4C0070" stroke-width="4" stroke-linecap="round"></path>
+                    <path d="M60,70 L100,70" id="Chat-Line-2" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></path>
+                </g>
+            </g>
+            
+            <!-- Connection lines -->
+            <g id="Connections" transform="translate(100.000000, 120.000000)" stroke="#4C0070" stroke-width="2" stroke-dasharray="5,3">
+                <path d="M0,0 C20,-20 50,-30 80,-40" id="Connection-1"></path>
+                <path d="M0,20 C40,30 60,40 100,50" id="Connection-2"></path>
+                <path d="M-20,30 C0,60 80,70 120,40" id="Connection-3"></path>
+            </g>
+        </g>
+
+        <!-- Support icon -->
+        <g id="Support-Badge" transform="translate(420.000000, 50.000000)">
+            <circle id="Badge-Bg" fill="url(#linearGradient-1)" cx="30" cy="30" r="30"></circle>
+            <path d="M30,15 C22.268,15 16,21.268 16,29 C16,30.964 16.424,32.832 17.184,34.528 L16.128,43.8 L25.4,42.744 C27.096,43.504 28.964,43.928 30.928,43.928 C38.66,43.928 44.928,37.66 44.928,29.928 C44.928,22.196 38.66,15.928 30.928,15.928 C30.608,15.928 30.304,15.944 30,15.976 Z" id="Chat-Shape" fill="#FFFFFF" transform="translate(30.464, 29.400) scale(1, -1) translate(-30.464, -29.400)"></path>
+            <path d="M25,25 L35,25 M25,35 L35,35" id="Chat-Lines" stroke="url(#linearGradient-1)" stroke-width="3" stroke-linecap="round"></path>
+        </g>
+    </g>
+</svg>

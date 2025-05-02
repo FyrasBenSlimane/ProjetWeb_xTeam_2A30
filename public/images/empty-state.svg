@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Empty Tickets</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4C0070" offset="0%"></stop>
+            <stop stop-color="#36004F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#F3E5F5" offset="0%"></stop>
+            <stop stop-color="#D1C4E9" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Empty-State" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Background" fill="url(#linearGradient-2)" cx="100" cy="100" r="100"></circle>
+        <g id="Ticket-Icon" transform="translate(50.000000, 60.000000)">
+            <rect id="Ticket-Base" fill="url(#linearGradient-1)" x="0" y="0" width="100" height="70" rx="8"></rect>
+            <rect id="Ticket-Top" fill="#FFFFFF" x="10" y="10" width="80" height="15" rx="2"></rect>
+            <rect id="Ticket-Middle" fill="#FFFFFF" x="10" y="35" width="60" height="6" rx="2"></rect>
+            <rect id="Ticket-Bottom" fill="#FFFFFF" x="10" y="50" width="40" height="6" rx="2"></rect>
+            <circle id="Dot-1" fill="#FFFFFF" cx="85" cy="38" r="3"></circle>
+            <circle id="Dot-2" fill="#FFFFFF" cx="85" cy="53" r="3"></circle>
+        </g>
+        <g id="Empty-Icon" transform="translate(70.000000, 75.000000)" stroke="#36004F" stroke-width="4">
+            <circle id="Circle" cx="30" cy="30" r="30" stroke-dasharray="5,5"></circle>
+            <path d="M15,30 L45,30" id="Line-1" stroke-linecap="round"></path>
+        </g>
+    </g>
+</svg>

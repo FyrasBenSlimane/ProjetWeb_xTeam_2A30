@@ -1,0 +1,968 @@
+/*
+ * Support Center Enhanced UI/UX
+ * Custom CSS for improving the support ticket system interface
+ */
+
+:root {
+    /* Primary colors - Dark Purple scheme */
+    --support-primary: #4C0070;      /* Main brand color (Dark Purple) */
+    --support-primary-hover: #36004F; /* Darker shade for hover states */
+    --support-primary-light: #F3E5F5; /* Light background for primary elements (Light Purple) */
+    
+    /* Status colors */
+    --support-success: #10b981;      /* Green for open/success states */
+    --support-success-light: #ecfdf5;
+    --support-warning: #f59e0b;      /* Orange for pending states */
+    --support-warning-light: #fffbeb;
+    --support-danger: #ef4444;       /* Red for errors/high priority */
+    --support-danger-light: #fef2f2;
+    --support-info: #3b82f6;         /* Blue for info/low priority */
+    --support-info-light: #eff6ff;
+    --support-secondary: #64748b;    /* Gray for closed/neutral states */
+    --support-secondary-light: #f1f5f9;
+    
+    /* Neutral colors */
+    --support-gray-50: #f8fafc;
+    --support-gray-100: #f1f5f9;
+    --support-gray-200: #e2e8f0;
+    --support-gray-300: #cbd5e1;
+    --support-gray-400: #94a3b8;
+    --support-gray-500: #64748b;
+    --support-gray-600: #475569;
+    --support-gray-700: #334155;
+    --support-gray-800: #1e293b;
+    --support-gray-900: #0f172a;
+    
+    /* Shadows */
+    --support-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --support-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --support-shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --support-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    
+    /* Border radius */
+    --support-radius-sm: 0.375rem;
+    --support-radius: 0.5rem;
+    --support-radius-md: 0.75rem;
+    --support-radius-lg: 1rem;
+    
+    /* Transitions */
+    --support-transition-fast: 150ms;
+    --support-transition: 300ms;
+    --support-transition-slow: 500ms;
+}
+
+/* ============================================
+   Support Center General Styling
+============================================ */
+
+/* Card enhancements */
+.support-card {
+    border: none;
+    border-radius: var(--support-radius);
+    box-shadow: var(--support-shadow);
+    transition: all var(--support-transition) ease;
+    overflow: hidden;
+}
+
+.support-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--support-shadow-md);
+}
+
+/* Card header styling */
+.support-card .card-header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--support-gray-200);
+    padding: 1.25rem 1.5rem;
+}
+
+/* Card body padding */
+.support-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Enhanced buttons */
+.btn-support-primary {
+    background-color: var(--support-primary);
+    border-color: var(--support-primary);
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--support-radius);
+    transition: all var(--support-transition-fast) ease;
+}
+
+.btn-support-primary:hover {
+    background-color: var(--support-primary-hover);
+    border-color: var(--support-primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-support-outline {
+    background-color: transparent;
+    border-color: var(--support-gray-300);
+    color: var(--support-gray-700);
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--support-radius);
+    transition: all var(--support-transition-fast) ease;
+}
+
+.btn-support-outline:hover {
+    background-color: var(--support-gray-100);
+    border-color: var(--support-gray-400);
+    color: var(--support-gray-900);
+}
+
+/* Status badges */
+.badge-support {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    letter-spacing: 0.3px;
+}
+
+.badge-support-open {
+    background-color: var(--support-success-light);
+    color: var(--support-success);
+}
+
+.badge-support-pending {
+    background-color: var(--support-warning-light);
+    color: var(--support-warning);
+}
+
+.badge-support-answered {
+    background-color: var(--support-info-light);
+    color: var(--support-info);
+}
+
+.badge-support-closed {
+    background-color: var(--support-secondary-light);
+    color: var(--support-secondary);
+}
+
+.badge-support-high {
+    background-color: var(--support-danger-light);
+    color: var(--support-danger);
+}
+
+.badge-support-medium {
+    background-color: var(--support-warning-light);
+    color: var(--support-warning);
+}
+
+.badge-support-low {
+    background-color: var(--support-info-light);
+    color: var(--support-info);
+}
+
+/* Icon boxes */
+.support-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    transition: all var(--support-transition-fast) ease;
+}
+
+.support-icon-box-primary {
+    background-color: var(--support-primary-light);
+    color: var(--support-primary);
+}
+
+.support-icon-box-success {
+    background-color: var(--support-success-light);
+    color: var(--support-success);
+}
+
+.support-icon-box-warning {
+    background-color: var(--support-warning-light);
+    color: var(--support-warning);
+}
+
+.support-icon-box-danger {
+    background-color: var(--support-danger-light);
+    color: var(--support-danger);
+}
+
+.support-icon-box-info {
+    background-color: var(--support-info-light);
+    color: var(--support-info);
+}
+
+.support-icon-box-secondary {
+    background-color: var(--support-secondary-light);
+    color: var(--support-secondary);
+}
+
+/* Enhanced form controls */
+.support-form-control {
+    border: 1px solid var(--support-gray-300);
+    border-radius: var(--support-radius);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all var(--support-transition-fast) ease;
+}
+
+.support-form-control:focus {
+    border-color: var(--support-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.support-form-label {
+    font-weight: 500;
+    color: var(--support-gray-700);
+    margin-bottom: 0.5rem;
+}
+
+/* Ticket conversation thread */
+.support-conversation {
+    margin: 2rem 0;
+}
+
+.support-message {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.support-message-user {
+    margin-right: 2rem;
+}
+
+.support-message-admin {
+    margin-left: 2rem;
+}
+
+.support-message-content {
+    background-color: var(--white);
+    border-radius: var(--support-radius-md);
+    box-shadow: var(--support-shadow-sm);
+    padding: 1.25rem;
+    position: relative;
+}
+
+.support-message-user .support-message-content {
+    background-color: var(--support-gray-100);
+}
+
+.support-message-admin .support-message-content {
+    background-color: var(--support-primary-light);
+}
+
+.support-message-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.support-message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    object-fit: cover;
+}
+
+.support-message-info {
+    flex: 1;
+}
+
+.support-message-name {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.support-message-time {
+    font-size: 0.75rem;
+    color: var(--support-gray-500);
+}
+
+.support-message-body {
+    line-height: 1.6;
+}
+
+/* Timeline for conversation */
+.support-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.support-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background-color: var(--support-gray-200);
+}
+
+.support-timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.support-timeline-point {
+    position: absolute;
+    left: -2.25rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--support-primary);
+    border: 2px solid white;
+    top: 1.5rem;
+}
+
+/* Ticket status progress bar */
+.support-progress {
+    height: 6px;
+    border-radius: var(--support-radius);
+    background-color: var(--support-gray-200);
+    margin: 1.5rem 0;
+    overflow: hidden;
+}
+
+.support-progress-bar {
+    height: 100%;
+    border-radius: var(--support-radius);
+}
+
+.support-progress-open {
+    background-color: var(--support-success);
+    width: 25%;
+}
+
+.support-progress-pending {
+    background-color: var(--support-warning);
+    width: 50%;
+}
+
+.support-progress-answered {
+    background-color: var(--support-info);
+    width: 75%;
+}
+
+.support-progress-closed {
+    background-color: var(--support-secondary);
+    width: 100%;
+}
+
+/* Ticket filters */
+.support-filters {
+    background-color: var(--white);
+    border-radius: var(--support-radius);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--support-shadow-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .support-message-user,
+    .support-message-admin {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .support-timeline {
+        padding-left: 1.5rem;
+    }
+    
+    .support-timeline-point {
+        left: -1.75rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.support-fade-in {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Flash messages */
+.support-alert {
+    border-radius: var(--support-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid transparent;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.support-alert-success {
+    background-color: var(--support-success-light);
+    border-left-color: var(--support-success);
+    color: var(--support-success);
+}
+
+.support-alert-warning {
+    background-color: var(--support-warning-light);
+    border-left-color: var(--support-warning);
+    color: var(--support-warning);
+}
+
+.support-alert-danger {
+    background-color: var(--support-danger-light);
+    border-left-color: var(--support-danger);
+    color: var(--support-danger);
+}
+
+.support-alert-info {
+    background-color: var(--support-info-light);
+    border-left-color: var(--support-info);
+    color: var(--support-info);
+}
+
+/* Card view for tickets */
+.support-ticket-card {
+    height: 100%;
+    transition: all var(--support-transition) ease;
+    border: none;
+    border-radius: var(--support-radius);
+    box-shadow: var(--support-shadow);
+    overflow: hidden;
+}
+
+.support-ticket-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--support-shadow-lg);
+}
+
+.support-ticket-card .card-body {
+    padding: 1.5rem;
+}
+
+.support-ticket-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.support-ticket-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--support-gray-900);
+}
+
+.support-ticket-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.support-ticket-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--support-gray-200);
+}
+
+.support-ticket-time {
+    font-size: 0.85rem;
+    color: var(--support-gray-500);
+}
+
+/* ============================================ 
+   Ticket Creation/Edit Form Enhancements
+============================================ */
+
+.gradient-header {
+    background: linear-gradient(135deg, var(--support-primary), #9C27B0); /* Purple gradient */
+    color: white;
+    border-top-left-radius: var(--support-radius);
+    border-top-right-radius: var(--support-radius);
+    padding: 1rem 1.5rem;
+}
+
+.priority-toggle .btn-check:checked+.btn-outline-info,
+.priority-toggle .btn-check:checked+.btn-outline-warning,
+.priority-toggle .btn-check:checked+.btn-outline-danger {
+    color: white;
+}
+
+.form-control:focus,
+.btn:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(76, 0, 112, 0.25); /* Purple focus ring */
+    border-color: var(--support-primary);
+}
+
+.input-group-text i.text-primary {
+    color: var(--support-primary) !important; /* Ensure icons use the new primary color */
+}
+
+.attachment-info {
+    background-color: var(--support-gray-100);
+    padding: 0.75rem 1rem;
+    border-radius: var(--support-radius-sm);
+    border: 1px solid var(--support-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attachment-info .form-check-label {
+    margin-bottom: 0;
+}
+
+/* ============================================ 
+   Ticket View Enhancements
+============================================ */
+
+.ticket-header {
+    background-color: var(--support-primary-light);
+    border-bottom: 1px solid var(--support-gray-200);
+    padding: 1.5rem;
+    border-top-left-radius: var(--support-radius);
+    border-top-right-radius: var(--support-radius);
+}
+
+.ticket-header h2 {
+    color: var(--support-primary);
+}
+
+.ticket-meta span {
+    margin-right: 1.5rem;
+    color: var(--support-gray-600);
+    font-size: 0.9rem;
+}
+
+.ticket-meta i {
+    color: var(--support-primary);
+    margin-right: 0.5rem;
+}
+
+.ticket-body {
+    padding: 1.5rem;
+}
+
+.ticket-description {
+    background-color: var(--support-gray-50);
+    border: 1px solid var(--support-gray-200);
+    padding: 1.5rem;
+    border-radius: var(--support-radius-sm);
+    margin-bottom: 2rem;
+}
+
+.ticket-replies .card {
+    margin-bottom: 1.5rem;
+    box-shadow: var(--support-shadow-sm);
+}
+
+.ticket-replies .card-header {
+    background-color: var(--support-gray-100);
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--support-gray-200);
+}
+
+.ticket-replies .card-body {
+    padding: 1.25rem;
+}
+
+.reply-form textarea {
+    min-height: 120px;
+}
+
+.attachment-link {
+    display: inline-block;
+    background-color: var(--support-primary-light);
+    color: var(--support-primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--support-radius-sm);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color var(--support-transition-fast) ease;
+}
+
+.attachment-link:hover {
+    background-color: #d1c4e9; /* Slightly darker light purple */
+    color: var(--support-primary-hover);
+}
+
+.attachment-link i {
+    margin-right: 0.5rem;
+}
+
+/* ============================================ 
+   Drafts Page Enhancements
+============================================ */
+
+.draft-item {
+    border: 1px solid var(--support-gray-200);
+    border-radius: var(--support-radius-sm);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    transition: all var(--support-transition-fast) ease;
+}
+
+.draft-item:hover {
+    border-color: var(--support-primary);
+    box-shadow: var(--support-shadow-sm);
+}
+
+.draft-item .draft-subject {
+    font-weight: 600;
+    color: var(--support-gray-800);
+}
+
+.draft-item .draft-meta {
+    font-size: 0.85rem;
+    color: var(--support-gray-500);
+}
+
+.draft-item .draft-actions a {
+    margin-left: 0.5rem;
+}
+
+/* Ensure primary buttons use the new color */
+.btn-primary {
+    background-color: var(--support-primary);
+    border-color: var(--support-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--support-primary-hover);
+    border-color: var(--support-primary-hover);
+}
+
+.btn-outline-primary {
+    color: var(--support-primary);
+    border-color: var(--support-primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--support-primary);
+    color: white;
+}
+
+.text-primary {
+    color: var(--support-primary) !important;
+}
+
+.breadcrumb-item a {
+    color: var(--support-primary);
+}
+
+.breadcrumb-item a:hover {
+    color: var(--support-primary-hover);
+}
+
+/* Enhanced Card Styling for Support Pages */
+.contact-card {
+    overflow: hidden;
+    transition: all 0.35s ease;
+    border-radius: var(--support-radius);
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--support-shadow-lg);
+}
+
+/* Alert Styling for Info Boxes */
+.alert {
+    border-radius: var(--support-radius);
+    position: relative;
+}
+
+.border-left-info {
+    border-left: 4px solid var(--support-info);
+}
+
+.border-left-success {
+    border-left: 4px solid var(--support-success);
+}
+
+.border-left-warning {
+    border-left: 4px solid var(--support-warning);
+}
+
+.border-left-danger {
+    border-left: 4px solid var(--support-danger);
+}
+
+/* Support Form Controls with Better Validation Styling */
+.support-form-control:focus {
+    border-color: var(--support-primary);
+    box-shadow: 0 0 0 0.2rem rgba(76, 0, 112, 0.15);
+}
+
+.was-validated .support-form-control:valid {
+    border-color: var(--support-success);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.was-validated .support-form-control:invalid {
+    border-color: var(--support-danger);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef4444'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ef4444' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* View Toggle Styles */
+.view-toggle {
+    border-radius: var(--support-radius);
+    overflow: hidden;
+}
+
+/* Breadcrumb Enhanced */
+.support-breadcrumb {
+    background-color: transparent;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.support-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    font-weight: 600;
+}
+
+/* Priority indicators */
+.priority-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Tag styling */
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid transparent;
+}
+
+.tag-light {
+    background-color: var(--support-gray-100);
+    color: var(--support-gray-700);
+    border-color: var(--support-gray-200);
+}
+
+/* FAQ Search Styles */
+.search-suggestion-item {
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+    transition: all 0.2s ease;
+}
+
+.search-suggestion-item:hover,
+.search-suggestion-item:focus {
+    background-color: rgba(76, 0, 112, 0.05);
+}
+
+/* Support Ticket View Enhancements */
+.ticket-timeline {
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.ticket-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0.75rem;
+    width: 2px;
+    background-color: var(--support-gray-200);
+}
+
+.ticket-timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.ticket-timeline-point {
+    position: absolute;
+    left: -1.75rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--support-primary);
+    border: 3px solid white;
+    top: 1.25rem;
+    box-shadow: var(--support-shadow-sm);
+}
+
+.ticket-timeline-content {
+    background-color: var(--white);
+    border-radius: var(--support-radius);
+    box-shadow: var(--support-shadow-sm);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.ticket-timeline-content:hover {
+    transform: translateX(5px);
+    box-shadow: var(--support-shadow);
+}
+
+.ticket-timeline-time {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--support-gray-500);
+}
+
+/* Support dashboard cards */
+.support-stat-card {
+    border: none;
+    border-radius: var(--support-radius);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.support-stat-card .card-body {
+    padding: 1.5rem;
+}
+
+.support-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--support-shadow-md);
+}
+
+.support-stat-card .stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--support-gray-600);
+    margin-bottom: 0;
+}
+
+.stat-change {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.stat-change.positive {
+    background-color: var(--support-success-light);
+    color: var(--support-success);
+}
+
+.stat-change.negative {
+    background-color: var(--support-danger-light);
+    color: var(--support-danger);
+}
+
+.stat-change i {
+    font-size: 0.7rem;
+    margin-right: 0.25rem;
+}
+
+/* Dashboard tabs styling */
+.support-tabs {
+    border-bottom: 1px solid var(--support-gray-200);
+    margin-bottom: 1.5rem;
+}
+
+.support-tabs .nav-link {
+    margin-bottom: -1px;
+    border: none;
+    color: var(--support-gray-600);
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    background: transparent;
+}
+
+.support-tabs .nav-link:hover {
+    color: var(--support-primary);
+}
+
+.support-tabs .nav-link.active {
+    color: var(--support-primary);
+    background: transparent;
+    border-bottom: 3px solid var(--support-primary);
+}
+
+.support-tabs .nav-link .badge {
+    margin-left: 0.5rem;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.45rem;
+}
+
+/* Advanced Filter Styles */
+.support-filter-panel {
+    background-color: var(--support-gray-50);
+    border-radius: var(--support-radius);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--support-gray-200);
+}
+
+.filter-control-group {
+    margin-bottom: 1rem;
+}
+
+.filter-control-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 767.98px) {
+    .ticket-timeline {
+        padding-left: 2rem;
+    }
+
+    .ticket-timeline-point {
+        left: -1.5rem;
+        width: 12px;
+        height: 12px;
+    }
+
+    .support-tabs .nav-link {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .support-filter-panel {
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500px" height="400px" viewBox="0 0 500 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>FAQ Illustration</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4C0070" offset="0%"></stop>
+            <stop stop-color="#36004F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#F3E5F5" offset="0%"></stop>
+            <stop stop-color="#D1C4E9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="0%" x2="0%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#F3E5F5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="FAQ-Hero" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Background" fill="url(#linearGradient-3)" x="0" y="0" width="500" height="400"></rect>
+        
+        <!-- Decorative circles -->
+        <circle id="Circle-1" fill-opacity="0.1" fill="#4C0070" cx="50" cy="80" r="30"></circle>
+        <circle id="Circle-2" fill-opacity="0.1" fill="#4C0070" cx="450" cy="150" r="40"></circle>
+        <circle id="Circle-3" fill-opacity="0.1" fill="#4C0070" cx="100" cy="350" r="20"></circle>
+        <circle id="Circle-4" fill-opacity="0.05" fill="#4C0070" cx="400" cy="300" r="50"></circle>
+        
+        <!-- Messages bubbles -->
+        <g id="Message-Bubbles" transform="translate(100.000000, 100.000000)">
+            <!-- Question bubble -->
+            <g id="Question" transform="translate(0.000000, 0.000000)">
+                <rect id="Bubble-Q" fill="url(#linearGradient-2)" x="0" y="0" width="200" height="80" rx="15"></rect>
+                <path id="Pointer-Q" fill="url(#linearGradient-2)" d="M20,80 L35,100 L50,80 Z"></path>
+                <text id="Q" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="url(#linearGradient-1)">
+                    <tspan x="15" y="50">Q</tspan>
+                </text>
+                <line x1="60" y1="30" x2="180" y2="30" id="Line-1" stroke="#4C0070" stroke-width="4" stroke-linecap="round"></line>
+                <line x1="60" y1="50" x2="160" y2="50" id="Line-2" stroke="#4C0070" stroke-width="4" stroke-linecap="round"></line>
+            </g>
+            
+            <!-- Answer bubble -->
+            <g id="Answer" transform="translate(100.000000, 120.000000)">
+                <rect id="Bubble-A" fill="url(#linearGradient-1)" x="0" y="0" width="200" height="80" rx="15"></rect>
+                <path id="Pointer-A" fill="url(#linearGradient-1)" d="M180,80 L165,100 L150,80 Z"></path>
+                <text id="A" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF">
+                    <tspan x="15" y="50">A</tspan>
+                </text>
+                <line x1="60" y1="30" x2="180" y2="30" id="Line-3" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></line>
+                <line x1="60" y1="50" x2="160" y2="50" id="Line-4" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"></line>
+            </g>
+            
+            <!-- FAQ text -->
+            <g id="FAQ" transform="translate(120.000000, 60.000000)">
+                <circle id="FAQ-Background" fill="#FFFFFF" cx="40" cy="40" r="40"></circle>
+                <text id="FAQ-Text" font-family="Arial-BoldMT, Arial" font-size="24" font-weight="bold" fill="url(#linearGradient-1)">
+                    <tspan x="12" y="48">FAQ</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
