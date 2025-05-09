@@ -4,51 +4,54 @@
  */
 
 :root {
-    /* Primary colors - Dark Purple scheme */
-    --support-primary: #4C0070;      /* Main brand color (Dark Purple) */
-    --support-primary-hover: #36004F; /* Darker shade for hover states */
-    --support-primary-light: #F3E5F5; /* Light background for primary elements (Light Purple) */
-    
-    /* Status colors */
-    --support-success: #10b981;      /* Green for open/success states */
-    --support-success-light: #ecfdf5;
-    --support-warning: #f59e0b;      /* Orange for pending states */
-    --support-warning-light: #fffbeb;
-    --support-danger: #ef4444;       /* Red for errors/high priority */
-    --support-danger-light: #fef2f2;
-    --support-info: #3b82f6;         /* Blue for info/low priority */
-    --support-info-light: #eff6ff;
-    --support-secondary: #64748b;    /* Gray for closed/neutral states */
-    --support-secondary-light: #f1f5f9;
-    
-    /* Neutral colors */
-    --support-gray-50: #f8fafc;
-    --support-gray-100: #f1f5f9;
-    --support-gray-200: #e2e8f0;
-    --support-gray-300: #cbd5e1;
-    --support-gray-400: #94a3b8;
-    --support-gray-500: #64748b;
-    --support-gray-600: #475569;
-    --support-gray-700: #334155;
-    --support-gray-800: #1e293b;
-    --support-gray-900: #0f172a;
-    
-    /* Shadows */
-    --support-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --support-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --support-shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --support-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    
-    /* Border radius */
-    --support-radius-sm: 0.375rem;
-    --support-radius: 0.5rem;
-    --support-radius-md: 0.75rem;
-    --support-radius-lg: 1rem;
-    
-    /* Transitions */
-    --support-transition-fast: 150ms;
-    --support-transition: 300ms;
-    --support-transition-slow: 500ms;
+  /* Primary colors - Dark Purple scheme */
+  --support-primary: #4c0070; /* Main brand color (Dark Purple) */
+  --support-primary-hover: #36004f; /* Darker shade for hover states */
+  --support-primary-light: #f3e5f5; /* Light background for primary elements (Light Purple) */
+
+  /* Status colors */
+  --support-success: #10b981; /* Green for open/success states */
+  --support-success-light: #ecfdf5;
+  --support-warning: #f59e0b; /* Orange for pending states */
+  --support-warning-light: #fffbeb;
+  --support-danger: #ef4444; /* Red for errors/high priority */
+  --support-danger-light: #fef2f2;
+  --support-info: #3b82f6; /* Blue for info/low priority */
+  --support-info-light: #eff6ff;
+  --support-secondary: #64748b; /* Gray for closed/neutral states */
+  --support-secondary-light: #f1f5f9;
+
+  /* Neutral colors */
+  --support-gray-50: #f8fafc;
+  --support-gray-100: #f1f5f9;
+  --support-gray-200: #e2e8f0;
+  --support-gray-300: #cbd5e1;
+  --support-gray-400: #94a3b8;
+  --support-gray-500: #64748b;
+  --support-gray-600: #475569;
+  --support-gray-700: #334155;
+  --support-gray-800: #1e293b;
+  --support-gray-900: #0f172a;
+
+  /* Shadows */
+  --support-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --support-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --support-shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --support-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  /* Border radius */
+  --support-radius-sm: 0.375rem;
+  --support-radius: 0.5rem;
+  --support-radius-md: 0.75rem;
+  --support-radius-lg: 1rem;
+
+  /* Transitions */
+  --support-transition-fast: 150ms;
+  --support-transition: 300ms;
+  --support-transition-slow: 500ms;
 }
 
 /* ============================================
@@ -57,421 +60,423 @@
 
 /* Card enhancements */
 .support-card {
-    border: none;
-    border-radius: var(--support-radius);
-    box-shadow: var(--support-shadow);
-    transition: all var(--support-transition) ease;
-    overflow: hidden;
+  border: none;
+  border-radius: var(--support-radius);
+  box-shadow: var(--support-shadow);
+  transition: all var(--support-transition) ease;
+  overflow: hidden;
 }
 
 .support-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--support-shadow-md);
+  transform: translateY(-3px);
+  box-shadow: var(--support-shadow-md);
 }
 
 /* Card header styling */
 .support-card .card-header {
-    background-color: var(--white);
-    border-bottom: 1px solid var(--support-gray-200);
-    padding: 1.25rem 1.5rem;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--support-gray-200);
+  padding: 1.25rem 1.5rem;
 }
 
 /* Card body padding */
 .support-card .card-body {
-    padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 /* Enhanced buttons */
 .btn-support-primary {
-    background-color: var(--support-primary);
-    border-color: var(--support-primary);
-    color: white;
-    font-weight: 500;
-    padding: 0.5rem 1.25rem;
-    border-radius: var(--support-radius);
-    transition: all var(--support-transition-fast) ease;
+  background-color: var(--support-primary);
+  border-color: var(--support-primary);
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--support-radius);
+  transition: all var(--support-transition-fast) ease;
 }
 
 .btn-support-primary:hover {
-    background-color: var(--support-primary-hover);
-    border-color: var(--support-primary-hover);
-    transform: translateY(-1px);
+  background-color: var(--support-primary-hover);
+  border-color: var(--support-primary-hover);
+  transform: translateY(-1px);
 }
 
 .btn-support-outline {
-    background-color: transparent;
-    border-color: var(--support-gray-300);
-    color: var(--support-gray-700);
-    font-weight: 500;
-    padding: 0.5rem 1.25rem;
-    border-radius: var(--support-radius);
-    transition: all var(--support-transition-fast) ease;
+  background-color: transparent;
+  border-color: var(--support-gray-300);
+  color: var(--support-gray-700);
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--support-radius);
+  transition: all var(--support-transition-fast) ease;
 }
 
 .btn-support-outline:hover {
-    background-color: var(--support-gray-100);
-    border-color: var(--support-gray-400);
-    color: var(--support-gray-900);
+  background-color: var(--support-gray-100);
+  border-color: var(--support-gray-400);
+  color: var(--support-gray-900);
 }
 
 /* Status badges */
 .badge-support {
-    font-weight: 500;
-    padding: 0.35em 0.65em;
-    border-radius: 30px;
-    font-size: 0.75rem;
-    letter-spacing: 0.3px;
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  letter-spacing: 0.3px;
 }
 
 .badge-support-open {
-    background-color: var(--support-success-light);
-    color: var(--support-success);
+  background-color: var(--support-success-light);
+  color: var(--support-success);
 }
 
 .badge-support-pending {
-    background-color: var(--support-warning-light);
-    color: var(--support-warning);
+  background-color: var(--support-warning-light);
+  color: var(--support-warning);
 }
 
 .badge-support-answered {
-    background-color: var(--support-info-light);
-    color: var(--support-info);
+  background-color: var(--support-info-light);
+  color: var(--support-info);
 }
 
 .badge-support-closed {
-    background-color: var(--support-secondary-light);
-    color: var(--support-secondary);
+  background-color: var(--support-secondary-light);
+  color: var(--support-secondary);
 }
 
 .badge-support-high {
-    background-color: var(--support-danger-light);
-    color: var(--support-danger);
+  background-color: var(--support-danger-light);
+  color: var(--support-danger);
 }
 
 .badge-support-medium {
-    background-color: var(--support-warning-light);
-    color: var(--support-warning);
+  background-color: var(--support-warning-light);
+  color: var(--support-warning);
 }
 
 .badge-support-low {
-    background-color: var(--support-info-light);
-    color: var(--support-info);
+  background-color: var(--support-info-light);
+  color: var(--support-info);
 }
 
 /* Icon boxes */
 .support-icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    transition: all var(--support-transition-fast) ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  transition: all var(--support-transition-fast) ease;
 }
 
 .support-icon-box-primary {
-    background-color: var(--support-primary-light);
-    color: var(--support-primary);
+  background-color: var(--support-primary-light);
+  color: var(--support-primary);
 }
 
 .support-icon-box-success {
-    background-color: var(--support-success-light);
-    color: var(--support-success);
+  background-color: var(--support-success-light);
+  color: var(--support-success);
 }
 
 .support-icon-box-warning {
-    background-color: var(--support-warning-light);
-    color: var(--support-warning);
+  background-color: var(--support-warning-light);
+  color: var(--support-warning);
 }
 
 .support-icon-box-danger {
-    background-color: var(--support-danger-light);
-    color: var(--support-danger);
+  background-color: var(--support-danger-light);
+  color: var(--support-danger);
 }
 
 .support-icon-box-info {
-    background-color: var(--support-info-light);
-    color: var(--support-info);
+  background-color: var(--support-info-light);
+  color: var (--support-info);
 }
 
 .support-icon-box-secondary {
-    background-color: var(--support-secondary-light);
-    color: var(--support-secondary);
+  background-color: var(--support-secondary-light);
+  color: var(--support-secondary);
 }
 
 /* Enhanced form controls */
 .support-form-control {
-    border: 1px solid var(--support-gray-300);
-    border-radius: var(--support-radius);
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    transition: all var(--support-transition-fast) ease;
+  border: 1px solid var(--support-gray-300);
+  border-radius: var(--support-radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all var(--support-transition-fast) ease;
+  transition: height 0.2s ease;
+  min-height: 120px;
 }
 
 .support-form-control:focus {
-    border-color: var(--support-primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-}
-
-.support-form-label {
-    font-weight: 500;
-    color: var(--support-gray-700);
-    margin-bottom: 0.5rem;
+  border-color: var(--support-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 /* Ticket conversation thread */
 .support-conversation {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .support-message {
-    margin-bottom: 1.5rem;
-    position: relative;
+  margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .support-message-user {
-    margin-right: 2rem;
+  margin-right: 2rem;
 }
 
 .support-message-admin {
-    margin-left: 2rem;
+  margin-left: 2rem;
 }
 
 .support-message-content {
-    background-color: var(--white);
-    border-radius: var(--support-radius-md);
-    box-shadow: var(--support-shadow-sm);
-    padding: 1.25rem;
-    position: relative;
+  background-color: var(--white);
+  border-radius: var(--support-radius-md);
+  box-shadow: var(--support-shadow-sm);
+  padding: 1.25rem;
+  position: relative;
 }
 
 .support-message-user .support-message-content {
-    background-color: var(--support-gray-100);
+  background-color: var(--support-gray-100);
 }
 
 .support-message-admin .support-message-content {
-    background-color: var(--support-primary-light);
+  background-color: var(--support-primary-light);
 }
 
 .support-message-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .support-message-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 0.75rem;
-    object-fit: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  object-fit: cover;
 }
 
 .support-message-info {
-    flex: 1;
+  flex: 1;
 }
 
 .support-message-name {
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
 .support-message-time {
-    font-size: 0.75rem;
-    color: var(--support-gray-500);
+  font-size: 0.75rem;
+  color: var(--support-gray-500);
 }
 
 .support-message-body {
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 /* Timeline for conversation */
 .support-timeline {
-    position: relative;
-    padding-left: 2rem;
+  position: relative;
+  padding-left: 2rem;
 }
 
 .support-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 2px;
-    background-color: var(--support-gray-200);
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: var(--support-gray-200);
 }
 
 .support-timeline-item {
-    position: relative;
-    padding-bottom: 2rem;
+  position: relative;
+  padding-bottom: 2rem;
 }
 
 .support-timeline-point {
-    position: absolute;
-    left: -2.25rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: var(--support-primary);
-    border: 2px solid white;
-    top: 1.5rem;
+  position: absolute;
+  left: -2.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--support-primary);
+  border: 2px solid white;
+  top: 1.5rem;
 }
 
 /* Ticket status progress bar */
 .support-progress {
-    height: 6px;
-    border-radius: var(--support-radius);
-    background-color: var(--support-gray-200);
-    margin: 1.5rem 0;
-    overflow: hidden;
+  height: 6px;
+  border-radius: var(--support-radius);
+  background-color: var(--support-gray-200);
+  margin: 1.5rem 0;
+  overflow: hidden;
 }
 
 .support-progress-bar {
-    height: 100%;
-    border-radius: var(--support-radius);
+  height: 100%;
+  border-radius: var(--support-radius);
 }
 
 .support-progress-open {
-    background-color: var(--support-success);
-    width: 25%;
+  background-color: var(--support-success);
+  width: 25%;
 }
 
 .support-progress-pending {
-    background-color: var(--support-warning);
-    width: 50%;
+  background-color: var(--support-warning);
+  width: 50%;
 }
 
 .support-progress-answered {
-    background-color: var(--support-info);
-    width: 75%;
+  background-color: var(--support-info);
+  width: 75%;
 }
 
 .support-progress-closed {
-    background-color: var(--support-secondary);
-    width: 100%;
+  background-color: var(--support-secondary);
+  width: 100%;
 }
 
 /* Ticket filters */
 .support-filters {
-    background-color: var(--white);
-    border-radius: var(--support-radius);
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--support-shadow-sm);
+  background-color: var(--white);
+  border-radius: var(--support-radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--support-shadow-sm);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .support-message-user,
-    .support-message-admin {
-        margin-left: 0;
-        margin-right: 0;
-    }
-    
-    .support-timeline {
-        padding-left: 1.5rem;
-    }
-    
-    .support-timeline-point {
-        left: -1.75rem;
-    }
+  .support-message-user,
+  .support-message-admin {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .support-timeline {
+    padding-left: 1.5rem;
+  }
+
+  .support-timeline-point {
+    left: -1.75rem;
+  }
 }
 
 /* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .support-fade-in {
-    animation: fadeIn 0.3s ease forwards;
+  animation: fadeIn 0.3s ease forwards;
 }
 
 /* Flash messages */
 .support-alert {
-    border-radius: var(--support-radius);
-    padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem;
-    border-left: 4px solid transparent;
-    animation: fadeIn 0.3s ease forwards;
+  border-radius: var(--support-radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid transparent;
+  animation: fadeIn 0.3s ease forwards;
 }
 
 .support-alert-success {
-    background-color: var(--support-success-light);
-    border-left-color: var(--support-success);
-    color: var(--support-success);
+  background-color: var(--support-success-light);
+  border-left-color: var(--support-success);
+  color: var(--support-success);
 }
 
 .support-alert-warning {
-    background-color: var(--support-warning-light);
-    border-left-color: var(--support-warning);
-    color: var(--support-warning);
+  background-color: var(--support-warning-light);
+  border-left-color: var(--support-warning);
+  color: var(--support-warning);
 }
 
 .support-alert-danger {
-    background-color: var(--support-danger-light);
-    border-left-color: var(--support-danger);
-    color: var(--support-danger);
+  background-color: var(--support-danger-light);
+  border-left-color: var(--support-danger);
+  color: var(--support-danger);
 }
 
 .support-alert-info {
-    background-color: var(--support-info-light);
-    border-left-color: var(--support-info);
-    color: var(--support-info);
+  background-color: var(--support-info-light);
+  border-left-color: var(--support-info);
+  color: var(--support-info);
 }
 
 /* Card view for tickets */
 .support-ticket-card {
-    height: 100%;
-    transition: all var(--support-transition) ease;
-    border: none;
-    border-radius: var(--support-radius);
-    box-shadow: var(--support-shadow);
-    overflow: hidden;
+  height: 100%;
+  transition: all var(--support-transition) ease;
+  border: none;
+  border-radius: var(--support-radius);
+  box-shadow: var(--support-shadow);
+  overflow: hidden;
 }
 
 .support-ticket-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--support-shadow-lg);
+  transform: translateY(-5px);
+  box-shadow: var(--support-shadow-lg);
 }
 
 .support-ticket-card .card-body {
-    padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 .support-ticket-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .support-ticket-title {
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: var(--support-gray-900);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--support-gray-900);
 }
 
 .support-ticket-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .support-ticket-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--support-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--support-gray-200);
 }
 
 .support-ticket-time {
-    font-size: 0.85rem;
-    color: var(--support-gray-500);
+  font-size: 0.85rem;
+  color: var(--support-gray-500);
 }
 
 /* ============================================ 
@@ -479,42 +484,48 @@
 ============================================ */
 
 .gradient-header {
-    background: linear-gradient(135deg, var(--support-primary), #9C27B0); /* Purple gradient */
-    color: white;
-    border-top-left-radius: var(--support-radius);
-    border-top-right-radius: var(--support-radius);
-    padding: 1rem 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--support-primary),
+    #9c27b0
+  ); /* Purple gradient */
+  color: white;
+  border-top-left-radius: var(--support-radius);
+  border-top-right-radius: var(--support-radius);
+  padding: 1rem 1.5rem;
 }
 
-.priority-toggle .btn-check:checked+.btn-outline-info,
-.priority-toggle .btn-check:checked+.btn-outline-warning,
-.priority-toggle .btn-check:checked+.btn-outline-danger {
-    color: white;
+.priority-toggle .btn-check:checked + .btn-outline-info,
+.priority-toggle .btn-check:checked + .btn-outline-warning,
+.priority-toggle .btn-check:checked + .btn-outline-danger {
+  color: white;
 }
 
 .form-control:focus,
 .btn:focus,
 .form-select:focus {
-    box-shadow: 0 0 0 0.25rem rgba(76, 0, 112, 0.25); /* Purple focus ring */
-    border-color: var(--support-primary);
+  box-shadow: 0 0 0 0.25rem rgba(76, 0, 112, 0.25); /* Purple focus ring */
+  border-color: var(--support-primary);
 }
 
 .input-group-text i.text-primary {
-    color: var(--support-primary) !important; /* Ensure icons use the new primary color */
+  color: var(
+    --support-primary
+  ) !important; /* Ensure icons use the new primary color */
 }
 
 .attachment-info {
-    background-color: var(--support-gray-100);
-    padding: 0.75rem 1rem;
-    border-radius: var(--support-radius-sm);
-    border: 1px solid var(--support-gray-200);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background-color: var(--support-gray-100);
+  padding: 0.75rem 1rem;
+  border-radius: var(--support-radius-sm);
+  border: 1px solid var(--support-gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .attachment-info .form-check-label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* ============================================ 
@@ -522,78 +533,78 @@
 ============================================ */
 
 .ticket-header {
-    background-color: var(--support-primary-light);
-    border-bottom: 1px solid var(--support-gray-200);
-    padding: 1.5rem;
-    border-top-left-radius: var(--support-radius);
-    border-top-right-radius: var(--support-radius);
+  background-color: var(--support-primary-light);
+  border-bottom: 1px solid var(--support-gray-200);
+  padding: 1.5rem;
+  border-top-left-radius: var(--support-radius);
+  border-top-right-radius: var(--support-radius);
 }
 
 .ticket-header h2 {
-    color: var(--support-primary);
+  color: var(--support-primary);
 }
 
 .ticket-meta span {
-    margin-right: 1.5rem;
-    color: var(--support-gray-600);
-    font-size: 0.9rem;
+  margin-right: 1.5rem;
+  color: var(--support-gray-600);
+  font-size: 0.9rem;
 }
 
 .ticket-meta i {
-    color: var(--support-primary);
-    margin-right: 0.5rem;
+  color: var(--support-primary);
+  margin-right: 0.5rem;
 }
 
 .ticket-body {
-    padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 .ticket-description {
-    background-color: var(--support-gray-50);
-    border: 1px solid var(--support-gray-200);
-    padding: 1.5rem;
-    border-radius: var(--support-radius-sm);
-    margin-bottom: 2rem;
+  background-color: var(--support-gray-50);
+  border: 1px solid var(--support-gray-200);
+  padding: 1.5rem;
+  border-radius: var(--support-radius-sm);
+  margin-bottom: 2rem;
 }
 
 .ticket-replies .card {
-    margin-bottom: 1.5rem;
-    box-shadow: var(--support-shadow-sm);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--support-shadow-sm);
 }
 
 .ticket-replies .card-header {
-    background-color: var(--support-gray-100);
-    font-size: 0.9rem;
-    padding: 0.75rem 1.25rem;
-    border-bottom: 1px solid var(--support-gray-200);
+  background-color: var(--support-gray-100);
+  font-size: 0.9rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--support-gray-200);
 }
 
 .ticket-replies .card-body {
-    padding: 1.25rem;
+  padding: 1.25rem;
 }
 
 .reply-form textarea {
-    min-height: 120px;
+  min-height: 120px;
 }
 
 .attachment-link {
-    display: inline-block;
-    background-color: var(--support-primary-light);
-    color: var(--support-primary);
-    padding: 0.5rem 1rem;
-    border-radius: var(--support-radius-sm);
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color var(--support-transition-fast) ease;
+  display: inline-block;
+  background-color: var(--support-primary-light);
+  color: var(--support-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--support-radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color var(--support-transition-fast) ease;
 }
 
 .attachment-link:hover {
-    background-color: #d1c4e9; /* Slightly darker light purple */
-    color: var(--support-primary-hover);
+  background-color: #d1c4e9; /* Slightly darker light purple */
+  color: var(--support-primary-hover);
 }
 
 .attachment-link i {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 /* ============================================ 
@@ -601,368 +612,1028 @@
 ============================================ */
 
 .draft-item {
-    border: 1px solid var(--support-gray-200);
-    border-radius: var(--support-radius-sm);
-    padding: 1rem 1.5rem;
-    margin-bottom: 1rem;
-    transition: all var(--support-transition-fast) ease;
+  border: 1px solid var(--support-gray-200);
+  border-radius: var(--support-radius-sm);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: all var(--support-transition-fast) ease;
 }
 
 .draft-item:hover {
-    border-color: var(--support-primary);
-    box-shadow: var(--support-shadow-sm);
+  border-color: var(--support-primary);
+  box-shadow: var(--support-shadow-sm);
 }
 
 .draft-item .draft-subject {
-    font-weight: 600;
-    color: var(--support-gray-800);
+  font-weight: 600;
+  color: var(--support-gray-800);
 }
 
 .draft-item .draft-meta {
-    font-size: 0.85rem;
-    color: var(--support-gray-500);
+  font-size: 0.85rem;
+  color: var(--support-gray-500);
 }
 
 .draft-item .draft-actions a {
-    margin-left: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 /* Ensure primary buttons use the new color */
 .btn-primary {
-    background-color: var(--support-primary);
-    border-color: var(--support-primary);
+  background-color: var(--support-primary);
+  border-color: var(--support-primary);
 }
 
 .btn-primary:hover {
-    background-color: var(--support-primary-hover);
-    border-color: var(--support-primary-hover);
+  background-color: var(--support-primary-hover);
+  border-color: var(--support-primary-hover);
 }
 
 .btn-outline-primary {
-    color: var(--support-primary);
-    border-color: var(--support-primary);
+  color: var(--support-primary);
+  border-color: var(--support-primary);
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--support-primary);
-    color: white;
+  background-color: var(--support-primary);
+  color: white;
 }
 
 .text-primary {
-    color: var(--support-primary) !important;
+  color: var(--support-primary) !important;
 }
 
 .breadcrumb-item a {
-    color: var(--support-primary);
+  color: var(--support-primary);
 }
 
 .breadcrumb-item a:hover {
-    color: var(--support-primary-hover);
+  color: var(--support-primary-hover);
 }
 
 /* Enhanced Card Styling for Support Pages */
 .contact-card {
-    overflow: hidden;
-    transition: all 0.35s ease;
-    border-radius: var(--support-radius);
+  overflow: hidden;
+  transition: all 0.35s ease;
+  border-radius: var(--support-radius);
 }
 
 .contact-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--support-shadow-lg);
+  transform: translateY(-5px);
+  box-shadow: var(--support-shadow-lg);
 }
 
 /* Alert Styling for Info Boxes */
 .alert {
-    border-radius: var(--support-radius);
-    position: relative;
+  border-radius: var(--support-radius);
+  position: relative;
 }
 
 .border-left-info {
-    border-left: 4px solid var(--support-info);
+  border-left: 4px solid var(--support-info);
 }
 
 .border-left-success {
-    border-left: 4px solid var(--support-success);
+  border-left: 4px solid var(--support-success);
 }
 
 .border-left-warning {
-    border-left: 4px solid var(--support-warning);
+  border-left: 4px solid var(--support-warning);
 }
 
 .border-left-danger {
-    border-left: 4px solid var(--support-danger);
+  border-left: 4px solid var(--support-danger);
 }
 
 /* Support Form Controls with Better Validation Styling */
 .support-form-control:focus {
-    border-color: var(--support-primary);
-    box-shadow: 0 0 0 0.2rem rgba(76, 0, 112, 0.15);
+  border-color: var(--support-primary);
+  box-shadow: 0 0 0 0.2rem rgba(76, 0, 112, 0.15);
 }
 
 .was-validated .support-form-control:valid {
-    border-color: var(--support-success);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  border-color: var(--support-success);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
 .was-validated .support-form-control:invalid {
-    border-color: var(--support-danger);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef4444'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ef4444' stroke='none'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+  border-color: var(--support-danger);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef4444'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ef4444' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
 /* View Toggle Styles */
 .view-toggle {
-    border-radius: var(--support-radius);
-    overflow: hidden;
+  border-radius: var(--support-radius);
+  overflow: hidden;
 }
 
 /* Breadcrumb Enhanced */
 .support-breadcrumb {
-    background-color: transparent;
-    padding: 0.5rem 0;
-    margin-bottom: 1rem;
+  background-color: transparent;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
 }
 
 .support-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-    content: ">";
-    font-weight: 600;
+  content: ">";
+  font-weight: 600;
 }
 
 /* Priority indicators */
 .priority-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 /* Tag styling */
 .tag {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid transparent;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid transparent;
 }
 
 .tag-light {
-    background-color: var(--support-gray-100);
-    color: var(--support-gray-700);
-    border-color: var(--support-gray-200);
+  background-color: var(--support-gray-100);
+  color: var(--support-gray-700);
+  border-color: var(--support-gray-200);
 }
 
 /* FAQ Search Styles */
 .search-suggestion-item {
-    padding: 0.75rem 1.25rem;
-    cursor: pointer;
-    border-bottom: 1px solid #f1f1f1;
-    transition: all 0.2s ease;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f1f1f1;
+  transition: all 0.2s ease;
 }
 
 .search-suggestion-item:hover,
 .search-suggestion-item:focus {
-    background-color: rgba(76, 0, 112, 0.05);
+  background-color: rgba(76, 0, 112, 0.05);
 }
 
 /* Support Ticket View Enhancements */
 .ticket-timeline {
-    position: relative;
-    padding-left: 2.5rem;
+  position: relative;
+  padding-left: 2.5rem;
 }
 
 .ticket-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0.75rem;
-    width: 2px;
-    background-color: var(--support-gray-200);
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.75rem;
+  width: 2px;
+  background-color: var(--support-gray-200);
 }
 
 .ticket-timeline-item {
-    position: relative;
-    padding-bottom: 2rem;
+  position: relative;
+  padding-bottom: 2rem;
 }
 
 .ticket-timeline-point {
-    position: absolute;
-    left: -1.75rem;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: var(--support-primary);
-    border: 3px solid white;
-    top: 1.25rem;
-    box-shadow: var(--support-shadow-sm);
+  position: absolute;
+  left: -1.75rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--support-primary);
+  border: 3px solid white;
+  top: 1.25rem;
+  box-shadow: var(--support-shadow-sm);
 }
 
 .ticket-timeline-content {
-    background-color: var(--white);
-    border-radius: var(--support-radius);
-    box-shadow: var(--support-shadow-sm);
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    transition: all 0.3s ease;
+  background-color: var(--white);
+  border-radius: var(--support-radius);
+  box-shadow: var(--support-shadow-sm);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .ticket-timeline-content:hover {
-    transform: translateX(5px);
-    box-shadow: var(--support-shadow);
+  transform: translateX(5px);
+  box-shadow: var(--support-shadow);
 }
 
 .ticket-timeline-time {
-    position: absolute;
-    top: 1.25rem;
-    right: 1.25rem;
-    font-size: 0.75rem;
-    color: var(--support-gray-500);
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-size: 0.75rem;
+  color: var(--support-gray-500);
 }
 
 /* Support dashboard cards */
 .support-stat-card {
-    border: none;
-    border-radius: var(--support-radius);
-    transition: all 0.3s ease;
-    overflow: hidden;
+  border: none;
+  border-radius: var(--support-radius);
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .support-stat-card .card-body {
-    padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 .support-stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--support-shadow-md);
+  transform: translateY(-5px);
+  box-shadow: var(--support-shadow-md);
 }
 
 .support-stat-card .stat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .stat-value {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
 }
 
 .stat-label {
-    font-size: 0.875rem;
-    color: var(--support-gray-600);
-    margin-bottom: 0;
+  font-size: 0.875rem;
+  color: var(--support-gray-600);
+  margin-bottom: 0;
 }
 
 .stat-change {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 9999px;
-    display: inline-flex;
-    align-items: center;
-    font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
 }
 
 .stat-change.positive {
-    background-color: var(--support-success-light);
-    color: var(--support-success);
+  background-color: var(--support-success-light);
+  color: var(--support-success);
 }
 
 .stat-change.negative {
-    background-color: var(--support-danger-light);
-    color: var(--support-danger);
+  background-color: var(--support-danger-light);
+  color: var(--support-danger);
 }
 
 .stat-change i {
-    font-size: 0.7rem;
-    margin-right: 0.25rem;
+  font-size: 0.7rem;
+  margin-right: 0.25rem;
 }
 
 /* Dashboard tabs styling */
 .support-tabs {
-    border-bottom: 1px solid var(--support-gray-200);
-    margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--support-gray-200);
+  margin-bottom: 1.5rem;
 }
 
 .support-tabs .nav-link {
-    margin-bottom: -1px;
-    border: none;
-    color: var(--support-gray-600);
-    padding: 0.75rem 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    background: transparent;
+  margin-bottom: -1px;
+  border: none;
+  color: var(--support-gray-600);
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  background: transparent;
 }
 
 .support-tabs .nav-link:hover {
-    color: var(--support-primary);
+  color: var(--support-primary);
 }
 
 .support-tabs .nav-link.active {
-    color: var(--support-primary);
-    background: transparent;
-    border-bottom: 3px solid var(--support-primary);
+  color: var(--support-primary);
+  background: transparent;
+  border-bottom: 3px solid var(--support-primary);
 }
 
 .support-tabs .nav-link .badge {
-    margin-left: 0.5rem;
-    font-size: 0.65rem;
-    padding: 0.25rem 0.45rem;
+  margin-left: 0.5rem;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.45rem;
 }
 
 /* Advanced Filter Styles */
 .support-filter-panel {
-    background-color: var(--support-gray-50);
-    border-radius: var(--support-radius);
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--support-gray-200);
+  background-color: var(--support-gray-50);
+  border-radius: var(--support-radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--support-gray-200);
 }
 
 .filter-control-group {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .filter-control-group label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 /* Mobile optimizations */
 @media (max-width: 767.98px) {
-    .ticket-timeline {
-        padding-left: 2rem;
-    }
+  .ticket-timeline {
+    padding-left: 2rem;
+  }
 
-    .ticket-timeline-point {
-        left: -1.5rem;
-        width: 12px;
-        height: 12px;
-    }
+  .ticket-timeline-point {
+    left: -1.5rem;
+    width: 12px;
+    height: 12px;
+  }
 
-    .support-tabs .nav-link {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.9rem;
-    }
+  .support-tabs .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
 
-    .support-filter-panel {
-        padding: 1rem;
-    }
+  .support-filter-panel {
+    padding: 1rem;
+  }
+}
+
+/* ============================================ 
+   Dashboard View Ticket Enhancements
+============================================ */
+
+/* Improved ticket view layout for dashboard */
+.dashboard-container .ticket-details {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.dashboard-container .support-card {
+  margin-bottom: 2rem;
+  border: none;
+  border-radius: var(--support-radius);
+  box-shadow: var(--support-shadow-md);
+}
+
+.dashboard-container .support-card .card-header {
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(to right, var(--support-primary), #6c0a9a);
+  color: white;
+  border-radius: var(--support-radius) var(--support-radius) 0 0;
+}
+
+.dashboard-container .support-card .card-header h3 {
+  color: white;
+  margin: 0;
+  font-weight: 600;
+}
+
+.dashboard-container .btn-support-outline {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.dashboard-container .btn-support-outline:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.dashboard-container .ticket-subject {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--support-gray-900);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+/* Ticket meta information */
+.dashboard-container .ticket-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.dashboard-container .ticket-meta .badge {
+  font-size: 0.8rem;
+  padding: 0.4em 0.8em;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dashboard-container .ticket-dates {
+  padding: 0.75rem;
+  background-color: var(--support-gray-50);
+  border-radius: var(--support-radius);
+  font-size: 0.85rem;
+}
+
+.dashboard-container .date-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--support-gray-700);
+}
+
+.dashboard-container .date-item i {
+  color: var(--support-primary);
+  font-size: 1rem;
+}
+
+.dashboard-container .date-item .label {
+  font-weight: 500;
+}
+
+/* Original message styling */
+.dashboard-container .support-message.original-message {
+  background-color: var(--support-primary-light);
+  padding: 1.25rem;
+  border-radius: var(--support-radius);
+  margin-bottom: 2rem;
+}
+
+.dashboard-container .support-message-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dashboard-container .support-message-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--support-shadow-sm);
+  margin-right: 1rem;
+}
+
+.dashboard-container .support-message-info {
+  flex: 1;
+}
+
+.dashboard-container .support-message-name {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboard-container .support-message-time {
+  font-size: 0.8rem;
+  color: var(--support-gray-600);
+}
+
+.dashboard-container .support-message-content {
+  background-color: white;
+  padding: 1.25rem;
+  border-radius: var(--support-radius-sm);
+  box-shadow: var(--support-shadow-sm);
+}
+
+/* Timeline improvements */
+.dashboard-container .ticket-divider {
+  margin: 2rem 0;
+  border-color: var(--support-gray-200);
+}
+
+.dashboard-container .conversation-title,
+.dashboard-container .reply-form-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--support-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboard-container .support-timeline {
+  position: relative;
+  margin-left: 1.5rem;
+  padding-left: 2rem;
+}
+
+.dashboard-container .support-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: var(--support-primary-light);
+  border-radius: 1px;
+}
+
+.dashboard-container .support-timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.dashboard-container .support-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.dashboard-container .support-timeline-point {
+  position: absolute;
+  left: -0.6rem;
+  top: 1.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: var(--support-primary);
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: var(--support-shadow-sm);
+}
+
+.dashboard-container .support-message-admin .support-message-content {
+  background-color: var(--support-primary-light);
+  border-left: 3px solid var(--support-primary);
+}
+
+.dashboard-container .support-message-user .support-message-content {
+  background-color: var(--support-gray-50);
+  border-left: 3px solid var(--support-gray-300);
+}
+
+/* Reply form */
+.dashboard-container .reply-form {
+  background-color: var(--support-gray-50);
+  padding: 1.5rem;
+  border-radius: var(--support-radius);
+  border: 1px solid var(--support-gray-200);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-container .reply-form:focus-within {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .support-form-control {
+  border: 1px solid var(--support-gray-200);
+  border-radius: var(--support-radius-sm);
+  padding: 0.75rem;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+
+.dashboard-container .support-form-control:focus {
+  border-color: var(--support-primary);
+  box-shadow: 0 0 0 0.2rem rgba(76, 0, 112, 0.15);
+}
+
+/* Attachment styling */
+.dashboard-container .ticket-attachment {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--support-gray-200);
+}
+
+.dashboard-container .attachment-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--support-gray-100);
+  color: var(--support-gray-700);
+  border-radius: var(--support-radius-sm);
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.dashboard-container .attachment-link i {
+  color: var(--support-primary);
+}
+
+.dashboard-container .attachment-link:hover {
+  background-color: var(--support-primary-light);
+  color: var(--support-primary);
+}
+
+/* Alert styling */
+.dashboard-container .support-alert {
+  padding: 1rem 1.25rem;
+  border-radius: var(--support-radius);
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard-container .support-alert i {
+  font-size: 1.25rem;
+}
+
+.dashboard-container .support-alert-info {
+  background-color: var(--support-info-light);
+  color: var(--support-info);
+  border-left: 4px solid var(--support-info);
+}
+
+.dashboard-container .support-alert-warning {
+  background-color: var(--support-warning-light);
+  color: var(--support-warning);
+  border-left: 4px solid var(--support-warning);
+}
+
+.dashboard-container .support-alert .alert-link {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* Dropdown styling */
+.dashboard-container .dropdown-menu {
+  border: none;
+  border-radius: var(--support-radius-sm);
+  box-shadow: var(--support-shadow-md);
+  padding: 0.5rem 0;
+}
+
+.dashboard-container .dropdown-item {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.dashboard-container .dropdown-item:hover {
+  background-color: var(--support-primary-light);
+  color: var(--support-primary);
+}
+
+.dashboard-container .dropdown-item.text-danger:hover {
+  background-color: var(--support-danger-light);
+  color: var(--support-danger);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container .ticket-header-info .row {
+    flex-direction: column;
+  }
+
+  .dashboard-container .ticket-header-info .col-md-4 {
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .dashboard-container .support-timeline {
+    margin-left: 0;
+  }
+}
+
+/* ============================================ 
+   Enhanced Loading and Interaction States
+============================================ */
+
+/* Loading spinner for the tabs */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  text-align: center;
+  color: var(--support-primary);
+}
+
+.loading-spinner i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner span {
+  font-size: 1rem;
+  color: var(--support-gray-700);
+}
+
+/* Search loading state */
+input.searching {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-dasharray="30" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></circle></svg>');
+  background-size: 20px;
+  background-position: calc(100% - 10px) center;
+  background-repeat: no-repeat;
+}
+
+/* Filter loading state */
+select.filtering {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%236c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" stroke-dasharray="30" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/></circle></svg>');
+  background-size: 20px;
+  background-position: calc(100% - 10px) center;
+  background-repeat: no-repeat;
+}
+
+/* Button loading state and improved hover */
+button.refreshing {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.action-btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ============================================ 
+   Ticket View Specific Enhancements
+============================================ */
+
+/* Quote button styles */
+.quote-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(76, 0, 112, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.support-message-content:hover .quote-btn {
+  opacity: 1;
+}
+
+.quote-btn:hover {
+  background: rgba(76, 0, 112, 0.2);
+}
+
+/* Image preview modal */
+.attachment-preview-btn {
+  background: none;
+  border: none;
+  color: var(--support-primary);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.attachment-preview-btn:hover {
+  color: var(--support-primary-hover);
+  text-decoration: underline;
+}
+
+.attachment-preview-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fade-in 0.3s ease forwards;
+}
+
+.attachment-preview-modal .modal-content {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.attachment-preview-modal .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.attachment-preview-modal .preview-image {
+  max-width: 100%;
+  max-height: calc(80vh - 40px);
+  object-fit: contain;
+}
+
+.attachment-preview-modal .preview-caption {
+  margin-top: 10px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Loading animation for the submit button */
+@keyframes button-loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-support-primary:disabled {
+  background: linear-gradient(
+    -45deg,
+    var(--support-primary),
+    #6c0a9a,
+    var(--support-primary),
+    #6c0a9a
+  );
+  background-size: 400% 400%;
+  animation: button-loading 3s ease infinite;
+  cursor: not-allowed;
+}
+
+/* Special CSS fixes for Support dropdown buttons */
+
+/* Fix for dropdown buttons in support section */
+.dropdown-menu {
+  position: absolute !important;
+  z-index: 1050 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  border-radius: var(--support-radius) !important;
+  box-shadow: var(--support-shadow-md) !important;
+  min-width: 10rem !important;
+  padding: 0.5rem 0 !important;
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: block !important;
+  animation: fadeIn 0.2s ease-out !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Override Bootstrap dropdown display */
+.btn-group.show .dropdown-menu,
+.dropdown.show .dropdown-menu {
+  display: block !important;
+}
+
+/* Fix dropdown positioning in dashboard */
+.dropdown-menu-end {
+  right: 0 !important;
+  left: auto !important;
+}
+
+/* Make dropdown items consistent */
+.dropdown-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.5rem 1rem !important;
+  clear: both !important;
+  color: var(--support-gray-800) !important;
+  text-align: inherit !important;
+  white-space: nowrap !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  transition: all var(--support-transition-fast) ease !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: var(--support-primary) !important;
+  background-color: var(--support-primary-light) !important;
+  text-decoration: none !important;
+}
+
+.dropdown-item.text-danger:hover,
+.dropdown-item.text-danger:focus {
+  color: var(--support-danger) !important;
+  background-color: var(--support-danger-light) !important;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff !important;
+  background-color: var(--support-primary) !important;
+  text-decoration: none !important;
+}
+
+/* Improved dropdown toggle button */
+.btn.dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btn.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  transition: transform var(--support-transition-fast) ease;
+}
+
+.btn.dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+/* Navbar dropdown overrides */
+.navbar .dropdown-menu {
+  margin-top: 0.5rem;
+}
+
+/* Dashboard dropdown overrides */
+.dashboard-container .dropdown-menu {
+  border-radius: var(--support-radius-sm) !important;
+}
+
+/* Enhanced button styles */
+.action-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #495057;
+  font-size: 18px;
+  transition: transform 0.3s ease, background-color 0.3s ease !important;
+}
+
+.action-btn:hover {
+  transform: translateY(-3px) !important;
+  background-color: var(--support-primary-light);
+  color: var(--support-primary);
+}
+
+.action-btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(76, 0, 112, 0.25) !important;
+  outline: none;
+}
+
+/* Specific fixes for action buttons in the ticket view */
+.ticket-actions .dropdown-toggle {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--support-radius-sm);
+}
+
+.ticket-actions .dropdown-menu {
+  min-width: 200px;
 }

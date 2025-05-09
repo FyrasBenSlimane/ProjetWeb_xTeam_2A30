@@ -530,3 +530,258 @@ body.enable-dark-mode .loading-skeleton {
   margin-top: 1rem;
   border-top: 1px solid #dee2e6;
 }
+
+/* 
+ * Forum Styles - Enhanced with FAQ Management Support
+ */
+
+/* Add FAQ Management specific styles that will be loaded properly */
+.faq-management-tabs {
+  background: #fff;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
+.faq-management-tabs .nav-tabs {
+  border-bottom: 1px solid var(--grey-2);
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.faq-management-tabs .nav-link {
+  color: var(--dark);
+  font-weight: 500;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 0;
+  position: relative;
+  transition: var(--transition);
+}
+
+.faq-management-tabs .nav-link.active {
+  color: var(--primary);
+  background: transparent;
+  border-bottom: 2px solid var(--primary);
+}
+
+.faq-management-tabs .nav-link:hover {
+  color: var(--primary);
+}
+
+/* Status badges for FAQ items */
+.status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+}
+
+.status i {
+  margin-right: 4px;
+}
+
+.status-published {
+  background: var(--success);
+}
+
+.status-draft {
+  background: var(--dark-grey);
+}
+
+/* Improve FAQ table styles */
+.faq-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 15px;
+}
+
+.faq-table th {
+  background-color: var(--light);
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--dark);
+  border-bottom: 1px solid var(--grey-2);
+}
+
+.faq-table td {
+  padding: 12px 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--grey-2);
+  transition: var(--transition);
+}
+
+.faq-table tbody tr:hover {
+  background-color: var(--grey);
+}
+
+.faq-table .question-cell {
+  max-width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* FAQ Actions styling */
+.faq-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.faq-actions .btn {
+  padding: 0.25rem 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-actions .btn i {
+  font-size: 1.1rem;
+}
+
+/* Category management */
+.faq-category-card {
+  height: 100%;
+  transition: var(--transition);
+}
+
+.faq-category-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.faq-category-list {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--grey-2);
+  transition: var(--transition);
+}
+
+.category-item:hover {
+  background-color: var(--grey);
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+/* FAQ Search */
+.faq-search {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.faq-search input {
+  padding: 10px 15px 10px 40px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--grey-2);
+  width: 100%;
+}
+
+.faq-search i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dark-grey);
+}
+
+/* FAQ Form Styles */
+.faq-form .form-label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.faq-form .form-control {
+  border-radius: var(--border-radius);
+  padding: 10px 12px;
+}
+
+.faq-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Rich text editor for FAQ answers */
+.faq-editor {
+  border: 1px solid var(--grey-2);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.faq-editor-toolbar {
+  padding: 10px;
+  background-color: var(--grey);
+  border-bottom: 1px solid var(--grey-2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.faq-editor-content {
+  padding: 15px;
+  min-height: 200px;
+}
+
+/* FAQ Animation Effects */
+@keyframes fade-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-management-tabs .tab-pane.active {
+  animation: fade-slide-in 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 992px) {
+  .faq-table .question-cell {
+    max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .faq-management-tabs {
+    padding: 15px;
+  }
+
+  .faq-table {
+    min-width: 650px;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .faq-management-tabs .nav-tabs {
+    gap: 10px;
+  }
+
+  .faq-management-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}

@@ -1,27 +1,30 @@
 <?php
-class PagesController extends Controller {
-    public function __construct() {
+class PagesController extends Controller
+{
+    public function __construct()
+    {
         // Initialize any needed properties
     }
 
-    public function index() {
+    public function index()
+    {
         $data = [
             'title' => 'Welcome to lenSi',
             'description' => 'A professional platform for connecting talent'
         ];
-        
+
         // Check if user is logged in
-        if(isset($_SESSION['user_id'])) {
+        if (isset($_SESSION['user_id'])) {
             // User is logged in - route based on user_account_type
-            if(isset($_SESSION['user_account_type'])) {
-                if($_SESSION['user_account_type'] === 'freelancer') {
+            if (isset($_SESSION['user_account_type'])) {
+                if ($_SESSION['user_account_type'] === 'freelancer') {
                     // Load the freelancer dashboard
                     $this->view('layouts/header', $data);
                     $this->view('pages/freelancer', $data);
                     $this->view('layouts/footer');
-                } elseif($_SESSION['user_account_type'] === 'admin') {
-                    // Load the admin dashboard directly without header/footer
-                    $this->view('dashboard/index', $data);
+                } elseif ($_SESSION['user_account_type'] === 'admin') {
+                    // Redirect to the proper dashboard controller for admin users
+                    redirect('dashboard');
                 } else {
                     // Load the client dashboard (default for all other user types)
                     $this->view('layouts/header', $data);
@@ -43,12 +46,13 @@ class PagesController extends Controller {
     }
 
     // Specific method to handle freelancer page requests
-    public function freelancer() {
+    public function freelancer()
+    {
         // Verify user is logged in and has freelancer account type
-        if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'freelancer') {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'freelancer') {
             redirect('users/login');
         }
-        
+
         $data = [
             'title' => 'Freelancer Dashboard',
             'description' => 'Manage your freelancer account'
@@ -60,39 +64,37 @@ class PagesController extends Controller {
     }
 
     // Specific method to handle client page requests
-    public function client() {
+    public function client()
+    {
         // Verify user is logged in and has client account type
-        if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'client') {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'client') {
             redirect('users/login');
         }
-        
+
         $data = [
             'title' => 'Client Dashboard',
             'description' => 'Manage your client account'
         ];
-        
+
         $this->view('layouts/header', $data);
         $this->view('pages/client', $data);
         $this->view('layouts/footer');
     }
 
     // Specific method to handle admin page requests
-    public function admin() {
+    public function admin()
+    {
         // Verify user is logged in and has admin account type
-        if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'admin') {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_SESSION['user_account_type'] !== 'admin') {
             redirect('users/login');
         }
-        
-        $data = [
-            'title' => 'Admin Dashboard',
-            'description' => 'Manage your admin account'
-        ];
-        
-        // Load the dashboard view directly instead of the page/admin view
-        $this->view('dashboard/index', $data);
+
+        // Redirect to the proper dashboard controller instead of loading the view directly
+        redirect('dashboard');
     }
 
-    public function about() {
+    public function about()
+    {
         $data = [
             'title' => 'About lenSi',
             'description' => 'Learn more about our platform'

@@ -11,8 +11,8 @@ class User
     public function register($data)
     {
         // Set default values for optional fields
-        $promo_emails = isset($data['promo_emails']) ? $data['promo_emails'] : 0; // Default to 0 (false)
-        $terms_accepted = isset($data['terms_accepted']) ? $data['terms_accepted'] : 1; // Default to 1 (true)
+        $promo_emails = isset($data['promo_emails']) ? 1 : 0; // Convert checkbox to 1/0
+        $terms_accepted = isset($data['terms_accepted']) ? $data['terms_accepted'] : (isset($data['terms']) ? 1 : 0); // Use 'terms' from form or terms_accepted
 
         $this->db->query('INSERT INTO users (name, email, password, account_type, country, promo_emails, terms_accepted, created_at) 
                           VALUES(:name, :email, :password, :account_type, :country, :promo_emails, :terms_accepted, NOW())');
@@ -20,7 +20,7 @@ class User
         // Bind values
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
-        $this->db->bind(':password', password_hash($data['password'], PASSWORD_DEFAULT));
+        $this->db->bind(':password', $data['password']); // Password is already hashed in the controller
         $this->db->bind(':account_type', $data['account_type']);
         $this->db->bind(':country', $data['country']);
         $this->db->bind(':promo_emails', $promo_emails);

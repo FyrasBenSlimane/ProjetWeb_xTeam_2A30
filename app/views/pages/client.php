@@ -304,6 +304,244 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Learning Resources Section -->
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <div class="resources-card">
+                        <div class="card-header">
+                            <h5><i class="fas fa-graduation-cap me-2"></i>Learning Resources</h5>
+                            <span class="badge bg-success">New</span>
+                        </div>
+                        <div class="resources-container">
+                            <div class="resource-categories">
+                                <button class="resource-category-btn active" data-category="getting-started">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>Getting Started</span>
+                                </button>
+                                <button class="resource-category-btn" data-category="working-with-freelancers">
+                                    <i class="fas fa-users"></i>
+                                    <span>Working with Freelancers</span>
+                                </button>
+                                <button class="resource-category-btn" data-category="project-management">
+                                    <i class="fas fa-tasks"></i>
+                                    <span>Project Management</span>
+                                </button>
+                                <button class="resource-category-btn" data-category="payments">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Payments & Billing</span>
+                                </button>
+                            </div>
+                            
+                            <div class="resource-content">
+                                <!-- Getting Started Resources -->
+                                <div class="resource-category-content active" id="getting-started">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=2YQHSGhQbDE" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Platform Overview</h6>
+                                                    <p>Learn the basics of our platform in this 10-minute walkthrough</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">10:23</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=jyWUC-xVgMc" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Creating Your First Job</h6>
+                                                    <p>Step-by-step guide to posting your first job</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">7:15</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.udemy.com/course/hire-the-right-freelancers/" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon document">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Getting Started Guide</h6>
+                                                    <p>Complete documentation for new clients</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-book me-1"></i>Guide</span>
+                                                        <span class="resource-duration">15 min read</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Working with Freelancers Resources -->
+                                <div class="resource-category-content" id="working-with-freelancers">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=YZTZnqOASLQ" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Finding the Perfect Freelancer</h6>
+                                                    <p>Tips on how to evaluate and choose the right freelancers</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">12:48</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=-Al_lwLAyDA" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Effective Communication</h6>
+                                                    <p>How to communicate effectively with your freelancers</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">9:37</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.toptal.com/freelance/don-t-be-a-bad-client" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon document">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Building Relationships</h6>
+                                                    <p>How to build strong relationships with freelancers</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-book me-1"></i>Article</span>
+                                                        <span class="resource-duration">8 min read</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Project Management Resources -->
+                                <div class="resource-category-content" id="project-management">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=Vj-41zFdgkg" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Milestone Management</h6>
+                                                    <p>How to set up and manage project milestones</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">11:52</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=KLkXPD6x7K4" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Tracking Project Progress</h6>
+                                                    <p>Tools and methods for effective project tracking</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">14:05</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://blog.hubspot.com/service/project-management-tips" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon document">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Project Management Guide</h6>
+                                                    <p>Best practices for managing remote projects</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-book me-1"></i>Guide</span>
+                                                        <span class="resource-duration">12 min read</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Payments Resources -->
+                                <div class="resource-category-content" id="payments">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=8UmUuaAzMJU" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Payment Methods Overview</h6>
+                                                    <p>Learn about different payment options available</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">8:27</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.youtube.com/watch?v=rQUuGDKlZPk" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon video">
+                                                    <i class="fab fa-youtube"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Escrow Services</h6>
+                                                    <p>How to use escrow services for secure payments</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-video me-1"></i>Video</span>
+                                                        <span class="resource-duration">6:42</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <a href="https://www.investopedia.com/terms/e/escrow.asp" target="_blank" class="resource-card">
+                                                <div class="resource-card-icon document">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </div>
+                                                <div class="resource-card-content">
+                                                    <h6>Billing & Invoicing</h6>
+                                                    <p>Understanding billing cycles and invoices</p>
+                                                    <div class="resource-meta">
+                                                        <span class="resource-type"><i class="fas fa-book me-1"></i>Guide</span>
+                                                        <span class="resource-duration">10 min read</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </main>
@@ -313,228 +551,166 @@
     /* Root variables */
     :root {
         /* Main color palette - professional green scheme for clients */
-        --primary: #108a00;
-        --primary-light: #27ae60;
-        --primary-dark: #0e7800;
-        --primary-accent: #e6f7e6;
-        
-        /* Secondary colors */
-        --secondary: #222325;
-        --secondary-light: #404145;
-        --secondary-dark: #0e0e10;
-        --secondary-accent: #f1f1f2;
-        
-        /* Accent colors */
-        --accent-blue: #3498db;
-        --accent-green: #2ecc71;
-        --accent-orange: #e67e22;
-        --accent-purple: #9b59b6;
-        
-        /* UI colors */
-        --success: #2ecc71;
-        --warning: #f39c12;
-        --danger: #e74c3c;
-        --info: #3498db;
-        
-        /* Neutrals */
-        --white: #ffffff;
-        --gray-100: #f8f9fa;
-        --gray-200: #e9ecef;
-        --gray-300: #dee2e6;
-        --gray-400: #ced4da;
-        --gray-500: #adb5bd;
-        --gray-600: #6c757d;
-        --gray-700: #495057;
-        --gray-800: #343a40;
-        --gray-900: #212529;
-        --black: #000000;
-        
-        /* Typography */
-        --font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        --font-weight-light: 300;
-        --font-weight-normal: 400;
-        --font-weight-medium: 500;
-        --font-weight-semibold: 600;
-        --font-weight-bold: 700;
-        
-        /* Spacing */
-        --spacing-xs: 0.25rem;
-        --spacing-sm: 0.5rem;
-        --spacing-md: 1rem;
-        --spacing-lg: 1.5rem;
-        --spacing-xl: 2rem;
-        --spacing-2xl: 3rem;
-        
-        /* Borders */
-        --border-radius-sm: 0.25rem;
-        --border-radius-md: 0.5rem;
-        --border-radius-lg: 0.75rem;
-        --border-radius-xl: 1rem;
-        --border-radius-circle: 50%;
-        
-        /* Shadows */
-        --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-        --shadow-md: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-        --shadow-lg: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-        --shadow-xl: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        
-        /* Transitions */
-        --transition-fast: 0.15s ease;
-        --transition-normal: 0.25s ease;
-        --transition-slow: 0.35s ease;
+        // ...existing code...
     }
     
-    /* Base styles */
+    /* General Styles */
     body {
-        font-family: var(--font-family);
-        color: var(--secondary);
-        background-color: var(--gray-100);
-        margin: 0;
-        padding: 0;
+        // ...existing code...
     }
     
-    h1, h2, h3, h4, h5, h6, p {
-        margin: 0;
-    }
+    // ...existing code...
     
-    /* Client Indicator Badge */
-    .client-indicator {
-        position: fixed;
-        top: 70px;
-        right: 0;
-        z-index: 1000;
-        pointer-events: none;
-    }
+    /* Services Slider Styles */
+    // ...existing code...
     
-    .indicator-badge {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: var(--white);
-        font-size: 0.75rem;
-        font-weight: var(--font-weight-medium);
-        padding: 0.25rem 1rem;
-        border-radius: 0 0 0 var(--border-radius-md);
+    /* Learning Resources Styles */
+    .resources-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius-lg);
         box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        margin-bottom: 1.5rem;
+    }
+    
+    .resources-card .card-header {
+        background-color: var(--white);
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .resources-card .card-header h5 {
+        margin-bottom: 0;
+        font-size: 1.1rem;
+        font-weight: var(--font-weight-semibold);
+        color: var(--secondary);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        opacity: 0.9;
-        animation: slideinRight 0.5s forwards;
     }
     
-    @keyframes slideinRight {
-        from {
-            transform: translateX(100%);
-        }
-        to {
-            transform: translateX(0);
-        }
+    .badge.bg-success {
+        background-color: var(--primary-light) !important;
+        font-weight: 500;
+        font-size: 0.7rem;
+        padding: 0.35em 0.65em;
     }
     
-    /* Main container styles */
-    .main-container {
-        min-height: calc(100vh - 70px);
-        background: linear-gradient(135deg, var(--gray-100) 0%, var(--white) 100%);
-        position: relative;
-        overflow: hidden;
+    .resources-container {
+        padding: 1.5rem;
     }
     
-    .main-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(16, 138, 0, 0.03) 0%, rgba(16, 138, 0, 0.01) 100%);
-        z-index: 0;
-        pointer-events: none;
-    }
-    
-    /* Mobile search container */
-    .mobile-search-container {
-        background-color: var(--white);
-        box-shadow: var(--shadow-sm);
-        position: sticky;
-        top: 70px;
-        z-index: 990;
-        margin-top: 70px;
-    }
-    
-    .search-form {
+    .resource-categories {
         display: flex;
-        position: relative;
-        width: 100%;
-        box-shadow: var(--shadow-sm);
-        border-radius: var(--border-radius-lg);
-        overflow: hidden;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+        padding-bottom: 1rem;
     }
     
-    .search-form input {
-        flex: 1;
-        padding: 0.8rem 1.2rem;
-        border: 1px solid var(--gray-200);
-        border-right: none;
-        border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
-        font-size: 0.95rem;
-        background-color: var(--white);
-        transition: all var(--transition-normal);
+    .resource-category-btn {
+        background-color: transparent;
+        border: 1px solid var(--gray-300);
         color: var(--secondary);
-    }
-    
-    .search-form input:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(16, 138, 0, 0.1);
-    }
-    
-    .search-form button {
-        background: linear-gradient(to right, var(--primary), var(--primary-dark));
-        color: var(--white);
-        border: none;
-        padding: 0 1.5rem;
         font-size: 0.9rem;
         font-weight: var(--font-weight-medium);
-        cursor: pointer;
-        transition: all var(--transition-normal);
+        padding: 0.6rem 1.2rem;
+        border-radius: var(--border-radius-md);
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        transition: all var(--transition-fast);
+        cursor: pointer;
     }
     
-    .search-form button:hover {
-        background: linear-gradient(to right, var(--primary-dark), var(--primary));
+    .resource-category-btn:hover {
+        background-color: var(--gray-100);
     }
     
-    /* Welcome section */
-    .welcome-section {
+    .resource-category-btn.active {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--white);
+    }
+    
+    .resource-category-content {
+        display: none;
+    }
+    
+    .resource-category-content.active {
+        display: block;
+        animation: fadeIn 0.4s ease;
+    }
+    
+    .resource-card {
+        display: flex;
         background-color: var(--white);
-        padding: 2rem 0;
-        border-bottom: 1px solid var(--gray-200);
-        margin-top: 0; /* Adjusted for search bar */
-        position: relative;
-        z-index: 1;
-        animation: fadeIn 0.5s ease;
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        transition: all var(--transition-normal);
+        height: 100%;
+        text-decoration: none;
+        color: var(--secondary);
+        border: 1px solid var(--gray-200);
+    }
+    
+    .resource-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary-light);
+    }
+    
+    .resource-card-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .resource-card-icon.video {
+        background-color: rgba(255, 0, 0, 0.1);
+        color: #ff0000;
+    }
+    
+    .resource-card-icon.document {
+        background-color: rgba(0, 123, 255, 0.1);
+        color: #0d6efd;
+    }
+    
+    .resource-card-content {
+        flex-grow: 1;
+        padding: 1rem;
+    }
+    
+    .resource-card-content h6 {
+        font-weight: var(--font-weight-semibold);
+        margin-bottom: 0.5rem;
+        color: var(--secondary);
+    }
+    
+    .resource-card-content p {
+        font-size: 0.85rem;
+        color: var(--gray-600);
+        margin-bottom: 0.75rem;
+    }
+    
+    .resource-meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: var(--gray-500);
     }
     
     @keyframes fadeIn {
         from {
             opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-    
-    .welcome-title {
-        font-size: 1.9rem;
-        font-weight: var(--font-weight-bold);
-        color: var(--secondary);
-        animation: fadeInUp 0.5s ease 0.2s both;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(10px);
         }
         to {
             opacity: 1;
@@ -542,399 +718,36 @@
         }
     }
     
-    .user-name {
-        background: linear-gradient(to right, var(--primary), var(--primary-light));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        position: relative;
-    }
-    
-    .welcome-subtitle {
-        font-size: 1rem;
-        color: var(--gray-600);
-        max-width: 80%;
-        animation: fadeInUp 0.5s ease 0.3s both;
-    }
-    
-    .btn-post-job {
-        background: linear-gradient(to right, var(--primary), var(--primary-dark));
-        color: var(--white);
-        font-size: 0.9rem;
-        font-weight: var(--font-weight-medium);
-        padding: 0.7rem 1.5rem;
-        border-radius: var(--border-radius-md);
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: all var(--transition-normal);
-        box-shadow: var(--shadow-sm);
-        animation: fadeIn 0.5s ease 0.5s both;
-    }
-    
-    .btn-post-job:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-md);
-        background: linear-gradient(to right, var(--primary-dark), var(--primary));
-        color: var(--white);
-    }
-    
-    /* Dashboard Cards Common Styles */
-    .stats-card, .orders-card, .services-card {
-        background-color: var(--white);
-        border-radius: var(--border-radius-lg);
-        box-shadow: var(--shadow-sm);
-        overflow: hidden;
-        transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-        height: 100%;
-        border: none;
-    }
-    
-    .stats-card:hover, .orders-card:hover, .services-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1.25rem 1.5rem;
-        border-bottom: 1px solid var(--gray-200);
-    }
-    
-    .card-header h5 {
-        font-size: 1.1rem;
-        font-weight: var(--font-weight-semibold);
-        color: var(--secondary);
-        margin: 0;
-    }
-    
-    .view-all {
-        font-size: 0.85rem;
-        color: var(--primary);
-        text-decoration: none;
-        transition: color var(--transition-fast);
-    }
-    
-    .view-all:hover {
-        color: var(--primary-dark);
-        text-decoration: underline;
-    }
-    
-    /* Stats Card Styles */
-    .refresh-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: var(--border-radius-circle);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--gray-100);
-        cursor: pointer;
-        transition: background-color var(--transition-fast), transform var(--transition-fast);
-    }
-    
-    .refresh-icon:hover {
-        background-color: var(--gray-200);
-        transform: rotate(30deg);
-    }
-    
-    .stats-container {
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-    
-    .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        transition: transform var(--transition-fast);
-    }
-    
-    .stat-item:hover {
-        transform: translateX(5px);
-    }
-    
-    .stat-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: var(--border-radius-circle);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--shadow-sm);
-    }
-    
-    .orders-icon {
-        background-color: rgba(16, 138, 0, 0.1);
-        color: var(--primary);
-    }
-    
-    .completed-icon {
-        background-color: rgba(46, 204, 113, 0.1);
-        color: var(--accent-green);
-    }
-    
-    .jobs-icon {
-        background-color: rgba(52, 152, 219, 0.1);
-        color: var(--accent-blue);
-    }
-    
-    .stat-details h3 {
-        font-size: 1.5rem;
-        font-weight: var(--font-weight-bold);
-        color: var(--secondary);
-        margin-bottom: 0.25rem;
-    }
-    
-    .stat-details p {
-        font-size: 0.85rem;
-        color: var(--gray-600);
-        margin: 0;
-    }
-    
-    /* Orders Card Styles */
-    .orders-container {
-        padding: 1.5rem;
-    }
-    
-    .order-empty-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 2rem;
-    }
-    
-    .empty-state-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: var(--border-radius-circle);
-        background-color: var(--gray-100);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.25rem;
-        color: var(--gray-600);
-        font-size: 1.8rem;
-        animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(16, 138, 0, 0.2);
-        }
-        70% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 15px rgba(16, 138, 0, 0);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    
-    .order-empty-state h6 {
-        font-size: 1.1rem;
-        font-weight: var(--font-weight-semibold);
-        color: var(--secondary);
-        margin-bottom: 0.5rem;
-    }
-    
-    .order-empty-state p {
-        font-size: 0.95rem;
-        color: var(--gray-600);
-        margin-bottom: 1.5rem;
-    }
-    
-    .browse-services-btn {
-        background-color: transparent;
-        color: var(--primary);
-        font-size: 0.95rem;
-        font-weight: var(--font-weight-medium);
-        padding: 0.6rem 1.5rem;
-        border-radius: var(--border-radius-md);
-        text-decoration: none;
-        border: 2px solid var(--primary);
-        transition: all var(--transition-normal);
-    }
-    
-    .browse-services-btn:hover {
-        background-color: var(--primary);
-        color: var(--white);
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-md);
-    }
-    
-    /* Services Card Styles */
-    .services-slider-container {
-        padding: 1.5rem;
-    }
-    
-    .services-slider-controls {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-    }
-    
-    .slider-control {
-        width: 36px;
-        height: 36px;
-        border-radius: var(--border-radius-circle);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--gray-100);
-        border: none;
-        cursor: pointer;
-        transition: background-color var(--transition-fast), color var(--transition-fast);
-        color: var(--secondary);
-    }
-    
-    .slider-control:not(:disabled):hover {
-        background-color: var(--primary);
-        color: var(--white);
-    }
-    
-    .slider-control:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    
-    .slider-pagination {
-        font-size: 0.85rem;
-        color: var(--gray-600);
-    }
-    
-    .services-slider {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .services-slider .row {
-        display: none;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-    }
-    
-    .services-slider .row.active-slide {
-        display: flex;
-        opacity: 1;
-        animation: fadeSlideIn 0.5s ease;
-    }
-    
-    @keyframes fadeSlideIn {
-        from {
-            opacity: 0;
-            transform: translateX(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    /* Service Card Mini Styles */
-    .service-card-mini {
-        border-radius: var(--border-radius-md);
-        overflow: hidden;
-        box-shadow: var(--shadow-sm);
-        transition: all var(--transition-normal);
-        height: 100%;
-        border: 1px solid var(--gray-200);
-        background-color: var(--white);
-    }
-    
-    .service-card-mini:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .service-card-mini img {
-        width: 100%;
-        height: 140px;
-        object-fit: cover;
-        transition: transform var(--transition-normal);
-    }
-    
-    .service-card-mini:hover img {
-        transform: scale(1.05);
-    }
-    
-    .service-title {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        line-height: 1.3;
-        font-size: 0.85rem;
-        color: var(--secondary);
-        transition: color var(--transition-fast);
-    }
-    
-    .service-card-mini:hover .service-title {
-        color: var(--primary);
-    }
-    
-    .avatar-xs {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    
-    .price-value {
-        color: var(--primary);
-        font-size: 0.95rem;
-    }
-    
     /* Responsive styles */
-    @media (min-width: 992px) {
-        .mobile-search-container {
-            display: none;
+    @media (max-width: 768px) {
+        .resource-category-btn {
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
         }
         
-        .welcome-section {
-            margin-top: 70px; /* Restore margin for desktop */
+        .resource-categories {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
+    }
+    
+    /* Existing responsive styles */
+    @media (min-width: 992px) {
+        // ...existing code...
     }
     
     @media (max-width: 992px) {
-        .welcome-subtitle {
-            max-width: 100%;
-        }
-        
-        .service-card-mini {
-            margin-bottom: 15px;
-        }
+        // ...existing code...
     }
     
     @media (max-width: 768px) {
-        .welcome-title {
-            font-size: 1.6rem;
-        }
-        
-        .stat-details h3 {
-            font-size: 1.25rem;
-        }
+        // ...existing code...
     }
     
     @media (max-width: 576px) {
-        .stats-container {
-            gap: 1rem;
-            padding: 1rem;
-        }
-        
-        .services-slider-container {
-            padding: 1rem;
-        }
+        // ...existing code...
     }
 </style>
 
@@ -942,89 +755,43 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Services Slider Functionality
-    const serviceSlides = document.querySelectorAll('.services-slider .row');
-    const nextServiceBtn = document.querySelector('.next-service');
-    const prevServiceBtn = document.querySelector('.prev-service');
-    const currentSlideElement = document.querySelector('.current-slide');
-    const totalSlidesElement = document.querySelector('.total-slides');
+    // ...existing code...
     
-    let currentSlideIndex = 0;
-    const totalSlides = serviceSlides.length;
+    // Resource Category Tab Navigation
+    const resourceCategoryBtns = document.querySelectorAll('.resource-category-btn');
+    const resourceCategoryContents = document.querySelectorAll('.resource-category-content');
     
-    // Set total slides count
-    totalSlidesElement.textContent = totalSlides;
-    
-    // Function to update services visibility
-    function updateServicesVisibility() {
-        // Hide all slides
-        serviceSlides.forEach(slide => {
-            slide.classList.remove('active-slide');
-        });
-        
-        // Show current slide
-        serviceSlides[currentSlideIndex].classList.add('active-slide');
-        
-        // Update pagination
-        currentSlideElement.textContent = currentSlideIndex + 1;
-        
-        // Update button states
-        prevServiceBtn.disabled = currentSlideIndex === 0;
-        nextServiceBtn.disabled = currentSlideIndex === totalSlides - 1;
-    }
-    
-    // Next slide button click
-    nextServiceBtn.addEventListener('click', function() {
-        if (currentSlideIndex < totalSlides - 1) {
-            currentSlideIndex++;
-            updateServicesVisibility();
-        }
-    });
-    
-    // Previous slide button click
-    prevServiceBtn.addEventListener('click', function() {
-        if (currentSlideIndex > 0) {
-            currentSlideIndex--;
-            updateServicesVisibility();
-        }
-    });
-    
-    // Initialize services slider
-    updateServicesVisibility();
-    
-    // Refresh stats icon animation
-    const refreshIcon = document.querySelector('.refresh-icon');
-    if (refreshIcon) {
-        refreshIcon.addEventListener('click', function() {
-            this.style.transform = 'rotate(180deg)';
-            setTimeout(() => {
-                this.style.transform = 'rotate(0deg)';
-            }, 500);
-        });
-    }
-    
-    // Add hover effect to stats items
-    const statItems = document.querySelectorAll('.stat-item');
-    statItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            const icon = this.querySelector('.stat-icon');
-            icon.style.transform = 'scale(1.1)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            const icon = this.querySelector('.stat-icon');
-            icon.style.transform = 'scale(1)';
+    resourceCategoryBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            resourceCategoryBtns.forEach(b => b.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get category from data attribute
+            const category = this.getAttribute('data-category');
+            
+            // Hide all content sections
+            resourceCategoryContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected content
+            document.getElementById(category).classList.add('active');
         });
     });
     
-    // Service cards hover effect
-    const serviceCards = document.querySelectorAll('.service-card-mini');
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.querySelector('.price-value').style.color = '#0e7800';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.querySelector('.price-value').style.color = '#108a00';
+    // Track resource clicks for analytics (could be expanded in the future)
+    const resourceLinks = document.querySelectorAll('.resource-card');
+    resourceLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const resourceTitle = this.querySelector('h6').textContent;
+            const resourceCategory = this.closest('.resource-category-content').getAttribute('id');
+            const resourceType = this.querySelector('.resource-type').textContent;
+            
+            // This could send data to an analytics endpoint in the future
+            console.log(`Resource clicked: ${resourceTitle} (${resourceType}) in ${resourceCategory}`);
         });
     });
 });

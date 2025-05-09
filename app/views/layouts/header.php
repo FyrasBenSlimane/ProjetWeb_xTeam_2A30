@@ -17,15 +17,34 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <!-- Custom CSS - BASE STYLES FIRST -->
     <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/public/css/style.css">
-    
-    <?php 
-    // Include support.css only for support-related pages
+
+    <?php
+    // Get current URL and script name for more reliable detection
     $current_url = $_SERVER['REQUEST_URI'];
-    if (strpos($current_url, '/support') !== false): 
+    $current_script = isset($_SERVER['SCRIPT_NAME']) ? basename($_SERVER['SCRIPT_NAME']) : '';
+
+    // Include support.css for support-related pages
+    if (
+        strpos($current_url, '/support') !== false ||
+        strpos($current_url, '/faq') !== false ||
+        $current_script == 'support.php'
+    ):
     ?>
-    <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/public/css/support.css">
+        <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/public/css/support.css">
+    <?php endif; ?>
+
+    <?php
+    // Include community.css for community-related pages
+    if (
+        strpos($current_url, '/community') !== false ||
+        strpos($current_url, '/forums') !== false ||
+        strpos($current_url, '/resources') !== false ||
+        $current_script == 'community.php'
+    ):
+    ?>
+        <link rel="stylesheet" href="<?php echo URL_ROOT; ?>/public/css/community.css">
     <?php endif; ?>
 
     <!-- Root CSS Variables and Core Styles -->
@@ -1182,7 +1201,7 @@
         .animate-fade-in-right {
             opacity: 0;
             transform: translateX(30px);
-            animation: fadeInRight var(--duration-normal) var (--ease-out) forwards;
+            animation: fadeInRight var (--ease-out) forwards;
         }
 
         .animate-scale-in {

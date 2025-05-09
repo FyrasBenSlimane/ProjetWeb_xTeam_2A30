@@ -527,6 +527,7 @@ class DashboardModel
                     'userEmail' => $ticket->userEmail,
                     'status' => $ticket->status,
                     'priority' => $ticket->priority,
+                    'category' => $ticket->category, // Add the missing category field
                     'createdAt' => $ticket->created_at,
                     'updatedAt' => $ticket->updated_at,
                     'responses' => $formattedResponses

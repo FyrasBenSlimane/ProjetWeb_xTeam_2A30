@@ -1403,6 +1403,38 @@ class Forum
     }
 
     /**
+     * Count all groups for dashboard stats
+     * @return int
+     */
+    public function countAllGroups()
+    {
+        try {
+            $this->db->query('SELECT COUNT(*) as count FROM forum_groups');
+            $result = $this->db->single();
+            return $result ? $result->count : 0;
+        } catch (Exception $e) {
+            ($this->logger)("Error counting all groups: " . $e->getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Count all resources for dashboard stats
+     * @return int
+     */
+    public function countAllResources()
+    {
+        try {
+            $this->db->query('SELECT COUNT(*) as count FROM forum_resources');
+            $result = $this->db->single();
+            return $result ? $result->count : 0;
+        } catch (Exception $e) {
+            ($this->logger)("Error counting all resources: " . $e->getMessage());
+            return 0;
+        }
+    }
+
+    /**
      * Count all replies for dashboard stats
      * @return int
      */

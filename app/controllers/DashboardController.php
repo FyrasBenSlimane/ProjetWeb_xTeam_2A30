@@ -56,6 +56,17 @@ class DashboardController extends Controller
         // Get recent activity logs
         $activityLogs = $this->dashboardService->getRecentActivityLogs(5);
 
+        // Get ticket counts for statistics
+        $supportTickets = $this->dashboardModel->getSupportTicketsData();
+        $ticketStats = $this->getTicketStatusCounts($supportTickets);
+
+        // Get community statistics
+        $communityStats = [
+            'topics' => $this->forumModel->countAllTopics(),
+            'groups' => $this->forumModel->countAllGroups() ?? 0,
+            'resources' => $this->forumModel->countAllResources() ?? 0
+        ];
+
         // Log this dashboard view
         $this->dashboardService->logActivity('view', 'dashboard');
 
@@ -63,11 +74,14 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Admin Dashboard',
             'description' => 'Admin Dashboard',
+            'active' => 'dashboard',
             'analyticsData' => $analyticsData,
             'users' => $users,
             'visitChartData' => json_encode($visitChartData),
             'userDistributionData' => json_encode($userDistributionData),
-            'activityLogs' => $activityLogs
+            'activityLogs' => $activityLogs,
+            'ticketStats' => $ticketStats,
+            'communityStats' => $communityStats
         ];
 
         $this->view('dashboard/index', $data);
@@ -114,6 +128,31 @@ class DashboardController extends Controller
         $tickets = $this->dashboardModel->getSupportTicketsData();
 
         // Get ticket counts by status for stats
+        $ticketStats = $this->getTicketStatusCounts($tickets);
+
+        // Log this support tickets view
+        $this->dashboardService->logActivity('view', 'support_tickets');
+
+        $data = [
+            'title' => 'Support Tickets',
+            'description' => 'Manage support tickets',
+            'active' => 'support',
+            'active_parent' => 'support', // Added for proper sidebar highlighting
+            'tickets' => $tickets,
+            'ticketStats' => $ticketStats
+        ];
+
+        $this->view('dashboard/support', $data);
+    }
+
+    /**
+     * Helper function to count tickets by status
+     *
+     * @param array $tickets Array of ticket objects or arrays
+     * @return array Counts indexed by status
+     */
+    private function getTicketStatusCounts($tickets)
+    {
         $openCount = 0;
         $pendingCount = 0;
         $answeredCount = 0;
@@ -139,25 +178,13 @@ class DashboardController extends Controller
             }
         }
 
-        // Log this support tickets view
-        $this->dashboardService->logActivity('view', 'support_tickets');
-
-        $data = [
-            'title' => 'Support Tickets',
-            'description' => 'Manage support tickets',
-            'active' => 'support',
-            'active_parent' => 'support', // Added for proper sidebar highlighting
-            'tickets' => $tickets,
-            'ticketStats' => [
-                'total' => count($tickets),
-                'open' => $openCount,
-                'pending' => $pendingCount,
-                'answered' => $answeredCount,
-                'closed' => $closedCount
-            ]
+        return [
+            'total' => count($tickets),
+            'open' => $openCount,
+            'pending' => $pendingCount,
+            'answered' => $answeredCount,
+            'closed' => $closedCount
         ];
-
-        $this->view('dashboard/support', $data);
     }
 
     // View a specific ticket
@@ -348,40 +375,11 @@ class DashboardController extends Controller
         $tickets = $this->dashboardModel->getSupportTicketsData();
 
         // Get ticket counts by status
-        $openCount = 0;
-        $pendingCount = 0;
-        $answeredCount = 0;
-        $closedCount = 0;
-
-        foreach ($tickets as $ticket) {
-            // Check if $ticket is an array or object and access status accordingly
-            $status = is_array($ticket) ? $ticket['status'] : $ticket->status;
-
-            switch ($status) {
-                case 'open':
-                    $openCount++;
-                    break;
-                case 'pending':
-                    $pendingCount++;
-                    break;
-                case 'answered':
-                    $answeredCount++;
-                    break;
-                case 'closed':
-                    $closedCount++;
-                    break;
-            }
-        }
+        $ticketStats = $this->getTicketStatusCounts($tickets);
 
         // Return JSON response
         header('Content-Type: application/json');
-        echo json_encode([
-            'total' => count($tickets),
-            'open' => $openCount,
-            'pending' => $pendingCount,
-            'answered' => $answeredCount,
-            'closed' => $closedCount
-        ]);
+        echo json_encode($ticketStats);
         exit;
     }
 
@@ -547,8 +545,8 @@ class DashboardController extends Controller
                 'question' => $faq->question,
                 'answer' => $faq->answer,
                 'category' => $faq->category,
-                'order' => $faq->display_order,
-                'is_published' => $faq->is_published,
+                'order' => isset($faq->display_order) ? $faq->display_order : 0,
+                'is_published' => isset($faq->is_published) ? $faq->is_published : 1,
                 'categories' => $this->faqModel->getAllCategories()
             ];
 
@@ -670,6 +668,109 @@ class DashboardController extends Controller
         redirect('dashboard/faq');
     }
 
+    // Edit an FAQ category
+    public function editFaqCategory($id = null)
+    {
+        // Check if ID is set
+        if (!$id) {
+            flash('faq_message', 'Invalid category ID', 'alert alert-danger');
+            redirect('dashboard/faq');
+        }
+
+        // Validate that the ID is numeric
+        if (!is_numeric($id)) {
+            flash('faq_message', 'Invalid category ID format', 'alert alert-danger');
+            redirect('dashboard/faq');
+        }
+
+        // Get category details
+        $category = $this->faqModel->getCategoryById($id);
+
+        // Verify category exists
+        if (!$category) {
+            flash('faq_message', 'Category not found', 'alert alert-danger');
+            redirect('dashboard/faq');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+
+            // Prepare data
+            $data = [
+                'id' => $id,
+                'name' => trim($_POST['name']),
+                'description' => isset($_POST['description']) ? trim($_POST['description']) : '',
+                'icon' => isset($_POST['icon']) ? trim($_POST['icon']) : null,
+                'color' => isset($_POST['color']) ? trim($_POST['color']) : null,
+                'display_order' => isset($_POST['display_order']) ? (int)$_POST['display_order'] : 0,
+                'name_err' => ''
+            ];
+
+            // Validate data
+            if (empty($data['name'])) {
+                $data['name_err'] = 'Please enter a category name';
+            } elseif (strlen($data['name']) > 50) {
+                $data['name_err'] = 'Category name cannot exceed 50 characters';
+            }
+
+            // Check if description exceeds maximum length
+            if (!empty($data['description']) && strlen($data['description']) > 255) {
+                $data['description_err'] = 'Description cannot exceed 255 characters';
+            }
+
+            // Make sure errors are empty
+            if (empty($data['name_err']) && empty($data['description_err'])) {
+                // Update category
+                if ($this->faqModel->updateCategory($data)) {
+                    // Log this update
+                    $this->dashboardService->logActivity('action', 'faq_category_update', ['category_id' => $id]);
+
+                    flash('faq_message', 'Category updated successfully', 'alert alert-success');
+                    redirect('dashboard/faq');
+                } else {
+                    flash('faq_message', 'Something went wrong', 'alert alert-danger');
+                    redirect('dashboard/faq');
+                }
+            } else {
+                // Load view with errors
+                $data['title'] = 'Edit FAQ Category';
+                $data['description'] = 'Edit frequently asked question category';
+                $data['active'] = 'faq';
+                $data['active_parent'] = 'support'; // Added for proper sidebar highlighting
+                $data['category'] = $category;
+
+                $this->view('dashboard/editFaqCategory', $data);
+            }
+        } else {
+            // Count FAQs that use this category
+            $faqCount = 0;
+            if (method_exists($this->faqModel, 'categoryHasFaqs')) {
+                $faqCount = $this->faqModel->categoryHasFaqs($id) ? 1 : 0;
+            }
+
+            // Load edit form with category data
+            $data = [
+                'title' => 'Edit FAQ Category',
+                'description' => 'Edit frequently asked question category',
+                'active' => 'faq',
+                'active_parent' => 'support', // Added for proper sidebar highlighting
+                'id' => $id,
+                'name' => $category->name,
+                'description' => $category->description ?? '',
+                'icon' => $category->icon ?? '',
+                'color' => $category->color ?? '#3C91E6',
+                'display_order' => $category->display_order ?? 0,
+                'category' => $category,
+                'faqCount' => $faqCount,
+                'name_err' => '',
+                'description_err' => ''
+            ];
+
+            $this->view('dashboard/editFaqCategory', $data);
+        }
+    }
+
     // Settings page
     public function settings()
     {
@@ -706,8 +807,8 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Community Management',
             'description' => 'Manage community forums and content',
-            'active' => $section,
-            'active_parent' => 'community', // Added for proper sidebar highlighting
+            'active' => $section, // Set the appropriate subsection as active
+            'active_parent' => 'community', // Always set the parent menu item as active
             'section' => $section,
             'totalTopics' => $totalTopics,
             'totalReplies' => $totalReplies,
@@ -869,39 +970,22 @@ class DashboardController extends Controller
             }
             redirect('dashboard/community');
         } elseif ($action === 'edit') {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name']) && isset($_POST['description'])) {
-                $name = trim($_POST['name']);
-                $description = trim($_POST['description']);
-
-                if (empty($name)) {
-                    flash('dashboard_message', 'Category name is required', 'alert alert-danger');
-                    redirect('dashboard/community');
-                }
-
-                $data = [
-                    'id' => $id,
-                    'name' => $name,
-                    'description' => $description
-                ];
-
-                if ($this->forumModel->updateCategory($data)) {
-                    flash('dashboard_message', 'Category updated successfully', 'alert alert-success');
-                    $this->dashboardService->logActivity('update', 'category', ['category_id' => $id]);
-                } else {
-                    flash('dashboard_message', 'Failed to update category', 'alert alert-danger');
-                }
-                redirect('dashboard/community');
-            } else {
-                $category = $this->forumModel->getCategoryById($id);
-                $data = [
-                    'title' => 'Edit Category',
-                    'description' => 'Edit forum category',
-                    'active' => 'community',
-                    'category' => $category
-                ];
-                $this->view('dashboard/edit_category', $data);
-                return;
+            // For GET requests, load the edit category view
+            $category = $this->forumModel->getCategoryById($id);
+            if (!$category) {
+                flash('dashboard_message', 'Category not found', 'alert alert-danger');
+                redirect('dashboard/community?section=forums');
             }
+
+            $data = [
+                'title' => 'Edit Category',
+                'description' => 'Edit forum category',
+                'active' => 'forums',
+                'active_parent' => 'community',
+                'category' => $category
+            ];
+            $this->view('dashboard/edit_category', $data);
+            return;
         }
     }
 
@@ -960,7 +1044,7 @@ class DashboardController extends Controller
             $data['description'] = 'Edit forum category';
             $data['active'] = 'forums';
             $data['active_parent'] = 'community';
-            
+
             $this->view('dashboard/edit_category', $data);
             return;
         }
@@ -972,7 +1056,7 @@ class DashboardController extends Controller
                 'category_id' => $id,
                 'name' => $data['name']
             ]);
-            
+
             flash('dashboard_message', 'Category updated successfully', 'alert alert-success');
         } else {
             flash('dashboard_message', 'Failed to update category. Please try again.', 'alert alert-danger');
@@ -1058,6 +1142,7 @@ class DashboardController extends Controller
         // Check if request is POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405); // Method Not Allowed
+            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Method not allowed']);
             return;
         }
@@ -1068,6 +1153,7 @@ class DashboardController extends Controller
 
         if (!$userId || !$newStatus) {
             http_response_code(400); // Bad Request
+            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Missing required parameters']);
             return;
         }
@@ -1081,6 +1167,7 @@ class DashboardController extends Controller
             echo json_encode(['success' => true, 'message' => 'User status updated successfully']);
         } else {
             http_response_code(500); // Internal Server Error
+            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Failed to update user status']);
         }
     }

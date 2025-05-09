@@ -897,6 +897,15 @@ $userType = $isLoggedIn ? $_SESSION['user_account_type'] : '';
                     </div>
                 </li>
 
+                <?php if ($isLoggedIn): ?>
+                <!-- Resources link - visible to all logged in users -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo $URL_ROOT; ?>/learning/resources">
+                        <i class="fas fa-graduation-cap me-1"></i> Resources
+                    </a>
+                </li>
+                <?php endif; ?>
+
                 <?php if (!$isLoggedIn): ?>
                     <!-- Only show these links for non-logged in users -->
                     <li class="nav-item">

@@ -96,3 +96,33 @@ function timeElapsed($timestamp)
         return 'Just now';
     }
 }
+
+/**
+ * Generate or retrieve CSRF token for form security
+ * @return string The CSRF token
+ */
+function csrf_token()
+{
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    
+    return $_SESSION['csrf_token'];
+}
+
+/**
+ * Validate CSRF token from form submission
+ * @param string $token The token to validate against stored token
+ * @return boolean True if valid, false otherwise
+ */
+function csrf_check($token)
+{
+    if (!isset($_SESSION['csrf_token']) || empty($token) || $token !== $_SESSION['csrf_token']) {
+        return false;
+    }
+    return true;
+}

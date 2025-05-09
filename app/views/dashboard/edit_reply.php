@@ -1,4 +1,6 @@
 <?php
+// Set content to be passed to dashboard layout
+ob_start();
 
 /**
  * Admin Dashboard - Edit Reply
@@ -12,98 +14,96 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_
 ?>
 
 <!-- Edit Reply Dashboard Content -->
-<div class="dashboard-content">
-    <!-- Page Header -->
-    <div class="head-title">
-        <div class="left">
-            <h1>Edit Reply</h1>
-            <ul class="breadcrumb">
-                <li><a href="<?php echo URL_ROOT; ?>/dashboard">Dashboard</a></li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li><a href="<?php echo URL_ROOT; ?>/dashboard/community">Community</a></li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li><a class="active" href="#">Edit Reply</a></li>
-            </ul>
-        </div>
-        <div class="btn-download">
-            <a href="<?php echo URL_ROOT; ?>/dashboard/community" class="btn">
-                <i class='bx bx-arrow-back'></i>
-                <span class="text">Back to Community</span>
-            </a>
+<!-- Page Header -->
+<div class="head-title">
+    <div class="left">
+        <h1>Edit Reply</h1>
+        <ul class="breadcrumb">
+            <li><a href="<?php echo URL_ROOT; ?>/dashboard">Dashboard</a></li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li><a href="<?php echo URL_ROOT; ?>/dashboard/community">Community</a></li>
+            <li><i class='bx bx-chevron-right'></i></li>
+            <li><a class="active" href="#">Edit Reply</a></li>
+        </ul>
+    </div>
+    <div class="btn-download">
+        <a href="<?php echo URL_ROOT; ?>/dashboard/community" class="btn">
+            <i class='bx bx-arrow-back'></i>
+            <span class="text">Back to Community</span>
+        </a>
+    </div>
+</div>
+
+<!-- Display alert messages -->
+<?php flash('dashboard_message'); ?>
+
+<div class="card edit-reply-card">
+    <div class="card-header">
+        <h3>Edit Reply</h3>
+        <div class="reply-meta">
+            <span>Posted by: <strong><?php echo $data['reply']->author_name; ?></strong></span>
+            <span>Created: <strong><?php echo date('M j, Y g:i A', strtotime($data['reply']->created_at)); ?></strong></span>
         </div>
     </div>
-
-    <!-- Display alert messages -->
-    <?php flash('dashboard_message'); ?>
-
-    <div class="card edit-reply-card">
-        <div class="card-header">
-            <h3>Edit Reply</h3>
-            <div class="reply-meta">
-                <span>Posted by: <strong><?php echo $data['reply']->author_name; ?></strong></span>
-                <span>Created: <strong><?php echo date('M j, Y g:i A', strtotime($data['reply']->created_at)); ?></strong></span>
+    <div class="card-body">
+        <form action="<?php echo URL_ROOT; ?>/dashboard/manageReply/edit/<?php echo $data['reply']->id; ?>" method="POST">
+            <div class="form-group">
+                <label for="content">Reply Content</label>
+                <textarea name="content" id="content" rows="10" class="form-control" required><?php echo htmlspecialchars($data['reply']->content); ?></textarea>
             </div>
-        </div>
-        <div class="card-body">
-            <form action="<?php echo URL_ROOT; ?>/dashboard/manageReply/edit/<?php echo $data['reply']->id; ?>" method="POST">
-                <div class="form-group">
-                    <label for="content">Reply Content</label>
-                    <textarea name="content" id="content" rows="10" class="form-control" required><?php echo htmlspecialchars($data['reply']->content); ?></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="hidden" name="reply_id" value="<?php echo $data['reply']->id; ?>">
-                    <button type="submit" class="btn-primary">Save Changes</button>
-                    <a href="<?php echo URL_ROOT; ?>/dashboard/community" class="btn-secondary">Cancel</a>
-                </div>
-            </form>
-        </div>
+            <div class="form-group">
+                <input type="hidden" name="reply_id" value="<?php echo $data['reply']->id; ?>">
+                <button type="submit" class="btn-primary">Save Changes</button>
+                <a href="<?php echo URL_ROOT; ?>/dashboard/community" class="btn-secondary">Cancel</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <!-- Reply Information -->
-    <div class="card reply-info">
-        <div class="card-header">
-            <h3>Reply Information</h3>
-        </div>
-        <div class="card-body">
-            <div class="info-group">
-                <div class="info-item">
-                    <span class="label">Reply ID:</span>
-                    <span class="value"><?php echo $data['reply']->id; ?></span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Topic:</span>
-                    <span class="value">
-                        <a href="<?php echo URL_ROOT; ?>/community/topic/<?php echo $data['reply']->topic_slug ?? ''; ?>" target="_blank">
-                            <?php echo htmlspecialchars($data['reply']->topic_title ?? 'Unknown Topic'); ?>
-                        </a>
-                    </span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Author:</span>
-                    <span class="value"><?php echo $data['reply']->author_name; ?></span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Author Role:</span>
-                    <span class="value"><?php echo ucfirst($data['reply']->account_type); ?></span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Created:</span>
-                    <span class="value"><?php echo date('M j, Y g:i A', strtotime($data['reply']->created_at)); ?></span>
-                </div>
-                <?php if ($data['reply']->is_edited): ?>
-                    <div class="info-item">
-                        <span class="label">Last Edited:</span>
-                        <span class="value"><?php echo date('M j, Y g:i A', strtotime($data['reply']->edited_at)); ?></span>
-                    </div>
-                <?php endif; ?>
+<!-- Reply Information -->
+<div class="card reply-info">
+    <div class="card-header">
+        <h3>Reply Information</h3>
+    </div>
+    <div class="card-body">
+        <div class="info-group">
+            <div class="info-item">
+                <span class="label">Reply ID:</span>
+                <span class="value"><?php echo $data['reply']->id; ?></span>
             </div>
-            <div class="admin-actions">
-                <h4>Admin Actions</h4>
-                <div class="action-buttons">
-                    <a href="<?php echo URL_ROOT; ?>/dashboard/manageReply/delete/<?php echo $data['reply']->id; ?>" class="btn-danger" onclick="return confirm('Are you sure you want to delete this reply?');">
-                        <i class='bx bxs-trash'></i> Delete Reply
+            <div class="info-item">
+                <span class="label">Topic:</span>
+                <span class="value">
+                    <a href="<?php echo URL_ROOT; ?>/community/topic/<?php echo $data['reply']->topic_slug ?? ''; ?>" target="_blank">
+                        <?php echo htmlspecialchars($data['reply']->topic_title ?? 'Unknown Topic'); ?>
                     </a>
+                </span>
+            </div>
+            <div class="info-item">
+                <span class="label">Author:</span>
+                <span class="value"><?php echo $data['reply']->author_name; ?></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Author Role:</span>
+                <span class="value"><?php echo ucfirst($data['reply']->account_type); ?></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Created:</span>
+                <span class="value"><?php echo date('M j, Y g:i A', strtotime($data['reply']->created_at)); ?></span>
+            </div>
+            <?php if ($data['reply']->is_edited): ?>
+                <div class="info-item">
+                    <span class="label">Last Edited:</span>
+                    <span class="value"><?php echo date('M j, Y g:i A', strtotime($data['reply']->edited_at)); ?></span>
                 </div>
+            <?php endif; ?>
+        </div>
+        <div class="admin-actions">
+            <h4>Admin Actions</h4>
+            <div class="action-buttons">
+                <a href="<?php echo URL_ROOT; ?>/dashboard/manageReply/delete/<?php echo $data['reply']->id; ?>" class="btn-danger" onclick="return confirm('Are you sure you want to delete this reply?');">
+                    <i class='bx bxs-trash'></i> Delete Reply
+                </a>
             </div>
         </div>
     </div>
@@ -120,11 +120,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_
         --success: #4CAF50;
         --warning: #FFC107;
         --font-family: 'Poppins', sans-serif;
-    }
-
-    .dashboard-content {
-        width: 100%;
-        padding: 20px;
     }
 
     .card {
@@ -301,3 +296,11 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_account_type']) || $_
         }
     }
 </style>
+
+<?php
+// Capture content to pass to layout
+$content = ob_get_clean();
+
+// Pass content to dashboard layout
+require_once APPROOT . '/views/layouts/dashboard.php';
+?>
