@@ -34,20 +34,33 @@ function sendEmail($to, $subject, $message) {
         $mail->setFrom('jadchida5@gmail.com', 'LenSi Events');
         $mail->addAddress($to);
         
-        // Contenu
+        // Support des images et HTML
         $mail->isHTML(true);
+        
+        // Convertir les balises img en images inline
+        if(preg_match_all('/<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]*>/i', $message, $matches)) {
+            foreach($matches[1] as $i => $imagePath) {
+                if(strpos($imagePath, 'http') !== 0) {
+                    // Image locale
+                    $absolutePath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
+                    if(file_exists($absolutePath)) {
+                        $cid = 'image' . $i;
+                        $mail->addEmbeddedImage($absolutePath, $cid);
+                        $message = str_replace($imagePath, 'cid:' . $cid, $message);
+                    }
+                }
+            }
+        }
+        
+        // Contenu
         $mail->Subject = $subject;
         $mail->Body = nl2br($message);
         $mail->AltBody = strip_tags($message);
 
         // Envoi
-        if (!$mail->send()) {
-            error_log("Erreur d'envoi d'email: " . $mail->ErrorInfo);
-            return false;
-        }
-        return true;
+        return $mail->send();
     } catch (Exception $e) {
-        error_log("Exception lors de l'envoi d'email: " . $e->getMessage());
+        error_log("Erreur Mailer : " . $mail->ErrorInfo);
         return false;
     }
 }

@@ -1,15 +1,58 @@
 <?php
 session_start();
+require_once '../config/database.php';
 
-// Check if user is admin
 if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
     header('Location: login.php');
     exit;
 }
 
+$database = new Database();
+$db = $database->getConnection();
+
+// Récupérer les statistiques
+$stats = [
+    'total_events' => 0,
+    'total_participants' => 0,
+    'upcoming_events' => 0
+];
+
+// Total des événements
+$stmt = $db->query("SELECT COUNT(*) FROM events");
+$stats['total_events'] = $stmt->fetchColumn();
+
+// Total des participants
+$stmt = $db->query("SELECT COUNT(*) FROM participants");
+$stats['total_participants'] = $stmt->fetchColumn();
+
+// Événements à venir
+$stmt = $db->query("SELECT COUNT(*) FROM events WHERE date >= CURDATE()");
+$stats['upcoming_events'] = $stmt->fetchColumn();
+
+// Récupérer les événements récents
+$stmt = $db->query("
+    SELECT e.*, COUNT(p.id) as participant_count 
+    FROM events e 
+    LEFT JOIN participants p ON e.id = p.event_id 
+    GROUP BY e.id 
+    ORDER BY e.date DESC 
+    LIMIT 5
+");
+$recent_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les participants récents
+$stmt = $db->query("
+    SELECT p.*, e.title as event_title 
+    FROM participants p 
+    JOIN events e ON p.event_id = e.id 
+    ORDER BY p.registration_date DESC 
+    LIMIT 5
+");
+$recent_participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="fr" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -189,7 +232,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
                                 <div class="stat-icon">
                                     <i class="bi bi-calendar-event"></i>
                                 </div>
-                                <div class="stat-value">12</div>
+                                <div class="stat-value"><?php echo $stats['total_events']; ?></div>
                                 <div class="stat-label">Total Events</div>
                             </div>
                         </div>
@@ -198,7 +241,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
                                 <div class="stat-icon">
                                     <i class="bi bi-people"></i>
                                 </div>
-                                <div class="stat-value">245</div>
+                                <div class="stat-value"><?php echo $stats['total_participants']; ?></div>
                                 <div class="stat-label">Total Participants</div>
                             </div>
                         </div>
@@ -207,7 +250,7 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
                                 <div class="stat-icon">
                                     <i class="bi bi-calendar-check"></i>
                                 </div>
-                                <div class="stat-value">5</div>
+                                <div class="stat-value"><?php echo $stats['upcoming_events']; ?></div>
                                 <div class="stat-label">Upcoming Events</div>
                             </div>
                         </div>
@@ -232,23 +275,27 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach ($recent_events as $event): ?>
                                         <tr>
-                                            <td>Tech Conference 2025</td>
-                                            <td>April 25, 2025</td>
-                                            <td>Silicon Valley</td>
-                                            <td>89</td>
+                                            <td><?php echo htmlspecialchars($event['title']); ?></td>
+                                            <td><?php echo date('d/m/Y', strtotime($event['date'])); ?></td>
+                                            <td><?php echo htmlspecialchars($event['location']); ?></td>
+                                            <td><?php echo $event['participant_count']; ?></td>
                                             <td>
                                                 <div class="action-buttons">
-                                                    <a href="events.php?action=edit&id=1" class="btn btn-sm btn-outline-primary">
+                                                    <a href="events.php?action=edit&id=<?php echo $event['id']; ?>" 
+                                                       class="btn btn-sm btn-outline-primary">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
-                                                    <a href="events.php?action=delete&id=1" class="btn btn-sm btn-outline-danger">
+                                                    <a href="events.php?action=delete&id=<?php echo $event['id']; ?>" 
+                                                       class="btn btn-sm btn-outline-danger"
+                                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <!-- Add more rows as needed -->
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -270,27 +317,33 @@ if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== true) {
                                             <th>Email</th>
                                             <th>Event</th>
                                             <th>Registration Date</th>
-                                            <th>Actions</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach ($recent_participants as $participant): ?>
                                         <tr>
-                                            <td>John Doe</td>
-                                            <td>john@example.com</td>
-                                            <td>Tech Conference 2025</td>
-                                            <td>2025-04-20</td>
+                                            <td><?php echo htmlspecialchars($participant['name']); ?></td>
+                                            <td><?php echo htmlspecialchars($participant['email']); ?></td>
+                                            <td><?php echo htmlspecialchars($participant['event_title']); ?></td>
+                                            <td><?php echo date('d/m/Y H:i', strtotime($participant['registration_date'])); ?></td>
                                             <td>
-                                                <div class="action-buttons">
-                                                    <a href="participants.php?action=view&id=1" class="btn btn-sm btn-outline-info">
-                                                        <i class="bi bi-eye"></i>
-                                                    </a>
-                                                    <a href="participants.php?action=delete&id=1" class="btn btn-sm btn-outline-danger">
-                                                        <i class="bi bi-trash"></i>
-                                                    </a>
-                                                </div>
+                                                <?php
+                                                $statusClass = 'secondary';
+                                                if ($participant['status'] === 'confirmed') {
+                                                    $statusClass = 'success';
+                                                } elseif ($participant['status'] === 'rejected') {
+                                                    $statusClass = 'danger';
+                                                } elseif ($participant['status'] === 'pending') {
+                                                    $statusClass = 'warning';
+                                                }
+                                                ?>
+                                                <span class="badge bg-<?php echo $statusClass; ?>">
+                                                    <?php echo ucfirst($participant['status']); ?>
+                                                </span>
                                             </td>
                                         </tr>
-                                        <!-- Add more rows as needed -->
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

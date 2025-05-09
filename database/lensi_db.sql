@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS participants (
     event_id INT,
     status ENUM('pending', 'confirmed', 'rejected') DEFAULT 'pending',
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    admin_notes TEXT DEFAULT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
