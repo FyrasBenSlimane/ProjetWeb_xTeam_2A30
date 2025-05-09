@@ -4,6 +4,18 @@
  * This file serves as the entry point for the dashboard and implements MVC architecture
  */
 
+// Allow CORS for same-origin requests
+header('Access-Control-Allow-Origin: ' . (isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*'));
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+// If it's a preflight OPTIONS request, respond with success
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    header('HTTP/1.1 200 OK');
+    exit;
+}
+
 // Initialize session if not already started
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -11,7 +23,20 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Check if user is logged in, if not redirect to login page
 if (!isset($_SESSION['user'])) {
+    // Only redirect if not a login status check
+    if (isset($_GET['check_login'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['logged_in' => false]);
+        exit;
+    }
     header('Location: ../Login/login.php');
+    exit;
+}
+
+// Check login status and return JSON if requested
+if (isset($_GET['check_login'])) {
+    header('Content-Type: application/json');
+    echo json_encode(['logged_in' => true]);
     exit;
 }
 
@@ -32,11 +57,15 @@ require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/controllers/DashboardController.php';
 require_once __DIR__ . '/controllers/UserController.php';
 require_once __DIR__ . '/controllers/SupportController.php';
+require_once __DIR__ . '/controllers/ProjectController.php';
+require_once __DIR__ . '/controllers/NotificationController.php';
 
 // Initialize controllers
 $dashboardController = new DashboardController();
 $userController = new UserController();
 $supportController = new SupportController();
+$projectController = new ProjectController();
+$notificationController = new NotificationController();
 
 // Handle page routing
 $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
@@ -60,6 +89,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $supportController->ajaxDeleteTicket();
             exit; // Stop execution after AJAX response
         }
+    }
+    
+    // Handle AJAX requests for projects
+    if ($page === 'projects') {
+        if ($_POST['action'] === 'update_status') {
+            $projectController->updateProjectStatus();
+            exit;
+        }
+        else if ($_POST['action'] === 'delete_project') {
+            $projectController->ajaxDeleteProject();
+            exit;
+        }
+        else if ($_POST['action'] === 'apply_project') {
+            $projectController->applyToProject();
+            exit;
+        }
+        else if ($_POST['action'] === 'update_candidature_status') {
+            $projectController->updateCandidatureStatus();
+            exit;
+        }
+    }
+    
+    // Handle AJAX requests for notifications
+    if ($page === 'notifications') {
+        if ($_POST['action'] === 'mark_read') {
+            $notificationController->markAsRead();
+            exit;
+        }
+        else if ($_POST['action'] === 'mark_all_read') {
+            $notificationController->markAllAsRead();
+            exit;
+        }
+        else if ($_POST['action'] === 'delete') {
+            $notificationController->deleteNotification();
+            exit;
+        }
+    }
+}
+
+// Gérer les requêtes AJAX GET
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
+    if ($page === 'projects') {
+        switch ($_GET['action']) {
+            case 'get_user_candidatures':
+                $projectController->getUserCandidatures();
+                exit;
+            case 'get_project_details':
+                $projectController->getProjectDetails();
+                exit;
+        }
+    }
+    
+    // Gérer les actions GET pour les notifications
+    if ($page === 'notifications') {
+        switch ($_GET['action'] ?? '') {
+            case 'mark_read':
+                $notificationController->markAsRead();
+                exit;
+            case 'mark_all_read':
+                $notificationController->markAllAsRead();
+                exit;
+            case 'delete':
+                $notificationController->deleteNotification();
+                exit;
+        }
+    }
+}
+
+// Gérer les requêtes AJAX pour les notifications de candidature
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $page === 'projects' && isset($_GET['action'])) {
+    if ($_GET['action'] === 'store_candidature_notification') {
+        $projectController->storeCandidatureNotification();
+        exit;
+    }
+    
+    if ($_GET['action'] === 'update_candidature_status') {
+        $projectController->updateCandidatureStatus();
+        exit;
     }
 }
 
@@ -101,6 +208,42 @@ switch ($page) {
     case 'settings':
         $userController->settings();
         break;
+    case 'projects':
+        // Check for AJAX actions for projects
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'delete_project_ajax':
+                    $projectController->ajaxDeleteProject();
+                    break;
+                case 'apply_project':
+                    $projectController->applyToProject();
+                    break;
+                case 'update_project_status':
+                    $projectController->updateProjectStatus();
+                    break;
+                case 'update_candidature_status':
+                    $projectController->updateCandidatureStatus();
+                    break;
+                case 'cancel_application':
+                    $projectController->cancelApplication();
+                    break;
+                case 'get_project_details':
+                    $projectController->getProjectDetails();
+                    break;
+                case 'check_login':
+                    // Return JSON response with login status
+                    header('Content-Type: application/json');
+                    echo json_encode(['logged_in' => isset($_SESSION['user'])]);
+                    exit;
+                    break;
+                default:
+                    $projectController->userProjects();
+                    break;
+            }
+        } else {
+            $projectController->userProjects();
+        }
+        break;
     case 'support-tickets':
         $action = isset($_GET['action']) ? $_GET['action'] : 'list';
         
@@ -117,6 +260,15 @@ switch ($page) {
             default:
                 $supportController->userTickets();
                 break;
+        }
+        break;
+    case 'notifications':
+        // Vérifier et mettre à jour les notifications expirées
+        $notificationController->updateExpiredNotifications();
+        
+        $action = isset($_GET['action']) ? $_GET['action'] : 'index';
+        if ($action === 'index') {
+            $notificationController->index();
         }
         break;
     default:

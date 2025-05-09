@@ -344,6 +344,47 @@
         font-size: 1.5rem;
     }
 }
+
+.user-profile-nav {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile-nav .nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-profile-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.dropdown-toggle::after {
+    margin-left: 0.5rem;
+}
+
+.nav-link .bi {
+    font-size: 1.1rem;
+}
+
+.user-avatar {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+[data-bs-theme="dark"] .user-avatar {
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
 </style>
 
 <nav class="navbar navbar-expand-lg">
@@ -360,9 +401,6 @@
                     <a class="nav-link" href="#home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#categories">Categories</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#featured-services">Services</a>
                 </li>
                 <li class="nav-item">
@@ -370,6 +408,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#features">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/web/components/home/blogs/">Community</a>
@@ -383,6 +424,11 @@
                 </div>
                 
                 <div class="user-profile-nav d-none">
+                    <li class="nav-item me-2">
+                        <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="modal" data-bs-target="#applicationsHistoryModal">
+                            <i class="bi bi-clipboard-check me-1"></i> My Applications
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="" alt="" class="user-avatar rounded-circle" width="32" height="32">
@@ -498,31 +544,79 @@ function openAuthOverlay(isRegistration = false) {
     }
 }
 
-// Check if user is logged in and update UI
+// Check login status and update UI
 function checkUserLoginStatus() {
-    try {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        
-        if (!user) return;
-        
-        // Update UI based on user status
+    // First check with the server to see if user is logged in (session valid)
+    fetch('components/Dashboard/index.php?check_login=1', {
+        method: 'GET',
+        credentials: 'include' // Important: send cookies with request
+    })
+    .then(response => response.json())
+    .then(data => {
         const loggedOutNav = document.querySelector('.logged-out-nav');
         const userProfileNav = document.querySelector('.user-profile-nav');
         
-        if (loggedOutNav) loggedOutNav.classList.add('d-none');
-        
-        if (userProfileNav) {
-            userProfileNav.classList.remove('d-none');
-            
-            // Update user name
-            const userName = userProfileNav.querySelector('.user-name');
-            if (userName) {
-                userName.textContent = user.name || user.email.split('@')[0];
+        if (data.logged_in) {
+            // User is logged in according to server
+            try {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                
+                if (loggedOutNav) loggedOutNav.classList.add('d-none');
+                if (userProfileNav) {
+                    userProfileNav.classList.remove('d-none');
+                    // Update user info
+                    const userName = userProfileNav.querySelector('.user-name');
+                    const userAvatar = userProfileNav.querySelector('.user-avatar');
+                    if (userName && user && user.name) userName.textContent = user.name;
+                    if (userAvatar) {
+                        if (user && user.name) {
+                            userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=32&background=random`;
+                            userAvatar.alt = user.name || 'User';
+                        } else {
+                            // Fallback avatar if no name is available
+                            userAvatar.src = "https://ui-avatars.com/api/?name=U&size=32&background=random";
+                            userAvatar.alt = "User";
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error parsing user data:', e);
+                // Even if local storage is corrupt, still show user as logged in
+                if (loggedOutNav) loggedOutNav.classList.add('d-none');
+                if (userProfileNav) userProfileNav.classList.remove('d-none');
             }
+        } else {
+            // User is not logged in according to server
+            if (loggedOutNav) loggedOutNav.classList.remove('d-none');
+            if (userProfileNav) userProfileNav.classList.add('d-none');
+            // Clear localStorage since session is invalid
+            localStorage.removeItem('currentUser');
         }
-    } catch (e) {
-        console.error('Error checking user login status:', e);
-    }
+    })
+    .catch(error => {
+        console.error('Error checking login status:', error);
+        // In case of error, rely on localStorage as fallback
+        try {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const loggedOutNav = document.querySelector('.logged-out-nav');
+            const userProfileNav = document.querySelector('.user-profile-nav');
+            
+            if (user && user.name) {
+                if (loggedOutNav) loggedOutNav.classList.add('d-none');
+                if (userProfileNav) userProfileNav.classList.remove('d-none');
+            } else {
+                if (loggedOutNav) loggedOutNav.classList.remove('d-none');
+                if (userProfileNav) userProfileNav.classList.add('d-none');
+            }
+        } catch (e) {
+            console.error('Error checking local user login status:', e);
+            // In case of error, show the logged out navigation
+            const loggedOutNav = document.querySelector('.logged-out-nav');
+            const userProfileNav = document.querySelector('.user-profile-nav');
+            if (loggedOutNav) loggedOutNav.classList.remove('d-none');
+            if (userProfileNav) userProfileNav.classList.add('d-none');
+        }
+    });
 }
 
 // Function to toggle theme
@@ -585,41 +679,6 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.querySelector('.navbar');
     let lastScrollY = window.scrollY;
-    
-    // Check login status and update UI
-    function checkUserLoginStatus() {
-        try {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            const loggedOutNav = document.querySelector('.logged-out-nav');
-            const userProfileNav = document.querySelector('.user-profile-nav');
-            
-            if (user && user.name) {
-                if (loggedOutNav) loggedOutNav.classList.add('d-none');
-                if (userProfileNav) {
-                    userProfileNav.classList.remove('d-none');
-                    // Update user info
-                    const userName = userProfileNav.querySelector('.user-name');
-                    const userAvatar = userProfileNav.querySelector('.user-avatar');
-                    if (userName) userName.textContent = user.name;
-                    if (userAvatar) {
-                        userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=32&background=random`;
-                        userAvatar.alt = user.name;
-                    }
-                }
-            } else {
-                // When user is logged out or no user data exists
-                if (loggedOutNav) loggedOutNav.classList.remove('d-none');
-                if (userProfileNav) userProfileNav.classList.add('d-none');
-            }
-        } catch (e) {
-            console.error('Error checking user login status:', e);
-            // In case of error, show the logged out navigation
-            const loggedOutNav = document.querySelector('.logged-out-nav');
-            const userProfileNav = document.querySelector('.user-profile-nav');
-            if (loggedOutNav) loggedOutNav.classList.remove('d-none');
-            if (userProfileNav) userProfileNav.classList.add('d-none');
-        }
-    }
     
     // Check login status on page load
     checkUserLoginStatus();

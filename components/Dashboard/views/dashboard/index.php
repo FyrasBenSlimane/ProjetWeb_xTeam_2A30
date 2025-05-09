@@ -731,6 +731,87 @@ $initialTheme = $savedTheme ?: ($systemTheme ?: 'light');
     .fade-in {
         animation: fadeIn 0.5s ease;
     }
+
+    /* Additional Dashboard Styles */
+    .table-responsive {
+        background: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 1rem;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    .table th {
+        font-weight: 600;
+        color: #495057;
+        border-bottom-width: 1px;
+        padding: 1rem;
+    }
+
+    .table td {
+        padding: 1rem;
+        vertical-align: middle;
+    }
+
+    .table a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    .table a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+    }
+
+    .badge {
+        padding: 0.5rem 0.75rem;
+        font-weight: 500;
+    }
+
+    [data-bs-theme="dark"] .table-responsive {
+        background: var(--bs-dark);
+    }
+
+    [data-bs-theme="dark"] .table {
+        color: var(--bs-light);
+    }
+
+    [data-bs-theme="dark"] .table th {
+        color: var(--bs-gray-300);
+    }
+
+    [data-bs-theme="dark"] .table a {
+        color: var(--bs-primary);
+    }
+
+    .dashboard-table-section {
+        margin-top: 2rem;
+    }
+
+    .dashboard-table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .dashboard-table-title {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    .dashboard-table-action {
+        color: var(--primary);
+        text-decoration: none;
+    }
+
+    .dashboard-table-action:hover {
+        color: var(--accent);
+        text-decoration: underline;
+    }
     </style>
 </head>
 <body>

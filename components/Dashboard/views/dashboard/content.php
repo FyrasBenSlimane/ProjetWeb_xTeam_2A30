@@ -1,20 +1,20 @@
 <?php
 /**
- * Dashboard main content - this file is included by the DashboardController
- * and will be rendered inside the main layout
+ * Dashboard main content
  */
+
+// Get project data
+$recentProjects = $projectModel->getUserProjects();
+$projectStats = $projectModel->getProjectStats();
+
+// Limit to 5 most recent projects
+$recentProjects = array_slice($recentProjects, 0, 5);
 ?>
+
 <!-- Welcome Section -->
 <section class="welcome-section">
-    <h2 class="welcome-title">Welcome back, <?php echo $user['first_name']; ?>!</h2>
-    <p class="welcome-subtitle">Here's what's happening with your account today.</p>
-    
-    <div class="d-flex flex-wrap gap-3">
-        <a href="#" class="btn btn-primary">
-            <?php echo $userType === 'freelancer' ? 'Find Projects' : 'Post a Project'; ?>
-        </a>
-        <a href="?page=profile" class="btn btn-outline-secondary">Complete Your Profile</a>
-    </div>
+    <h2 class="welcome-title">Welcome, <?php echo htmlspecialchars($user['first_name']); ?>!</h2>
+    <p class="welcome-subtitle">Here's how your projects are doing.</p>
 </section>
 
 <!-- Stats Section -->
@@ -24,9 +24,9 @@
             <i class="bi bi-briefcase-fill"></i>
         </div>
         <div class="stat-title">Active Projects</div>
-        <div class="stat-value">12</div>
+        <div class="stat-value"><?php echo $projectStats['in_progress']; ?></div>
         <div class="stat-change">
-            <i class="bi bi-arrow-up-short"></i> 8% from last month
+            Total: <?php echo $projectStats['total']; ?>
         </div>
     </div>
     
@@ -34,32 +34,32 @@
         <div class="stat-icon green">
             <i class="bi bi-cash-stack"></i>
         </div>
-        <div class="stat-title">Total Earnings</div>
-        <div class="stat-value">$2,850</div>
+        <div class="stat-title">Total Budget</div>
+        <div class="stat-value">$<?php echo number_format($projectStats['total_budget'], 2); ?></div>
         <div class="stat-change">
-            <i class="bi bi-arrow-up-short"></i> 12% from last month
+            All projects combined
         </div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon orange">
-            <i class="bi bi-star-fill"></i>
+            <i class="bi bi-check-circle-fill"></i>
         </div>
-        <div class="stat-title">Avg. Rating</div>
-        <div class="stat-value">4.8</div>
+        <div class="stat-title">Completed</div>
+        <div class="stat-value"><?php echo $projectStats['completed']; ?></div>
         <div class="stat-change">
-            <i class="bi bi-arrow-up-short"></i> 0.2 from last month
+            Finished projects
         </div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon purple">
-            <i class="bi bi-clock-fill"></i>
+            <i class="bi bi-hourglass-split"></i>
         </div>
-        <div class="stat-title">Hours Worked</div>
-        <div class="stat-value">187</div>
-        <div class="stat-change negative">
-            <i class="bi bi-arrow-down-short"></i> 5% from last month
+        <div class="stat-title">Pending</div>
+        <div class="stat-value"><?php echo $projectStats['pending']; ?></div>
+        <div class="stat-change">
+            Projects to start
         </div>
     </div>
 </div>
@@ -68,102 +68,65 @@
 <section class="dashboard-table-section">
     <div class="dashboard-table-header">
         <h3 class="dashboard-table-title">Recent Projects</h3>
-        <a href="#" class="dashboard-table-action">View All</a>
+        <a href="?page=projects" class="dashboard-table-action">View All</a>
     </div>
     
     <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Client</th>
-                    <th>Due Date</th>
-                    <th>Status</th>
-                    <th>Budget</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Website Redesign</td>
-                    <td>TechCorp Inc.</td>
-                    <td>May 15, 2025</td>
-                    <td><span class="status-badge in-progress">In Progress</span></td>
-                    <td>$1,500</td>
-                </tr>
-                <tr>
-                    <td>Mobile App Development</td>
-                    <td>StartUp Labs</td>
-                    <td>June 28, 2025</td>
-                    <td><span class="status-badge in-progress">In Progress</span></td>
-                    <td>$3,200</td>
-                </tr>
-                <tr>
-                    <td>Logo Design Package</td>
-                    <td>Creative Agency</td>
-                    <td>April 30, 2025</td>
-                    <td><span class="status-badge completed">Completed</span></td>
-                    <td>$800</td>
-                </tr>
-                <tr>
-                    <td>SEO Optimization</td>
-                    <td>E-commerce Shop</td>
-                    <td>May 10, 2025</td>
-                    <td><span class="status-badge on-hold">On Hold</span></td>
-                    <td>$1,200</td>
-                </tr>
-                <tr>
-                    <td>Content Writing</td>
-                    <td>Blog Network</td>
-                    <td>April 25, 2025</td>
-                    <td><span class="status-badge completed">Completed</span></td>
-                    <td>$500</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
-
-<!-- Recent Messages Section -->
-<section class="dashboard-table-section">
-    <div class="dashboard-table-header">
-        <h3 class="dashboard-table-title">Recent Messages</h3>
-        <a href="#" class="dashboard-table-action">View All</a>
-    </div>
-    
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Sender</th>
-                    <th>Subject</th>
-                    <th>Message</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John Smith</td>
-                    <td>Project Update</td>
-                    <td>Hey, I wanted to check on the progress of...</td>
-                    <td>Today</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-primary">Reply</a></td>
-                </tr>
-                <tr>
-                    <td>Sarah Johnson</td>
-                    <td>New Opportunity</td>
-                    <td>I have a new project that might interest you...</td>
-                    <td>Yesterday</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-primary">Reply</a></td>
-                </tr>
-                <tr>
-                    <td>LenSi Support</td>
-                    <td>Account Verification</td>
-                    <td>Your account has been successfully verified...</td>
-                    <td>Apr 15, 2025</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-primary">View</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <?php if (empty($recentProjects)): ?>
+            <div class="text-center p-4">
+                <p class="text-muted">No projects found. Start by creating your first project!</p>
+                <a href="?page=projects&new=true" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Create Project
+                </a>
+            </div>
+        <?php else: ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Client</th>
+                        <th>Owner</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Budget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($recentProjects as $project): ?>
+                    <tr>
+                        <td>
+                            <a href="?page=projects&project_id=<?php echo $project['id']; ?>" class="text-decoration-none">
+                                <?php echo htmlspecialchars($project['title']); ?>
+                            </a>
+                        </td>
+                        <td><?php echo htmlspecialchars($project['client_name'] ?? 'N/A'); ?></td>
+                        <td><?php echo htmlspecialchars($project['user_email'] ?? 'N/A'); ?></td>
+                        <td>
+                            <?php 
+                            if (!empty($project['end_date'])) {
+                                echo date('M d, Y', strtotime($project['end_date']));
+                            } else {
+                                echo 'Not set';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <span class="badge bg-<?php 
+                                echo match($project['status']) {
+                                    'completed' => 'success',
+                                    'in-progress' => 'warning',
+                                    'cancelled' => 'danger',
+                                    default => 'secondary'
+                                };
+                            ?>">
+                                <?php echo ucfirst($project['status']); ?>
+                            </span>
+                        </td>
+                        <td>$<?php echo !empty($project['budget']) ? number_format($project['budget'], 2) : 'N/A'; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
     </div>
 </section>
