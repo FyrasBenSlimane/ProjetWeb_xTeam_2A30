@@ -1,0 +1,22 @@
+# Enable rewrite engine
+<IfModule mod_rewrite.c>
+  Options -Multiviews
+  RewriteEngine On
+  RewriteBase /web
+  
+  # Route user urls to the UserController 
+  RewriteRule ^user/(.*)$ index.php?url=user/$1 [QSA,L]
+  
+  # Route projects urls to the ProjectsController
+  RewriteRule ^projects/(.*)$ index.php?url=projects/$1 [QSA,L]
+  
+  # Specific rule for project viewing
+  RewriteRule ^projects/viewProject/([0-9]+)$ index.php?url=projects/viewProject/$1 [QSA,L]
+  
+  # Only rewrite if not a real file or directory
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+  RewriteRule ^$ index.php [QSA,L]
+</IfModule>
+# END .htaccess

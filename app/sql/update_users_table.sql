@@ -1,0 +1,5 @@
+ALTER TABLE users 
+ADD COLUMN email_updates TINYINT(1) DEFAULT 1,
+ADD COLUMN message_alerts TINYINT(1) DEFAULT 1,
+ADD COLUMN job_recommendations TINYINT(1) DEFAULT 1,
+ADD COLUMN marketing_emails TINYINT(1) DEFAULT 0; 
